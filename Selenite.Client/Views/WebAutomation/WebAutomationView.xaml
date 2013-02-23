@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="Selenite.Client.Views.WebAutomation.WebAutomationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Converters="clr-namespace:Selenite.Client.Converters"
+             mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Converters:ViewConverter x:Key="ViewConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Column="0"
+              Margin="0,0,5,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0"
+                       Text="Manifests"/>
+            <ComboBox Grid.Row="1"
+                      ItemsSource="{Binding Manifests}"
+                      SelectedItem="{Binding SelectedManifest}"
+                      DisplayMemberPath="Name"/>
+
+            <TextBlock Grid.Row="2"
+                       Margin="0,5,0,0"
+                       Text="Domain"/>
+            <TextBox Grid.Row="3"
+                     Text="{Binding SelectedManifest.DefaultDomain}"/>
+
+            <TextBlock Grid.Row="4"
+                       Margin="0,5,0,0"
+                       Text="Categories"/>
+            <ListView Grid.Row="5"
+                      ItemsSource="{Binding SelectedManifest.Categories}"
+                      VerticalAlignment="Stretch">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel Orientation="Horizontal">
+                            <CheckBox IsChecked="{Binding Enabled}"
+                                      VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding Name}"/>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+
+        <Metro:TransitioningContentControl Grid.Column="1" Grid.RowSpan="2"
+                                           Transition="DownTransition"
+                                           RestartTransitionOnContentChange="True"
+                                           Content="{Binding TransitionArea, Converter={StaticResource ViewConverter}}"/>
+
+        <Button Grid.Column="0" Grid.Row="1"
+                Content="Edit Categories"
+                VerticalAlignment="Center"
+                Margin="5,5,5,0"
+                Command="{Binding EditCategoriesCommand}"/>
+        
+
+        
+    </Grid>
+</UserControl>

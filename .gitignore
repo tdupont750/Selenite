@@ -1,0 +1,9 @@
+/Selenite/obj
+/Selenite/bin
+
+/Selenite.Client/obj
+/Selenite.Client/bin
+
+/Selenite.Tests/obj
+/Selenite.Tests/bin
+/*.suo

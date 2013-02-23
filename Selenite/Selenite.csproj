@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8B6BF0FE-444A-4784-A8BE-49382866C719}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Selenite</RootNamespace>
+    <AssemblyName>Selenite</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;CHROME</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WebDriver">
+      <HintPath>..\packages\Selenium.WebDriver.2.28.0\lib\net40\WebDriver.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit">
+      <HintPath>..\packages\xunit.1.9.1\lib\net20\xunit.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.extensions">
+      <HintPath>..\packages\xunit.extensions.1.9.1\lib\net20\xunit.extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.runner.msbuild">
+      <HintPath>..\packages\xunit.1.9.1\lib\net20\xunit.runner.msbuild.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.runner.tdnet">
+      <HintPath>..\packages\xunit.1.9.1\lib\net20\xunit.runner.tdnet.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.runner.utility">
+      <HintPath>..\packages\xunit.1.9.1\lib\net20\xunit.runner.utility.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Browsers\Base\BrowserBase.cs" />
+    <Compile Include="Browsers\Chrome.cs" />
+    <Compile Include="Commands\Base\CommandAttribute.cs" />
+    <Compile Include="Commands\Implementation\SingleSelectorCommandBase.cs" />
+    <Compile Include="Commands\Implementation\DoCheckBoxCommand.cs" />
+    <Compile Include="Commands\Implementation\DoClearCommand.cs" />
+    <Compile Include="Commands\Implementation\DoClickCommand.cs" />
+    <Compile Include="Commands\Implementation\DoSelectDropdownCommand.cs" />
+    <Compile Include="Commands\Implementation\DoUncheckBoxCommand.cs" />
+    <Compile Include="Commands\Implementation\IsCheckedCommand.cs" />
+    <Compile Include="Commands\Implementation\IsClassCommand.cs" />
+    <Compile Include="Commands\Implementation\IsCountEqualCommand.cs" />
+    <Compile Include="Commands\Implementation\IsCountGreaterCommand.cs" />
+    <Compile Include="Commands\Implementation\IsCountLessCommand.cs" />
+    <Compile Include="Commands\Implementation\DoPauseCommand.cs" />
+    <Compile Include="Commands\Implementation\DoPressEnterCommand.cs" />
+    <Compile Include="Commands\Base\MultipleSelectorCommandBase.cs" />
+    <Compile Include="Commands\Implementation\DoSendKeyCommand.cs" />
+    <Compile Include="Commands\Implementation\DoSendKeysCommand.cs" />
+    <Compile Include="Commands\Implementation\IsDropdownSelectedCommand.cs" />
+    <Compile Include="Commands\Implementation\IsEnabledCommand.cs" />
+    <Compile Include="Commands\Implementation\IsSelectedCommand.cs" />
+    <Compile Include="Commands\Implementation\IsTextContainedCommand.cs" />
+    <Compile Include="Commands\Implementation\IsTextEqualsCommand.cs" />
+    <Compile Include="Commands\Implementation\IsTitleContainedCommand.cs" />
+    <Compile Include="Commands\Implementation\IsTitleEqualCommand.cs" />
+    <Compile Include="Commands\Implementation\IsVisibleCommand.cs" />
+    <Compile Include="Extensions\PropertyInfoExtensions.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="Extensions\WebDriverExtensions.cs" />
+    <Compile Include="Extensions\WebElementExtensions.cs" />
+    <Compile Include="Global\ServiceResolver.cs" />
+    <Compile Include="Services\ICommandService.cs" />
+    <Compile Include="Services\Implementation\CategoryService.cs" />
+    <Compile Include="Browsers\Firefox.cs" />
+    <Compile Include="Browsers\InternetExplorer.cs" />
+    <Compile Include="Models\Manifest.cs" />
+    <Compile Include="Services\Implementation\CommandService.cs" />
+    <Compile Include="Services\ICategoryService.cs" />
+    <Compile Include="Services\IManifestService.cs" />
+    <Compile Include="Services\Implementation\ConfigurationService.cs" />
+    <Compile Include="Browsers\Base\DriverFactory.cs" />
+    <Compile Include="Enums\DriverType.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Commands\Base\CommandBase.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\Test.cs" />
+    <Compile Include="Extensions\AppDomainExtensions.cs" />
+    <Compile Include="Services\IConfigurationService.cs" />
+    <Compile Include="Services\Implementation\FileService.cs" />
+    <Compile Include="Services\IFileService.cs" />
+    <Compile Include="Services\Implementation\ManifestService.cs" />
+    <Compile Include="Services\ITestService.cs" />
+    <Compile Include="Services\Implementation\TestService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
