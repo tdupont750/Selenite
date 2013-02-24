@@ -7,3 +7,5 @@
 /Selenite.Tests/obj
 /Selenite.Tests/bin
 /*.suo
+
+/*.user

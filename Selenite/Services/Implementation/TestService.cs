@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Dynamic;
 using System.Threading;
-using Selenite.Browsers.Base;
+using Selenite.Browsers;
 using Selenite.Models;
 
 namespace Selenite.Services.Implementation
@@ -31,7 +31,16 @@ namespace Selenite.Services.Implementation
                 foreach (var command in test.Commands)
                 {
                     Thread.Sleep(100);
-                    command.Execute(browser.Driver, context);
+
+                    try
+                    {
+                        command.Execute(browser.Driver, context);
+                    }
+                    catch (Exception ex)
+                    {
+                        var message = String.Format("Test: {0}, Command: {1}{2}{3}", test.Name, command.Name, Environment.NewLine, ex.Message);
+                        throw new Exception(message, ex);
+                    }
                 }
 
                 Trace.WriteLine("Success");

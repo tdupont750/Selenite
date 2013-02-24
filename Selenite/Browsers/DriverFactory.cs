@@ -7,7 +7,7 @@ using Selenite.Enums;
 using Selenite.Global;
 using Selenite.Services;
 
-namespace Selenite.Browsers.Base
+namespace Selenite.Browsers
 {
     public class DriverFactory : IDisposable
     {
@@ -25,7 +25,12 @@ namespace Selenite.Browsers.Base
         public void Init(DriverType browser)
         {
             if (_driver != null)
+            {
+                if (_type == browser)
+                    return;
+
                 throw new InvalidOperationException("DriverService already initialized");
+            }
 
             switch (browser)
             {
@@ -58,7 +63,7 @@ namespace Selenite.Browsers.Base
             Dispose(false);
         }
 
-        private void Dispose(bool disposing)
+        private void Dispose(bool isFinalizing)
         {
             if (_isDisposed)
                 return;
@@ -74,7 +79,7 @@ namespace Selenite.Browsers.Base
                 _driver = null;
             }
 
-            if (!disposing)
+            if (!isFinalizing)
                 GC.SuppressFinalize(this);
 
             _isDisposed = true;

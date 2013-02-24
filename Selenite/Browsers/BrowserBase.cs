@@ -8,7 +8,7 @@ using Selenite.Models;
 using Selenite.Services;
 using Xunit;
 
-namespace Selenite.Browsers.Base
+namespace Selenite.Browsers
 {
     public abstract class BrowserBase : IDisposable, IUseFixture<DriverFactory>
     {
@@ -44,10 +44,10 @@ namespace Selenite.Browsers.Base
 
         public void Dispose()
         {
-            Dispose(true);
+            Dispose(false);
         }
 
-        private void Dispose(bool isDisposing)
+        private void Dispose(bool isFinalizing)
         {
             if (_isDisposed)
                 return;
@@ -55,7 +55,7 @@ namespace Selenite.Browsers.Base
             if (Driver != null)
                 Driver.Url = AboutBlank;
 
-            if (!isDisposing)
+            if (!isFinalizing)
                 GC.SuppressFinalize(this);
 
             _isDisposed = true;

@@ -1,21 +1,21 @@
-using Selenite.Browsers.Base;
+using Selenite.Browsers;
 using Selenite.Enums;
 using Selenite.Models;
 using Xunit.Extensions;
 
-namespace Selenite.Browsers
+namespace Selenite.Tests.Browsers
 {
-    public class Firefox : BrowserBase
+    public class Chrome : BrowserBase
     {
         public override DriverType DriverType
         {
-            get { return DriverType.Firefox; }
+            get { return DriverType.Chrome; }
         }
 
-#if FIREFOX
+#if CHROME
         [Theory]
 #else
-        [Theory(Skip = "Not built for FireFox")]
+        [Theory(Skip = "Not built for Chrome")]
 #endif
         [PropertyData(TestDataMember)]
         public void ExecuteTests(Test test)

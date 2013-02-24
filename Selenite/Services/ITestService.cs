@@ -1,4 +1,4 @@
-using Selenite.Browsers.Base;
+using Selenite.Browsers;
 using Selenite.Models;
 
 namespace Selenite.Services

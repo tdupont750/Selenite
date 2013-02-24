@@ -71,10 +71,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Browsers\Base\BrowserBase.cs" />
-    <Compile Include="Browsers\Chrome.cs" />
+    <Compile Include="Browsers\BrowserBase.cs" />
     <Compile Include="Commands\Base\CommandAttribute.cs" />
-    <Compile Include="Commands\Implementation\SingleSelectorCommandBase.cs" />
+    <Compile Include="Commands\Base\SingleSelectorCommandBase.cs" />
     <Compile Include="Commands\Implementation\DoCheckBoxCommand.cs" />
     <Compile Include="Commands\Implementation\DoClearCommand.cs" />
     <Compile Include="Commands\Implementation\DoClickCommand.cs" />
@@ -94,7 +93,7 @@
     <Compile Include="Commands\Implementation\IsEnabledCommand.cs" />
     <Compile Include="Commands\Implementation\IsSelectedCommand.cs" />
     <Compile Include="Commands\Implementation\IsTextContainedCommand.cs" />
-    <Compile Include="Commands\Implementation\IsTextEqualsCommand.cs" />
+    <Compile Include="Commands\Implementation\IsTextEqualCommand.cs" />
     <Compile Include="Commands\Implementation\IsTitleContainedCommand.cs" />
     <Compile Include="Commands\Implementation\IsTitleEqualCommand.cs" />
     <Compile Include="Commands\Implementation\IsVisibleCommand.cs" />
@@ -105,14 +104,12 @@
     <Compile Include="Global\ServiceResolver.cs" />
     <Compile Include="Services\ICommandService.cs" />
     <Compile Include="Services\Implementation\CategoryService.cs" />
-    <Compile Include="Browsers\Firefox.cs" />
-    <Compile Include="Browsers\InternetExplorer.cs" />
     <Compile Include="Models\Manifest.cs" />
     <Compile Include="Services\Implementation\CommandService.cs" />
     <Compile Include="Services\ICategoryService.cs" />
     <Compile Include="Services\IManifestService.cs" />
     <Compile Include="Services\Implementation\ConfigurationService.cs" />
-    <Compile Include="Browsers\Base\DriverFactory.cs" />
+    <Compile Include="Browsers\DriverFactory.cs" />
     <Compile Include="Enums\DriverType.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Commands\Base\CommandBase.cs" />
@@ -128,7 +125,6 @@
     <Compile Include="Services\Implementation\TestService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
