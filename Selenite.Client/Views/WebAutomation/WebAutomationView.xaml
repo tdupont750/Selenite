@@ -72,8 +72,5 @@
                 VerticalAlignment="Center"
                 Margin="5,5,5,0"
                 Command="{Binding EditCategoriesCommand}"/>
-        
-
-        
     </Grid>
 </UserControl>

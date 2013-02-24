@@ -2,13 +2,8 @@
 
 namespace Selenite.Client.ViewModels.WebAutomation
 {
-    public class TestViewModel : ViewModelBase
+    public class TestViewModel : TreeViewModelBase<CommandViewModel>
     {
-        public TestViewModel()
-        {
-            Assertions = new ObservableCollection<CommandViewModel>();
-        }
-
         public string Name
         {
             get { return Get(() => Name); }
@@ -26,7 +21,5 @@ namespace Selenite.Client.ViewModels.WebAutomation
             get { return Get(() => IsEnabled); }
             set { Set(value, () => IsEnabled); }
         }
-
-        public ObservableCollection<CommandViewModel> Assertions { get; set; }
     }
 }

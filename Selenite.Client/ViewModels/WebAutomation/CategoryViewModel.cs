@@ -1,15 +1,9 @@
-﻿using System.Collections.ObjectModel;
-using Selenite.Models;
+﻿using Selenite.Models;
 
 namespace Selenite.Client.ViewModels.WebAutomation
 {
-    public class CategoryViewModel : ViewModelBase
+    public class CategoryViewModel : TreeViewModelBase<TestViewModel>
     {
-        public CategoryViewModel()
-        {
-            PageTests = new ObservableCollection<TestViewModel>();
-        }
-
         public string Name
         {
             get { return Get(() => Name); }
@@ -28,9 +22,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
             set { Set(value, () => IsEnabled); }
         }
 
-        public ObservableCollection<TestViewModel> PageTests { get; set; }
-
-        public Category ToCategory()
+        public Category ToModel()
         {
             return new Category();
         }
