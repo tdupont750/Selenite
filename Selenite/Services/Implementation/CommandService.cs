@@ -34,9 +34,12 @@ namespace Selenite.Services.Implementation
             var properties = GetProperties(type);
 
             foreach (var property in properties)
-                result[property.Name] = property
-                    .GetValue(command, null)
-                    .ToString();
+            {
+                var value = property.GetValue(command, null);
+                result[property.Name] = value == null
+                    ? String.Empty
+                    : value.ToString();
+            }
 
             return result;
         }
