@@ -1,4 +1,4 @@
 {
 	Domain: "",
-	Categories: ["IsCommands"]
+	Categories: ["IsCommands", "DoCommands"]
 }

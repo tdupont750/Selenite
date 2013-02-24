@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<title>IsCommands</title>
+	</head>
+	<body>
+		<p>
+			<input type="checkbox" name="CheckBoxA" value="A">
+			<input type="checkbox" name="CheckBoxB" value="B" checked="checked">
+		</p>
+		<p>
+			<input id="DoClear" type="text" value="Hello World">
+		</p>
+		<p>
+			<input id="DoClick" type="checkbox">
+		</p>
+		<p>
+			<input id="DoPressEnter" type="text" onkeypress="onKeyPress(event)">
+		</p>
+		<script type="text/javascript">
+			function onKeyPress(event){
+				var el = document.getElementById('DoPressEnter');
+				el.setAttribute('value', 'Goodnight Moon');
+			}
+		</script>
+		<p>
+			<select id="DoSelectDropdown">
+				<option value="A">X</option>
+				<option value="B">Y</option>
+				<option value="C">Z</option>
+			</select>
+		</p>
+		<p>
+			<input id="DoSendKey" type="text" value="Hello">
+		</p>
+		<p>
+			<input id="DoSendKeys" type="text" value="Hello">
+		</p>
+	</body>
+</html>
