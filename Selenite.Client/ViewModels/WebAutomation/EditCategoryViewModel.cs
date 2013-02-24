@@ -101,10 +101,10 @@ namespace Selenite.Client.ViewModels.WebAutomation
                                 Properties = _commandService.GetCommandValues(command)
                             };
 
-                        testViewModel.Assertions.Add(commandViewModel);
+                        testViewModel.Children.Add(commandViewModel);
                     }
 
-                    categoryViewModel.PageTests.Add(testViewModel);
+                    categoryViewModel.Children.Add(testViewModel);
                 }
 
                 Categories.Add(categoryViewModel);

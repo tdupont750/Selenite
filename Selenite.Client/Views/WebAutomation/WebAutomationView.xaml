@@ -51,11 +51,12 @@
                       VerticalAlignment="Stretch">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <WrapPanel Orientation="Horizontal">
-                            <CheckBox IsChecked="{Binding Enabled}"
-                                      VerticalAlignment="Center"/>
-                            <TextBlock Text="{Binding Name}"/>
-                        </WrapPanel>
+                        <CheckBox IsChecked="{Binding Enabled}"
+                                  Content="{Binding Name}"
+                                  VerticalAlignment="Center"
+                                  VerticalContentAlignment="Center"
+                                  HorizontalAlignment="Stretch"
+                                  Margin="5,0,0,0"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
@@ -71,8 +72,5 @@
                 VerticalAlignment="Center"
                 Margin="5,5,5,0"
                 Command="{Binding EditCategoriesCommand}"/>
-        
-
-        
     </Grid>
 </UserControl>
