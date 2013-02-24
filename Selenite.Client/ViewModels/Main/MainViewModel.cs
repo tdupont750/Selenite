@@ -8,7 +8,7 @@ namespace Selenite.Client.ViewModels.Main
     {
         public MainViewModel()
         {
-            Title = "ITSA Tool - Now Edition";
+            Title = "Selenite";
 
             TabItems = new ObservableCollection<TabbedViewModel>
                 {
