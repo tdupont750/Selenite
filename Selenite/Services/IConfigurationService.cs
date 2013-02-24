@@ -2,7 +2,8 @@ namespace Selenite.Services
 {
     public interface IConfigurationService
     {
-        string DriversPath { get; }
+        string ChromeDriverPath { get; }
+        string InternetExplorerDriverPath { get; }
         string TestsPath { get; }
         string ActiveManifest { get; }
     }

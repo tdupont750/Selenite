@@ -39,11 +39,11 @@ namespace Selenite.Browsers
                     break;
 
                 case DriverType.InternetExplorer:
-                    _driver = new InternetExplorerDriver(_configurationService.DriversPath);
+                    _driver = new InternetExplorerDriver(_configurationService.InternetExplorerDriverPath);
                     break;
 
                 case DriverType.Chrome:
-                    _driver = new ChromeDriver(_configurationService.DriversPath);
+                    _driver = new ChromeDriver(_configurationService.ChromeDriverPath);
                     break;
             }
 
