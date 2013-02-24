@@ -9,9 +9,14 @@ namespace Selenite.Commands.Implementation
     {
         public int Count { get; set; }
 
+        public bool IsFalseExpected { get; set; }
+
         protected override void Execute(IWebDriver driver, dynamic context, IList<IWebElement> elements)
         {
-            Assert.Equal(Count, elements.Count);
+            if (IsFalseExpected)
+                Assert.NotEqual(Count, elements.Count);
+            else
+                Assert.Equal(Count, elements.Count);
         }
     }
 }

@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Selenite.Commands.Implementation
 {
-    public class IsTextEqualsCommand : SingleSelectorCommandBase
+    public class IsTextEqualCommand : SingleSelectorCommandBase
     {
         public string Text { get; set; }
 

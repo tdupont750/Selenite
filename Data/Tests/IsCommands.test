@@ -1,0 +1,210 @@
+{
+	Domain: "http://localhost/selenite/",
+	Tests : [{
+		Name: "IsChecked",
+		Url: "IsCommands.html",
+		Commands: [{
+			Name: "IsChecked",
+			Selector: "input[name=\"CheckBoxA\"]"
+		}, {
+			Name: "IsChecked",
+			Selector: "input[name=\"CheckBoxB\"]",
+			IsFalseExpected: true
+		}]
+	}, {
+		Name: "IsClass",
+		Url: "IsCommands.html",
+		Commands: [{
+			Name: "IsClass",
+			Selector: "#IsClassA",
+			Class: 'A'
+		}, {
+			Name: "IsClass",
+			Selector: "#IsClassB",
+			Class: 'A',
+			IsFalseExpected: true
+		}]
+	}, {
+		Name: "IsCountEqual",
+		Url: "IsCommands.html",
+		Commands: [{
+			Name: "IsCountEqual",
+			Selector: "#IsCountEqual > span",
+			Count: 2
+		}, {
+			Name: "IsCountEqual",
+			Selector: "#IsCountEqual > span.A",
+			Count: 2,
+			IsFalseExpected: true
+		}]
+	}, {
+		Name: "IsCountGreater",
+		Url: "IsCommands.html",
+		Commands: [{
+			Name: "IsCountGreater",
+			Selector: "#IsCountEqual > span",
+			Count: 1
+		}, {
+			Name: "IsCountGreater",
+			Selector: "#IsCountEqual > span",
+			Count: 2,
+			OrEqualTo: true
+		}]
+	}, {
+		Name: "IsCountLess",
+		Url: "IsCommands.html",
+		Commands: [{
+			Name: "IsCountLess",
+			Selector: "#IsCountEqual > span",
+			Count: 3
+		}, {
+			Name: "IsCountLess",
+			Selector: "#IsCountEqual > span",
+			Count: 2,
+			OrEqualTo: true
+		}]
+	}, {
+		Name: "IsDropdownSelected",
+		Url: "IsCommands.html",
+		Commands: [{
+			Name: "IsDropdownSelected",
+			Selector: "#IsDropdownSelected",
+			Value: "B"
+		}, {
+			Name: "IsDropdownSelected",
+			Selector: "#IsDropdownSelected",
+			Value: "A",
+			IsFalseExpected: true
+		}, {
+			Name: "IsDropdownSelected",
+			Selector: "#IsDropdownSelected",
+			Text: "Y"
+		}, {
+			Name: "IsDropdownSelected",
+			Selector: "#IsDropdownSelected",
+			Text: "Z",
+			IsFalseExpected: true
+		}]
+	}, {
+		Name: "IsEnabled",
+		Url: "IsCommands.html",
+		Commands: [{
+			Name: "IsEnabled",
+			Selector: "#IsEnabledA"
+		}, {
+			Name: "IsEnabled",
+			Selector: "#IsEnabledB",
+			IsFalseExpected: true
+		}]
+	}, {
+		Name: "IsSelected",
+		Url: "IsCommands.html",
+		Commands: [{
+			Name: "IsSelected",
+			Selector: "#IsDropdownSelected > option[value=\"B\"]"
+		}, {
+			Name: "IsSelected",
+			Selector: "#IsDropdownSelected > option[value=\"A\"]",
+			IsFalseExpected: true
+		}]
+	}, {
+		Name: "IsTextContained",
+		Url: "IsCommands.html",
+		Commands: [{
+			Name: "IsTextContained",
+			Selector: "#Text",
+			Text: "hELLO"
+		}, {
+			Name: "IsTextContained",
+			Selector: "#Text",
+			Text: "World",
+			IsCaseSensitive: true
+		}, {
+			Name: "IsTextContained",
+			Selector: "#Text",
+			Text: "Goodnight",
+			IsFalseExpected: true
+		}, {
+			Name: "IsTextContained",
+			Selector: "#Text",
+			Text: "wORLD",
+			IsCaseSensitive: true,
+			IsFalseExpected: true
+		}]
+	}, {
+		Name: "IsTextEqual",
+		Url: "IsCommands.html",
+		Commands: [{
+			Name: "IsTextEqual",
+			Selector: "#Text",
+			Text: "hELLO wORLD"
+		}, {
+			Name: "IsTextEqual",
+			Selector: "#Text",
+			Text: "Hello World",
+			IsCaseSensitive: true
+		}, {
+			Name: "IsTextEqual",
+			Selector: "#Text",
+			Text: "Goodnight Moon",
+			IsFalseExpected: true
+		}, {
+			Name: "IsTextEqual",
+			Selector: "#Text",
+			Text: "hELLO wORLD",
+			IsCaseSensitive: true,
+			IsFalseExpected: true
+		}]
+	}, {
+		Name: "IsTitleContained",
+		Url: "IsCommands.html",
+		Commands: [{
+			Name: "IsTitleContained",
+			Title: "cOMMAND"
+		}, {
+			Name: "IsTitleContained",
+			Title: "Command",
+			IsCaseSensitive: true
+		}, {
+			Name: "IsTitleContained",
+			Title: "Are",
+			IsFalseExpected: true
+		}, {
+			Name: "IsTitleContained",
+			Title: "cOMMAND",
+			IsCaseSensitive: true,
+			IsFalseExpected: true
+		}]
+	}, {
+		Name: "IsTitleEqual",
+		Url: "IsCommands.html",
+		Commands: [{
+			Name: "IsTitleEqual",
+			Title: "iScOMMANDS"
+		}, {
+			Name: "IsTitleEqual",
+			Title: "IsCommands",
+			IsCaseSensitive: true
+		}, {
+			Name: "IsTitleEqual",
+			Title: "AreCommand",
+			IsFalseExpected: true
+		}, {
+			Name: "IsTitleEqual",
+			Title: "iScOMMANDS",
+			IsCaseSensitive: true,
+			IsFalseExpected: true
+		}]
+	}, {
+		Name: "IsVisible",
+		Url: "IsCommands.html",
+		Commands: [{
+			Name: "IsVisible",
+			Selector: "#IsVisibleA"
+		}, {
+			Name: "IsVisible",
+			Selector: "#IsVisibleB",
+			IsFalseExpected: true
+		}]
+	}]
+}
