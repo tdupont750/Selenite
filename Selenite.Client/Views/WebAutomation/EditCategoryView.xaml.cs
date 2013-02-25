@@ -1,14 +1,14 @@
 ﻿namespace Selenite.Client.Views.WebAutomation
 {
     /// <summary>
-    /// Interaction logic for EditCategoryView.xaml
+    /// Interaction logic for EditTestCollectionView.xaml
     /// </summary>
-    public partial class EditCategoryView
+    public partial class EditTestCollectionView
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EditCategoryView"/> class.
+        /// Initializes a new instance of the <see cref="EditTestCollectionView"/> class.
         /// </summary>
-        public EditCategoryView()
+        public EditTestCollectionView()
         {
             InitializeComponent();
         }

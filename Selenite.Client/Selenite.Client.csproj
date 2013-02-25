@@ -88,9 +88,9 @@
     <Compile Include="ViewModels\TreeViewModelBase.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\TabbedViewModel.cs" />
-    <Compile Include="ViewModels\WebAutomation\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\WebAutomation\TestCollectionViewModel.cs" />
     <Compile Include="ViewModels\WebAutomation\CommandViewModel.cs" />
-    <Compile Include="ViewModels\WebAutomation\EditCategoryViewModel.cs" />
+    <Compile Include="ViewModels\WebAutomation\EditTestCollectionViewModel.cs" />
     <Compile Include="ViewModels\WebAutomation\ManifestViewModel.cs" />
     <Compile Include="ViewModels\WebAutomation\PropertyViewModel.cs" />
     <Compile Include="ViewModels\WebAutomation\ResultsViewModel.cs" />

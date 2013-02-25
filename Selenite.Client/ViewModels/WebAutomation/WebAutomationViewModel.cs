@@ -11,12 +11,12 @@ namespace Selenite.Client.ViewModels.WebAutomation
     public sealed class WebAutomationViewModel : TabbedViewModel
     {
         private readonly IManifestService _manifestService;
-        private readonly ICategoryService _categoryService;
+        private readonly ITestCollectionService _testCollectionService;
 
-        public WebAutomationViewModel(IManifestService manifestService, ICategoryService categoryService)
+        public WebAutomationViewModel(IManifestService manifestService, ITestCollectionService testCollectionService)
         {
             _manifestService = manifestService;
-            _categoryService = categoryService;
+            _testCollectionService = testCollectionService;
 
             Header = "Web Automation";
 
@@ -29,14 +29,14 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
             SelectedManifest = Manifests.FirstOrDefault();
 
-            EditCategoriesCommand = new RelayCommand(EditCategories, t => EditCategoryViewModel == null);
+            EditCategoriesCommand = new RelayCommand(EditCategories, t => EditTestCollectionViewModel == null);
         }
 
         #region Properties
 
         public ResultsViewModel ResultsViewModel { get; set; }
 
-        public EditCategoryViewModel EditCategoryViewModel { get; set; }
+        public EditTestCollectionViewModel EditTestCollectionViewModel { get; set; }
 
         public ViewModelBase TransitionArea
         {
@@ -101,40 +101,40 @@ namespace Selenite.Client.ViewModels.WebAutomation
             if (manifest == null)
                 return;
 
-            SelectedManifest.DefaultDomain = manifest.Domain;
+            SelectedManifest.DefaultDomain = manifest.OverrideDomain;
 
-            foreach (var categoryName in manifest.Categories)
+            foreach (var testCollectionFile in manifest.Files)
             {
-                Category category = null;
+                TestCollection testCollection = null;
 
                 try
                 {
-                    category = _categoryService.GetCategory(categoryName);
+                    testCollection = _testCollectionService.GetTestCollection(testCollectionFile);
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Category: " + categoryName + Environment.NewLine + e.Message,
-                                    "Error Loading Category", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("TestCollection: " + testCollectionFile + Environment.NewLine + e.Message,
+                                    "Error Loading TestCollection", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
-                if(category == null)
+                if(testCollection == null)
                     continue;
 
-                manifestViewModel.Categories.Add(category);
+                manifestViewModel.TestCollections.Add(testCollection);
             }
         }
 
         private void EditCategories(object parameter)
         {
-            var editViewModel = App.ServiceLocator.GetInstance<EditCategoryViewModel>();
+            var editViewModel = App.ServiceLocator.GetInstance<EditTestCollectionViewModel>();
 
             editViewModel.CancelCommand = new RelayCommand(t =>
                 {
                     TransitionArea = ResultsViewModel;
-                    EditCategoryViewModel = null;
+                    EditTestCollectionViewModel = null;
                 }, t => true);
 
-            TransitionArea = EditCategoryViewModel = editViewModel;
+            TransitionArea = EditTestCollectionViewModel = editViewModel;
         }
     }
 }

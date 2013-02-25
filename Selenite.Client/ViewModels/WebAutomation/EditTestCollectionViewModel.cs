@@ -8,17 +8,17 @@ using Selenite.Services;
 
 namespace Selenite.Client.ViewModels.WebAutomation
 {
-    public class EditCategoryViewModel : ViewModelBase
+    public class EditTestCollectionViewModel : ViewModelBase
     {
         private readonly ICommandService _commandService;
-        private readonly ICategoryService _categoryService;
+        private readonly ITestCollectionService _testCollectionServiceService;
 
-        public EditCategoryViewModel(ICommandService commandService, ICategoryService categoryService)
+        public EditTestCollectionViewModel(ICommandService commandService, ITestCollectionService testCollectionServiceService)
         {
             _commandService = commandService;
-            _categoryService = categoryService;
+            _testCollectionServiceService = testCollectionServiceService;
 
-            Categories = new ObservableCollection<CategoryViewModel>();
+            TestCollections = new ObservableCollection<TestCollectionViewModel>();
 
             LoadCategories();
 
@@ -31,7 +31,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
                 });
         }
 
-        public ObservableCollection<CategoryViewModel> Categories { get; set; }
+        public ObservableCollection<TestCollectionViewModel> TestCollections { get; set; }
 
         public ICommand SaveCommand { get; set; }
 
@@ -39,48 +39,48 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
         private void LoadCategories()
         {
-            IList<string> categoryNames = null;
+            IList<string> testCollectionFiles = null;
 
             try
             {
-                categoryNames = _categoryService.GetCategoryNames();
+                testCollectionFiles = _testCollectionServiceService.GetTestCollectionFiles();
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message, "Error Loading Categories", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(e.Message, "Error Loading TestCollections", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            if (categoryNames == null)
+            if (testCollectionFiles == null)
                 return;
 
-            foreach (var categoryName in categoryNames)
+            foreach (var testCollectionFile in testCollectionFiles)
             {
-                Category category = null;
+                TestCollection testCollection = null;
 
                 try
                 {
-                    category = _categoryService.GetCategory(categoryName);
+                    testCollection = _testCollectionServiceService.GetTestCollection(testCollectionFile);
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Category: " + categoryName + Environment.NewLine + e.Message,
-                                    "Error Loading Category", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("TestCollection: " + testCollectionFile + Environment.NewLine + e.Message,
+                                    "Error Loading TestCollection", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
-                if (category == null)
+                if (testCollection == null)
                     return;
 
-                var categoryViewModel = new CategoryViewModel
+                var testCollectionViewModel = new TestCollectionViewModel
                     {
-                        Domain = category.Domain,
-                        IsEnabled = category.Enabled,
-                        Name = category.Name
+                        Domain = testCollection.DefaultDomain,
+                        IsEnabled = testCollection.Enabled,
+                        Name = testCollection.File
                     };
 
-                if (category.Tests == null)
+                if (testCollection.Tests == null)
                     return;
 
-                foreach (var test in category.Tests)
+                foreach (var test in testCollection.Tests)
                 {
                     var testViewModel = new TestViewModel
                         {
@@ -104,10 +104,10 @@ namespace Selenite.Client.ViewModels.WebAutomation
                         testViewModel.Children.Add(commandViewModel);
                     }
 
-                    categoryViewModel.Children.Add(testViewModel);
+                    testCollectionViewModel.Children.Add(testViewModel);
                 }
 
-                Categories.Add(categoryViewModel);
+                TestCollections.Add(testCollectionViewModel);
             }
         }
 

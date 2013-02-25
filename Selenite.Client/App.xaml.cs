@@ -29,7 +29,7 @@ namespace Selenite.Client
             unityContainer.RegisterType<IFileService, FileService>();
             unityContainer.RegisterType<IConfigurationService, ConfigurationService>();
             unityContainer.RegisterType<ICommandService, CommandService>();
-            unityContainer.RegisterType<ICategoryService, CategoryService>();
+            unityContainer.RegisterType<ITestCollectionService, TestCollectionService>();
             unityContainer.RegisterType<IManifestService, ManifestService>();
 
             ServiceLocator = new UnityServiceLocator(unityContainer);

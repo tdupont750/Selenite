@@ -2,7 +2,7 @@
 
 namespace Selenite.Client.ViewModels.WebAutomation
 {
-    public class CategoryViewModel : TreeViewModelBase<TestViewModel>
+    public class TestCollectionViewModel : TreeViewModelBase<TestViewModel>
     {
         public string Name
         {
@@ -22,9 +22,9 @@ namespace Selenite.Client.ViewModels.WebAutomation
             set { Set(value, () => IsEnabled); }
         }
 
-        public Category ToModel()
+        public TestCollection ToModel()
         {
-            return new Category();
+            return new TestCollection();
         }
     }
 }

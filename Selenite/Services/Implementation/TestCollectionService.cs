@@ -26,7 +26,10 @@ namespace Selenite.Services.Implementation
         {
             var pathRoot = Path.GetFullPath(_configurationService.TestScriptsPath);
 
-            var files = _fileService.GetFiles(pathRoot, "*.json");
+            var files = _fileService
+                .GetFiles(pathRoot, "*.json")
+                .ToList();
+
             files.Remove(_configurationService.ManifestFileName);
             
             return files;
