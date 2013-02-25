@@ -79,6 +79,8 @@
     <Compile Include="Commands\Implementation\DoClickCommand.cs" />
     <Compile Include="Commands\Implementation\DoSelectDropdownCommand.cs" />
     <Compile Include="Commands\Implementation\DoUncheckBoxCommand.cs" />
+    <Compile Include="Commands\Implementation\IsAttributeContainedCommand.cs" />
+    <Compile Include="Commands\Implementation\IsAttributeEqualCommand.cs" />
     <Compile Include="Commands\Implementation\IsCheckedCommand.cs" />
     <Compile Include="Commands\Implementation\IsClassCommand.cs" />
     <Compile Include="Commands\Implementation\IsCountEqualCommand.cs" />

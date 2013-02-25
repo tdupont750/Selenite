@@ -1,6 +1,62 @@
 {
 	Domain: "http://localhost/selenite/",
 	Tests : [{
+		Name: "IsAttributeContained",
+		Url: "IsCommands.html",
+		Commands: [{
+			Name: "IsAttributeContained",
+			Selector: "#IsAttribute",
+			Attribute: "value",
+			Value: "hELLO"
+		}, {
+			Name: "IsAttributeContained",
+			Selector: "#IsAttribute",
+			Attribute: "value",
+			Value: "Hello",
+			IsCaseSensitive: true
+		}, {
+			Name: "IsAttributeContained",
+			Selector: "#IsAttribute",
+			Attribute: "value",
+			Value: "Goodnight",
+			IsFalseExpected: true
+		}, {
+			Name: "IsAttributeContained",
+			Selector: "#IsAttribute",
+			Attribute: "value",
+			Value: "hELLO",
+			IsCaseSensitive: true,
+			IsFalseExpected: true
+		}]
+	}, {
+		Name: "IsAttributeEqual",
+		Url: "IsCommands.html",
+		Commands: [{
+			Name: "IsAttributeEqual",
+			Selector: "#IsAttribute",
+			Attribute: "value",
+			Value: "hELLO wORLD"
+		}, {
+			Name: "IsAttributeEqual",
+			Selector: "#IsAttribute",
+			Attribute: "value",
+			Value: "Hello World",
+			IsCaseSensitive: true
+		}, {
+			Name: "IsAttributeEqual",
+			Selector: "#IsAttribute",
+			Attribute: "value",
+			Value: "Goodnight Moon",
+			IsFalseExpected: true
+		}, {
+			Name: "IsAttributeEqual",
+			Selector: "#IsAttribute",
+			Attribute: "value",
+			Value: "hELLO wORLD",
+			IsCaseSensitive: true,
+			IsFalseExpected: true
+		}]
+	}, {
 		Name: "IsChecked",
 		Url: "IsCommands.html",
 		Commands: [{
