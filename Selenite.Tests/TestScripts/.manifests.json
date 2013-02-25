@@ -1,0 +1,8 @@
+﻿{
+	ActiveManifest: "SeleniteTests",
+	Manifests: [{
+		Name: "SeleniteTests",
+		DomainOverride: "",
+		Files: ["DoCommands.json", "IsCommands.json"]
+	}]
+}

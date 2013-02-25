@@ -16,7 +16,7 @@ namespace Selenite.Browsers
         protected const string TestDataMember = "TestData";
 
         protected static readonly IConfigurationService ConfigurationService = ServiceResolver.Get<IConfigurationService>();
-        protected static readonly ICategoryService CategoryService = ServiceResolver.Get<ICategoryService>();
+        protected static readonly ITestCollectionService TestCollectionService = ServiceResolver.Get<ITestCollectionService>();
         protected static readonly IManifestService ManifestService = ServiceResolver.Get<IManifestService>();
         protected static readonly ITestService TestService = ServiceResolver.Get<ITestService>();
 
@@ -65,11 +65,11 @@ namespace Selenite.Browsers
         {
             get
             {
-                var manifestName = ConfigurationService.ActiveManifest;
+                var manifestName = ManifestService.GetActiveManifestName();
                 var manifest = ManifestService.GetManifest(manifestName);
-                var categories = CategoryService.GetCategories(manifest);
+                var testCollections = TestCollectionService.GetTestCollections(manifest);
 
-                return categories
+                return testCollections
                     .SelectMany(c => c.Tests)
                     .Select(t => new object[] { t });
             }

@@ -26,7 +26,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;FIREFOX,CHROME,IE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;FIREFOX</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -73,7 +73,7 @@
     <Compile Include="Browsers\Chrome.cs" />
     <Compile Include="Browsers\Firefox.cs" />
     <Compile Include="Browsers\InternetExplorer.cs" />
-    <Compile Include="Services\CategoryServiceTests.cs" />
+    <Compile Include="Services\TestCollectionServiceTests.cs" />
     <Compile Include="Commands\SendKeyCommandTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ConfigurationServiceTests.cs" />
@@ -83,12 +83,19 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="TestScripts\.manifests.json" />
+    <None Include="TestScripts\DoCommands.json" />
+    <None Include="TestScripts\IsCommands.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Selenite\Selenite.csproj">
       <Project>{8B6BF0FE-444A-4784-A8BE-49382866C719}</Project>
       <Name>Selenite</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestPages\DoCommands.html" />
+    <Content Include="TestPages\IsCommands.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

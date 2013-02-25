@@ -6,7 +6,8 @@ namespace Selenite.Models
 {
     public class Test
     {
-        public string CategoryName { get; set; }
+        [JsonIgnore]
+        public string CollectionName { get; set; }
 
         public bool Enabled { get; set; }
         public string Name { get; set; }

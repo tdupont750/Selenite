@@ -7,24 +7,27 @@ namespace Selenite.Services.Implementation
 {
     public class ConfigurationService : IConfigurationService
     {
+        private const int MaxSearchDepth = 5;
+        private const string ErrorMessageFormat = "Unable to locate {0} folder, please specify {1} in the ApplicationSettings";
+        
         public string ChromeDriverPath
         {
-            get { return Get("ChromeDriverPath", "ChromeDriver"); }
+            get { return GetDriverPath("ChromeDriverPath", "ChromeDriver"); }
         }
 
-        public string InternetExplorerDriverPath
+        public string IEDriverPath
         {
-            get { return Get("InternetExplorerDriverPath", "IEDriver"); }
+            get { return GetDriverPath("InternetExplorerDriverPath", "IEDriver"); }
         }
 
-        public string TestsPath
+        public string TestScriptsPath
         {
-            get { return Get("TestsPath"); }
+            get { return GetTestScriptsPath(); }
         }
 
-        public string ActiveManifest
+        public string ManifestFileName
         {
-            get { return Get("ActiveManifest"); }
+            get { return ".manifests.json"; }
         }
 
         private static string Get(string key)
@@ -32,7 +35,7 @@ namespace Selenite.Services.Implementation
             return ConfigurationManager.AppSettings[key];
         }
 
-        private string Get(string key, string driverName)
+        private string GetDriverPath(string key, string driverName)
         {
             var driverPath = Get(key);
 
@@ -50,7 +53,7 @@ namespace Selenite.Services.Implementation
         {
             var currentDirectory = Directory.GetCurrentDirectory();
 
-            for (var i = 0; i <= 5; i++)
+            for (var i = 0; i <= MaxSearchDepth; i++)
             {
                 currentDirectory = Path.Combine(currentDirectory, "../");
                 currentDirectory = Path.GetFullPath(currentDirectory);
@@ -88,6 +91,57 @@ namespace Selenite.Services.Implementation
             }
 
             driverPath = String.Empty;
+            return false;
+        }
+
+        private string GetTestScriptsPath()
+        {
+            var driverPath = Get("TestScriptsPath");
+
+            if (!String.IsNullOrWhiteSpace(driverPath))
+                return driverPath;
+
+            if (FindTestScriptsPath(out driverPath))
+                return driverPath;
+
+            var message = String.Format(ErrorMessageFormat, "TestScripts", "TestScriptsPath");
+            throw new ConfigurationErrorsException(message);
+        }
+
+        public bool FindTestScriptsPath(out string testScriptsPath)
+        {
+            var currentDirectory = Directory.GetCurrentDirectory();
+
+            for (var i = 0; i <= MaxSearchDepth; i++)
+            {
+                currentDirectory = Path.Combine(currentDirectory, "../");
+                currentDirectory = Path.GetFullPath(currentDirectory);
+
+                if (FindTestScriptsSubPath(currentDirectory, out testScriptsPath))
+                    return true;
+            }
+
+            testScriptsPath = String.Empty;
+            return false;
+        }
+
+        private bool FindTestScriptsSubPath(string currentDirectory, out string testScriptsPath)
+        {
+            var directories = Directory.GetDirectories(currentDirectory);
+            var subPath = Path.Combine(currentDirectory, "TestScripts");
+
+            if (directories.Contains(subPath))
+            {
+                var file = Directory.GetFiles(subPath, ManifestFileName).FirstOrDefault();
+
+                if (!String.IsNullOrWhiteSpace(file))
+                {
+                    testScriptsPath = subPath;
+                    return true;
+                }
+            }
+
+            testScriptsPath = String.Empty;
             return false;
         }
     }

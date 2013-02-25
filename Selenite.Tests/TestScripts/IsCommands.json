@@ -1,5 +1,5 @@
 {
-	Domain: "http://localhost/selenite/",
+	DefaultDomain: "http://localhost/selenite/testpages/",
 	Tests : [{
 		Name: "IsAttributeContained",
 		Url: "IsCommands.html",

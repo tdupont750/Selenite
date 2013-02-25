@@ -40,7 +40,7 @@ namespace Selenite.Global
             var configurationService = new ConfigurationService();
             var commandService = new CommandService();
             var fileService = new FileService();
-            var categoryService = new CategoryService(configurationService, fileService, commandService);
+            var testCollectionService = new TestCollectionService(configurationService, fileService, commandService);
             var manifestService = new ManifestService(configurationService, fileService);
             var testService = new TestService();
 
@@ -49,7 +49,7 @@ namespace Selenite.Global
                 { typeof(IConfigurationService), configurationService },
                 { typeof(ICommandService), commandService },
                 { typeof(IFileService), fileService },
-                { typeof(ICategoryService), categoryService },
+                { typeof(ITestCollectionService), testCollectionService },
                 { typeof(IManifestService), manifestService },
                 { typeof(ITestService), testService }
             };

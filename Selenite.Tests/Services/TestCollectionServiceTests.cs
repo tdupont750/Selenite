@@ -9,14 +9,13 @@ using Xunit.Extensions;
 
 namespace Selenite.Tests.Services
 {
-    public class CategoryServiceTests
+    public class TestCollectionServiceTests
     {
         public const string Test = @"{
   ""Enabled"": true,
-  ""Domain"": ""http://google.com/"",
+  ""DefaultDomain"": ""http://google.com/"",
   ""Tests"": [
     {
-      ""CategoryName"": null,
       ""Enabled"": true,
       ""Name"": ""Basic"",
       ""Url"": """",
@@ -34,14 +33,14 @@ namespace Selenite.Tests.Services
 
         public string WriteAllTextValue { get; set; }
 
-        public ICategoryService GetCategoryService(string name, string json)
+        public ITestCollectionService GetTestCollectionService(string name, string json)
         {
             var configurationService = new Mock<IConfigurationService>();
             configurationService
-                .SetupGet(p => p.TestsPath)
+                .SetupGet(p => p.TestScriptsPath)
                 .Returns("C:\\");
 
-            var path = String.Format("C:\\{0}.{1}", name, CategoryService.TestExtension);
+            var path = String.Format("C:\\{0}", name);
 
             var fileService = new Mock<IFileService>();
             fileService
@@ -53,19 +52,19 @@ namespace Selenite.Tests.Services
 
             var commandService = new CommandService();
 
-            return new CategoryService(configurationService.Object, fileService.Object, commandService);
+            return new TestCollectionService(configurationService.Object, fileService.Object, commandService);
         }
 
         [Theory]
-        [InlineData("Test", Test)]
-        public void GetCategory(string name, string json)
+        [InlineData("Test.json", Test)]
+        public void GetTestCollection(string name, string json)
         {
-            var categoryService = GetCategoryService(name, json);
-            
-            var testCategory = categoryService.GetCategory(name);
-            Assert.Equal(1, testCategory.Tests.Count);
+            var testCollectionService = GetTestCollectionService(name, json);
 
-            var test = testCategory.Tests.First();
+            var testCollection = testCollectionService.GetTestCollection(name);
+            Assert.Equal(1, testCollection.Tests.Count);
+
+            var test = testCollection.Tests.First();
             Assert.Equal(1, test.Commands.Count);
             Assert.Equal(String.Empty, test.Url);
             Assert.Equal("http://google.com/", test.DomainUrl);
@@ -77,13 +76,13 @@ namespace Selenite.Tests.Services
         }
 
         [Theory]
-        [InlineData("Test", Test)]
-        public void SaveCategory(string name, string json)
+        [InlineData("Test.json", Test)]
+        public void SaveTestCollection(string name, string json)
         {
-            var categoryService = GetCategoryService(name, json);
+            var testCollectionService = GetTestCollectionService(name, json);
 
-            var testCategory = categoryService.GetCategory(name);
-            categoryService.SaveCategory(testCategory);
+            var testCollection = testCollectionService.GetTestCollection(name);
+            testCollectionService.SaveTestCollection(testCollection);
 
             Assert.Equal(json, WriteAllTextValue);
         }

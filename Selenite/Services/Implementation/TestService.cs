@@ -13,7 +13,7 @@ namespace Selenite.Services.Implementation
 
         public void ExecuteTest(BrowserBase browser, Test test)
         {
-            Trace.WriteLine("Category: " + test.CategoryName);
+            Trace.WriteLine("Collection: " + test.CollectionName);
             Trace.WriteLine("Name: " + test.Name);
             Trace.WriteLine("Url: " + test.DomainUrl);
 

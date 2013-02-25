@@ -9,3 +9,5 @@
 /*.suo
 
 /*.user
+
+/Selenite.Tests/*.user

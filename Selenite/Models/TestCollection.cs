@@ -3,13 +3,13 @@ using Newtonsoft.Json;
 
 namespace Selenite.Models
 {
-    public class Category
+    public class TestCollection
     {
         [JsonIgnore]
-        public string Name { get; set; }
+        public string File { get; set; }
         public bool Enabled { get; set; }
         
-        public string Domain { get; set; }
+        public string DefaultDomain { get; set; }
         public IList<Test> Tests { get; set; }
     }
 }
