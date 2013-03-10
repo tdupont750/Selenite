@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using Selenite.Services.Implementation;
+﻿using Selenite.Services.Implementation;
 using Xunit;
 using Xunit.Extensions;
 

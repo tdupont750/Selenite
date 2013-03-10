@@ -31,9 +31,9 @@ namespace Selenite.Tests.Services
   ]
 }";
 
-        public string WriteAllTextValue { get; set; }
+        public string WriteAllTextValue { get; private set; }
 
-        public ITestCollectionService GetTestCollectionService(string name, string json)
+        private ITestCollectionService GetTestCollectionService(string name, string json)
         {
             var configurationService = new Mock<IConfigurationService>();
             configurationService
