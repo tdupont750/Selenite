@@ -29,7 +29,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
             SelectedManifest = Manifests.FirstOrDefault();
 
-            EditCategoriesCommand = new RelayCommand(EditCategories, t => EditTestCollectionViewModel == null);
+            EditCategoriesCommand = new RelayCommand(EditTestCollections, t => EditTestCollectionViewModel == null);
         }
 
         #region Properties
@@ -124,7 +124,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
             }
         }
 
-        private void EditCategories(object parameter)
+        private void EditTestCollections(object parameter)
         {
             var editViewModel = App.ServiceLocator.GetInstance<EditTestCollectionViewModel>();
 

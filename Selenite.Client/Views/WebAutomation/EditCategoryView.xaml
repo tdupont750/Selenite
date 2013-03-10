@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:Selenite.Client.ViewModels.WebAutomation"
+             xmlns:converters="clr-namespace:Selenite.Client.Converters"
              mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
@@ -19,7 +20,8 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             
-            <TreeView ItemsSource="{Binding TestCollections}">
+            <TreeView ItemsSource="{Binding TestCollections}"
+                      converters:TreeViewHelper.SelectedItem="{Binding SelectedItem}">
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type vm:TestCollectionViewModel}"
                                               ItemsSource="{Binding Children}">
@@ -40,6 +42,20 @@
                           ResizeBehavior="PreviousAndNext"
                           Background="Transparent"
                           HorizontalAlignment="Stretch"/>
+            
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <GroupBox Header="New Test Collection Name">
+                    <WrapPanel>
+                        <TextBox/>
+                        <Button Content="Add"/>
+                    </WrapPanel>
+                </GroupBox>
+            </Grid>
         </Grid>
 
         <Grid Grid.Row="1">

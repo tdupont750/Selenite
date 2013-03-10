@@ -20,11 +20,11 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
             TestCollections = new ObservableCollection<TestCollectionViewModel>();
 
-            LoadCategories();
+            LoadTestCollections();
 
             SaveCommand = new RelayCommand(t =>
                 {
-                    SaveCategories();
+                    SaveTestCollection();
 
                     if(CancelCommand != null)
                         CancelCommand.Execute(null);
@@ -33,11 +33,17 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
         public ObservableCollection<TestCollectionViewModel> TestCollections { get; set; }
 
+        public ViewModelBase SelectedItem
+        {
+            get { return Get(() => SelectedItem); }
+            set { Set(value, () => SelectedItem); }
+        }
+
         public ICommand SaveCommand { get; set; }
 
         public ICommand CancelCommand { get; set; }
 
-        private void LoadCategories()
+        private void LoadTestCollections()
         {
             IList<string> testCollectionFiles = null;
 
@@ -111,7 +117,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
             }
         }
 
-        private void SaveCategories()
+        private void SaveTestCollection()
         {
 
         }
