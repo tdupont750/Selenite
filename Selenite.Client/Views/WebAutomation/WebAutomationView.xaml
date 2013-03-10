@@ -52,7 +52,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <CheckBox IsChecked="{Binding Enabled}"
-                                  Content="{Binding Name}"
+                                  Content="{Binding File}"
                                   VerticalAlignment="Center"
                                   VerticalContentAlignment="Center"
                                   HorizontalAlignment="Stretch"

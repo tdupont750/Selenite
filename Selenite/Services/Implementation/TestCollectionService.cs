@@ -30,7 +30,8 @@ namespace Selenite.Services.Implementation
                 .GetFiles(pathRoot, "*.json")
                 .ToList();
 
-            files.Remove(_configurationService.ManifestFileName);
+            var manifestFile = files.FirstOrDefault(f => f.EndsWith(_configurationService.ManifestFileName, StringComparison.InvariantCultureIgnoreCase));
+            files.Remove(manifestFile);
             
             return files;
         }
@@ -73,7 +74,7 @@ namespace Selenite.Services.Implementation
             var tests = new List<Test>();
 
             foreach (var test in testCollection.Tests)
-                tests.Add(CreateTest(test, testCollection.DefaultDomain.ToString(), testCollection.Name));
+                tests.Add(CreateTest(test, testCollection.DefaultDomain.ToString(), name));
 
             return new TestCollection
             {
