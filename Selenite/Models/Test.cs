@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Selenite.Commands;
@@ -17,5 +18,10 @@ namespace Selenite.Models
 
         [JsonIgnore]
         public string DomainUrl { get; set; }
+
+        public override string ToString()
+        {
+            return String.Concat(CollectionName, " - ", Name);
+        }
     }
 }
