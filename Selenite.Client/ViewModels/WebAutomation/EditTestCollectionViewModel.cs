@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using Selenite.Models;
@@ -29,11 +30,13 @@ namespace Selenite.Client.ViewModels.WebAutomation
                     if(CancelCommand != null)
                         CancelCommand.Execute(null);
                 });
+
+            SelectedItem = TestCollections.FirstOrDefault();
         }
 
         public ObservableCollection<TestCollectionViewModel> TestCollections { get; set; }
 
-        public ViewModelBase SelectedItem
+        public object SelectedItem
         {
             get { return Get(() => SelectedItem); }
             set { Set(value, () => SelectedItem); }

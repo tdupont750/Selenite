@@ -101,6 +101,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
             if (manifest == null)
                 return;
 
+            manifestViewModel.TestCollections.Clear();
             SelectedManifest.DefaultDomain = manifest.OverrideDomain;
 
             foreach (var testCollectionFile in manifest.Files)

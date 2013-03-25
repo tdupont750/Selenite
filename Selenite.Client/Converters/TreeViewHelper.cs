@@ -10,7 +10,7 @@ namespace Selenite.Client.Converters
     /// <remarks>
     /// http://stackoverflow.com/questions/1000040/selecteditem-in-a-wpf-treeview
     /// </remarks>
-    public class TreeViewHelper
+    public class TreeViewHelper : DependencyObject
     {
         private static readonly Dictionary<DependencyObject, TreeViewSelectedItemBehavior> Behaviors =
             new Dictionary<DependencyObject, TreeViewSelectedItemBehavior>();
@@ -27,9 +27,10 @@ namespace Selenite.Client.Converters
 
         // Using a DependencyProperty as the backing store for SelectedItem.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.RegisterAttached("SelectedItem", typeof(object), typeof(TreeViewHelper), new UIPropertyMetadata(null, SelectedItemChanged));
+            DependencyProperty.RegisterAttached("SelectedItem", typeof (object), typeof (TreeViewHelper),
+                                                new UIPropertyMetadata(null, OnSelectedItemChanged));
 
-        private static void SelectedItemChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+        private static void OnSelectedItemChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
             if (!(obj is TreeView))
                 return;
@@ -43,7 +44,7 @@ namespace Selenite.Client.Converters
 
         private class TreeViewSelectedItemBehavior
         {
-            readonly TreeView _view;
+            private readonly TreeView _view;
             public TreeViewSelectedItemBehavior(TreeView view)
             {
                 _view = view;
@@ -53,7 +54,9 @@ namespace Selenite.Client.Converters
             internal void ChangeSelectedItem(object p)
             {
                 var item = (TreeViewItem)_view.ItemContainerGenerator.ContainerFromItem(p);
-                item.IsSelected = true;
+
+                if (item != null)
+                    item.IsSelected = true;
             }
         }
     }

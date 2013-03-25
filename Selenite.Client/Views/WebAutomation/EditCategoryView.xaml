@@ -6,6 +6,71 @@
              xmlns:vm="clr-namespace:Selenite.Client.ViewModels.WebAutomation"
              xmlns:converters="clr-namespace:Selenite.Client.Converters"
              mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <DataTemplate DataType="{x:Type vm:TestCollectionViewModel}">
+                <GroupBox Header="{Binding Name}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                   Text="Default Domain"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,3,0"/>
+                        <TextBox Grid.Row="0" Grid.Column="1"
+                                 Text="{Binding Domain, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        
+                        <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                  Header="Add New Test">
+                            <TextBox/>
+                        </GroupBox>
+                    </Grid>
+                </GroupBox>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type vm:TestViewModel}">
+                <GroupBox Header="{Binding Name}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                   Text="Name"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,3,0"/>
+                        <TextBox Grid.Row="0" Grid.Column="1"
+                                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        
+                        <TextBlock Grid.Row="1" Grid.Column="0"
+                                   Text="URL"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,3,0"/>
+                        <TextBox Grid.Row="1" Grid.Column="1"
+                                 Text="{Binding Url, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                  Header="Add New Command">
+                            <TextBox/>
+                        </GroupBox>
+                    </Grid>
+                </GroupBox>
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -20,8 +85,8 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             
-            <TreeView ItemsSource="{Binding TestCollections}"
-                      converters:TreeViewHelper.SelectedItem="{Binding SelectedItem}">
+            <TreeView x:Name="Tree" ItemsSource="{Binding TestCollections}"
+                      converters:TreeViewHelper.SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type vm:TestCollectionViewModel}"
                                               ItemsSource="{Binding Children}">
@@ -55,6 +120,9 @@
                         <Button Content="Add"/>
                     </WrapPanel>
                 </GroupBox>
+                
+                <ContentPresenter Grid.Row="1"
+                                  Content="{Binding SelectedItem}"/>
             </Grid>
         </Grid>
 
