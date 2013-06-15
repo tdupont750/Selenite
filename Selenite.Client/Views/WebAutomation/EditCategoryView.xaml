@@ -69,6 +69,12 @@
                     </Grid>
                 </GroupBox>
             </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type vm:CommandViewModel}">
+                <GroupBox Header="{Binding Name}">
+                    
+                </GroupBox>
+            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>

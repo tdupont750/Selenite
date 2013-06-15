@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace Selenite.Client.ViewModels.WebAutomation
+﻿namespace Selenite.Client.ViewModels.WebAutomation
 {
     public class TestViewModel : TreeViewModelBase<CommandViewModel>
     {
