@@ -107,8 +107,18 @@ namespace Selenite.Client.ViewModels.WebAutomation
                             {
                                 Name = command.Name,
                                 Command = command,
-                                Properties = _commandService.GetCommandValues(command)
                             };
+
+                        var properties = _commandService.GetCommandValues(command);
+
+                        foreach (var item in properties)
+                        {
+                            commandViewModel.Properties.Add(new CommandPropertyViewModel
+                                {
+                                    Name = item.Key,
+                                    Value = item.Value
+                                });
+                        }
 
                         testViewModel.Children.Add(commandViewModel);
                     }
