@@ -98,10 +98,9 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
         public void AssemblyFinished(TestAssembly testAssembly, int total, int failed, int skipped, double time)
         {
-            Application.Current.Dispatcher.BeginInvoke(new DoStatsDelegate(DoStats), total, failed, skipped, time);
+            Application.Current.Dispatcher.BeginInvoke((Action)(() => DoStats(total, failed, skipped, time)));
         }
 
-        private delegate void DoStatsDelegate(int total, int failed, int skipped, double time);
         public void DoStats(int total, int failed, int skipped, double time)
         {
             ResultText += String.Format("{0} of {1} Succeeded, {2} Failed, {3} Skipped", total - failed - skipped, total, failed, skipped);
@@ -122,10 +121,9 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
         public void ExceptionThrown(TestAssembly testAssembly, Exception exception)
         {
-            Application.Current.Dispatcher.BeginInvoke(new DoExceptionThrownDelegate(DoExceptionThrown), testAssembly, exception);
+            Application.Current.Dispatcher.BeginInvoke((Action)(() => DoExceptionThrown(testAssembly, exception)));
         }
 
-        delegate void DoExceptionThrownDelegate(TestAssembly testAssembly, Exception exception);
         public void DoExceptionThrown(TestAssembly testAssembly, Exception exception)
         {
             ResultText += exception + Environment.NewLine + Environment.NewLine;
