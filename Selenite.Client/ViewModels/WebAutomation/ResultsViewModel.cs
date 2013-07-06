@@ -9,7 +9,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
 {
     public class ResultsViewModel : ViewModelBase, ITestMethodRunnerCallback
     {
-        private bool _isRunning = false;
+        private bool _isRunning;
 
         public ResultsViewModel()
         {
@@ -87,11 +87,10 @@ namespace Selenite.Client.ViewModels.WebAutomation
             }
             finally
             {
-                Application.Current.Dispatcher.BeginInvoke(new DoDoneDelegate(DoDone));
+                Application.Current.Dispatcher.BeginInvoke((Action)(DoDone));
             }
         }
 
-        delegate void DoDoneDelegate();
         public void DoDone()
         {
             _isRunning = false;
@@ -136,7 +135,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
         public bool TestFinished(TestMethod testMethod)
         {
-            Application.Current.Dispatcher.BeginInvoke(new DoProcessTestDelegate(DoProcessTest), testMethod);
+            Application.Current.Dispatcher.BeginInvoke((Action) (() => DoProcessTest(testMethod)));
             return true;
         }
 
@@ -145,7 +144,6 @@ namespace Selenite.Client.ViewModels.WebAutomation
             return true;
         }
 
-        delegate void DoProcessTestDelegate(TestMethod testMethod);
         private void DoProcessTest(TestMethod testMethod)
         {
             var lastRunResult = testMethod.RunResults.Last();
@@ -160,7 +158,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
         private void TestFailed(TestFailedResult testResult)
         {
-            string result = testResult.DisplayName + " : " + testResult.ExceptionMessage + Environment.NewLine;
+            var result = testResult.DisplayName + " : " + testResult.ExceptionMessage + Environment.NewLine;
 
             if (!string.IsNullOrEmpty(testResult.ExceptionStackTrace))
                 result += "Stack Trace:" + Environment.NewLine + testResult.ExceptionStackTrace + Environment.NewLine;
@@ -192,8 +190,8 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
         private string FormatOutput(string output)
         {
-            string result = "";
-            string trimmedOutput = output.Trim().Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", "\r\n");
+            var result = "";
+            var trimmedOutput = output.Trim().Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", "\r\n");
 
             foreach (string line in trimmedOutput.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
                 result += String.Format("  {0}", line) + Environment.NewLine;
