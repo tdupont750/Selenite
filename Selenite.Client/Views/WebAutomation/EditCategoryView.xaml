@@ -28,7 +28,7 @@
                                  Text="{Binding Domain, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                         <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                                  Header="Add New Test">
+                                  Header="Add New Test" Visibility="Collapsed">
                             <TextBox />
                         </GroupBox>
                     </Grid>
@@ -74,7 +74,7 @@
                                   CommandParameter="{Binding IsEnabled}"/>
 
                         <GroupBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
-                                  Header="Add New Command">
+                                  Header="Add New Command" Visibility="Collapsed">
                             <TextBox />
                         </GroupBox>
                     </Grid>
@@ -129,6 +129,10 @@
             <TreeView x:Name="Tree" ItemsSource="{Binding TestCollections}"
                       converters:TreeViewHelper.SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
                 <TreeView.Resources>
+                    <!--SelectedItem with focus-->
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#CC119EDA"/>
+                    <!--SelectedItem without focus-->
+                    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#CC119EDA" Opacity=".5"/>
                     <HierarchicalDataTemplate DataType="{x:Type vm:TestCollectionViewModel}"
                                               ItemsSource="{Binding Children}">
                         <TextBlock Text="{Binding Name}" />
@@ -155,7 +159,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <GroupBox Header="New Test Collection Name">
+                <GroupBox Header="New Test Collection Name" Visibility="Collapsed">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
