@@ -96,6 +96,11 @@ namespace Selenite.Client.ViewModels.WebAutomation
                             IsEnabled = test.Enabled,
                             Name = test.Name,
                             Url = test.Url,
+                            IsEnabledChangedCommand = new RelayCommand(enabled =>
+                                {
+                                    test.Enabled = (bool)enabled;
+                                    _testCollectionServiceService.SaveTestCollection(testCollection);
+                                })
                         };
 
                     if (test.Commands == null)

@@ -1,4 +1,6 @@
-﻿namespace Selenite.Client.ViewModels.WebAutomation
+﻿using System.Windows.Input;
+
+namespace Selenite.Client.ViewModels.WebAutomation
 {
     public class TestViewModel : TreeViewModelBase<CommandViewModel>
     {
@@ -19,5 +21,7 @@
             get { return Get(() => IsEnabled); }
             set { Set(value, () => IsEnabled); }
         }
+
+        public ICommand IsEnabledChangedCommand { get; set; }
     }
 }

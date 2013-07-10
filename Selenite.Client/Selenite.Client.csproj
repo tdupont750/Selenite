@@ -100,6 +100,7 @@
     <Compile Include="Browsers\Chrome.cs" />
     <Compile Include="Browsers\Firefox.cs" />
     <Compile Include="Browsers\InternetExplorer.cs" />
+    <Compile Include="Converters\EnabledOpacityConverter.cs" />
     <Compile Include="Converters\TreeViewHelper.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="Converters\ViewConverter.cs" />
