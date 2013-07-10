@@ -109,6 +109,7 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\TabbedViewModel.cs" />
     <Compile Include="ViewModels\WebAutomation\CommandPropertyViewModel.cs" />
+    <Compile Include="ViewModels\WebAutomation\TestCollectionSummaryViewModel.cs" />
     <Compile Include="ViewModels\WebAutomation\TestCollectionViewModel.cs" />
     <Compile Include="ViewModels\WebAutomation\CommandViewModel.cs" />
     <Compile Include="ViewModels\WebAutomation\EditTestCollectionViewModel.cs" />

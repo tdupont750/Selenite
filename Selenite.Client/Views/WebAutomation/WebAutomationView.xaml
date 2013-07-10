@@ -51,8 +51,10 @@
                       VerticalAlignment="Stretch">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <CheckBox IsChecked="{Binding Enabled}"
-                                  Content="{Binding File}"
+                        <CheckBox IsChecked="{Binding IsEnabled}"
+                                  Content="{Binding Name}"
+                                  Command="{Binding IsEnabledChangedCommand}"
+                                  CommandParameter="{Binding IsEnabled}"
                                   VerticalAlignment="Center"
                                   VerticalContentAlignment="Center"
                                   HorizontalAlignment="Stretch"

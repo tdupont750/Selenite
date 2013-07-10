@@ -121,7 +121,16 @@ namespace Selenite.Client.ViewModels.WebAutomation
                 if(testCollection == null)
                     continue;
 
-                manifestViewModel.TestCollections.Add(testCollection);
+                manifestViewModel.TestCollections.Add(new TestCollectionSummaryViewModel
+                    {
+                        IsEnabled = testCollection.Enabled,
+                        Name = testCollection.File,
+                        IsEnabledChangedCommand = new RelayCommand(enabled =>
+                            {
+                                testCollection.Enabled = (bool) enabled;
+                                _testCollectionService.SaveTestCollection(testCollection);
+                            })
+                    });
             }
         }
 

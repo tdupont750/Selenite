@@ -7,7 +7,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
     {
         public ManifestViewModel()
         {
-            TestCollections = new ObservableCollection<TestCollection>();
+            TestCollections = new ObservableCollection<TestCollectionSummaryViewModel>();
         }
 
         public string Name
@@ -22,6 +22,6 @@ namespace Selenite.Client.ViewModels.WebAutomation
             set { Set(value, () => DefaultDomain); }
         }
 
-        public ObservableCollection<TestCollection> TestCollections { get; set; }
+        public ObservableCollection<TestCollectionSummaryViewModel> TestCollections { get; set; }
     }
 }
