@@ -5,10 +5,21 @@ using Xunit;
 
 namespace Selenite.Commands.Implementation
 {
+    /// <summary>
+    /// Checks if the number of selected elements is LESS than the specified count.
+    /// </summary>
     public class IsCountLessCommand : MultipleSelectorCommandBase
     {
+
+        /// <summary>
+        /// The integer value to compare to the number of selected elements.
+        /// This parameter is required.
+        /// </summary>
         public int Count { get; set; }
 
+        /// <summary>
+        /// Alters the command to return true if Count is less than or equal to the selected elements.
+        /// </summary>
         public bool OrEqualTo { get; set; }
 
         protected override void Execute(IWebDriver driver, dynamic context, IList<IWebElement> elements)

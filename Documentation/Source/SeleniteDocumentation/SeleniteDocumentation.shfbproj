@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <!-- The configuration and platform will be used to determine which
+         assemblies to include from solution and project documentation
+         sources -->
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>6284db5e-4731-4635-b19b-49eef29fc352</ProjectGuid>
+    <SHFBSchemaVersion>1.9.5.0</SHFBSchemaVersion>
+    <!-- AssemblyName, Name, and RootNamespace are not used by SHFB but Visual
+         Studio adds them anyway -->
+    <AssemblyName>SeleniteDocumentation</AssemblyName>
+    <RootNamespace>SeleniteDocumentation</RootNamespace>
+    <Name>SeleniteDocumentation</Name>
+    <!-- SHFB properties -->
+    <FrameworkVersion>.NET Framework 4.0</FrameworkVersion>
+    <OutputPath>.\Help\</OutputPath>
+    <HtmlHelpName>SeleniteDocumentation</HtmlHelpName>
+    <Language>en-US</Language>
+    <DocumentationSources>
+      <DocumentationSource sourceFile="..\..\..\..\GitHub\Selenite\Selenite\Selenite.csproj" />
+    </DocumentationSources>
+    <SyntaxFilters>CSharp</SyntaxFilters>
+    <SdkLinkTarget>Blank</SdkLinkTarget>
+    <RootNamespaceContainer>False</RootNamespaceContainer>
+    <PresentationStyle>VS2010</PresentationStyle>
+    <Preliminary>False</Preliminary>
+    <NamingMethod>Guid</NamingMethod>
+    <HelpTitle>A Sandcastle Documented Class Library</HelpTitle>
+    <ContentPlacement>AboveNamespaces</ContentPlacement>
+    <VisibleItems>InheritedMembers</VisibleItems>
+    <ApiFilter>
+      <Filter entryType="Namespace" fullName="Selenite.Browsers" isExposed="False" />
+<Filter entryType="Namespace" fullName="Selenite.Commands" isExposed="False" />
+<Filter entryType="Namespace" fullName="Selenite.Commands.Base" isExposed="True">
+  <Filter entryType="Class" fullName="Selenite.Commands.Base.CommandAttribute" filterName="CommandAttribute" isExposed="False" />
+  <Filter entryType="Class" fullName="Selenite.Commands.Base.CommandBase" filterName="CommandBase" isExposed="False" />
+  <Filter entryType="Class" fullName="Selenite.Commands.Base.MultipleSelectorCommandBase" filterName="MultipleSelectorCommandBase" isExposed="False">
+    <Filter entryType="Property" fullName="Selenite.Commands.Base.MultipleSelectorCommandBase.Selector" filterName="Selector" isExposed="True" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Base.SingleSelectorCommandBase" filterName="SingleSelectorCommandBase" isExposed="False">
+    <Filter entryType="Property" fullName="Selenite.Commands.Base.SingleSelectorCommandBase.Selector" filterName="Selector" isExposed="True" />
+  </Filter>
+</Filter>
+<Filter entryType="Namespace" fullName="Selenite.Commands.Implementation" isExposed="True">
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.DoCheckBoxCommand" filterName="DoCheckBoxCommand" isExposed="True">
+    <Filter entryType="Constructor" fullName="Selenite.Commands.Implementation.DoCheckBoxCommand.#ctor" filterName=".ctor" isExposed="False" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.DoClearCommand" filterName="DoClearCommand" isExposed="True">
+    <Filter entryType="Constructor" fullName="Selenite.Commands.Implementation.DoClearCommand.#ctor" filterName=".ctor" isExposed="False" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.DoClickCommand" filterName="DoClickCommand" isExposed="True">
+    <Filter entryType="Constructor" fullName="Selenite.Commands.Implementation.DoClickCommand.#ctor" filterName=".ctor" isExposed="False" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.DoPauseCommand" filterName="DoPauseCommand" isExposed="False">
+    <Filter entryType="Property" fullName="Selenite.Commands.Implementation.DoPauseCommand.Duration" filterName="Duration" isExposed="True" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.DoPressEnterCommand" filterName="DoPressEnterCommand" isExposed="True">
+    <Filter entryType="Constructor" fullName="Selenite.Commands.Implementation.DoPressEnterCommand.#ctor" filterName=".ctor" isExposed="False" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.DoSelectDropdownCommand" filterName="DoSelectDropdownCommand" isExposed="True">
+    <Filter entryType="Constructor" fullName="Selenite.Commands.Implementation.DoSelectDropdownCommand.#ctor" filterName=".ctor" isExposed="False" />
+    <Filter entryType="Method" fullName="Selenite.Commands.Implementation.DoSelectDropdownCommand.Validate" filterName="Validate" isExposed="False" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.DoSendKeyCommand" filterName="DoSendKeyCommand" isExposed="False">
+    <Filter entryType="Property" fullName="Selenite.Commands.Implementation.DoSendKeyCommand.Key" filterName="Key" isExposed="True" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.DoSendKeysCommand" filterName="DoSendKeysCommand" isExposed="False">
+    <Filter entryType="Property" fullName="Selenite.Commands.Implementation.DoSendKeysCommand.Keys" filterName="Keys" isExposed="True" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.DoUncheckBoxCommand" filterName="DoUncheckBoxCommand" isExposed="True">
+    <Filter entryType="Constructor" fullName="Selenite.Commands.Implementation.DoUncheckBoxCommand.#ctor" filterName=".ctor" isExposed="False" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.IsAttributeContainedCommand" filterName="IsAttributeContainedCommand" isExposed="True">
+    <Filter entryType="Constructor" fullName="Selenite.Commands.Implementation.IsAttributeContainedCommand.#ctor" filterName=".ctor" isExposed="False" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.IsAttributeEqualCommand" filterName="IsAttributeEqualCommand" isExposed="True">
+    <Filter entryType="Constructor" fullName="Selenite.Commands.Implementation.IsAttributeEqualCommand.#ctor" filterName=".ctor" isExposed="False" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.IsCheckedCommand" filterName="IsCheckedCommand" isExposed="False">
+    <Filter entryType="Property" fullName="Selenite.Commands.Implementation.IsCheckedCommand.IsFalseExpected" filterName="IsFalseExpected" isExposed="True" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.IsClassCommand" filterName="IsClassCommand" isExposed="True">
+    <Filter entryType="Constructor" fullName="Selenite.Commands.Implementation.IsClassCommand.#ctor" filterName=".ctor" isExposed="False" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.IsCountEqualCommand" filterName="IsCountEqualCommand" isExposed="True">
+    <Filter entryType="Constructor" fullName="Selenite.Commands.Implementation.IsCountEqualCommand.#ctor" filterName=".ctor" isExposed="False" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.IsCountGreaterCommand" filterName="IsCountGreaterCommand" isExposed="True">
+    <Filter entryType="Constructor" fullName="Selenite.Commands.Implementation.IsCountGreaterCommand.#ctor" filterName=".ctor" isExposed="False" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.IsCountLessCommand" filterName="IsCountLessCommand" isExposed="True">
+    <Filter entryType="Constructor" fullName="Selenite.Commands.Implementation.IsCountLessCommand.#ctor" filterName=".ctor" isExposed="False" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.IsDropdownSelectedCommand" filterName="IsDropdownSelectedCommand" isExposed="True">
+    <Filter entryType="Constructor" fullName="Selenite.Commands.Implementation.IsDropdownSelectedCommand.#ctor" filterName=".ctor" isExposed="False" />
+    <Filter entryType="Method" fullName="Selenite.Commands.Implementation.IsDropdownSelectedCommand.Validate" filterName="Validate" isExposed="False" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.IsEnabledCommand" filterName="IsEnabledCommand" isExposed="False">
+    <Filter entryType="Property" fullName="Selenite.Commands.Implementation.IsEnabledCommand.IsFalseExpected" filterName="IsFalseExpected" isExposed="True" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.IsSelectedCommand" filterName="IsSelectedCommand" isExposed="False">
+    <Filter entryType="Property" fullName="Selenite.Commands.Implementation.IsSelectedCommand.IsFalseExpected" filterName="IsFalseExpected" isExposed="True" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.IsTextContainedCommand" filterName="IsTextContainedCommand" isExposed="True">
+    <Filter entryType="Constructor" fullName="Selenite.Commands.Implementation.IsTextContainedCommand.#ctor" filterName=".ctor" isExposed="False" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.IsTextEqualCommand" filterName="IsTextEqualCommand" isExposed="True">
+    <Filter entryType="Constructor" fullName="Selenite.Commands.Implementation.IsTextEqualCommand.#ctor" filterName=".ctor" isExposed="False" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.IsTitleContainedCommand" filterName="IsTitleContainedCommand" isExposed="True">
+    <Filter entryType="Constructor" fullName="Selenite.Commands.Implementation.IsTitleContainedCommand.#ctor" filterName=".ctor" isExposed="False" />
+    <Filter entryType="Method" fullName="Selenite.Commands.Implementation.IsTitleContainedCommand.Execute" filterName="Execute" isExposed="False" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.IsTitleEqualCommand" filterName="IsTitleEqualCommand" isExposed="True">
+    <Filter entryType="Constructor" fullName="Selenite.Commands.Implementation.IsTitleEqualCommand.#ctor" filterName=".ctor" isExposed="False" />
+    <Filter entryType="Method" fullName="Selenite.Commands.Implementation.IsTitleEqualCommand.Execute" filterName="Execute" isExposed="False" />
+  </Filter>
+  <Filter entryType="Class" fullName="Selenite.Commands.Implementation.IsVisibleCommand" filterName="IsVisibleCommand" isExposed="False">
+    <Filter entryType="Property" fullName="Selenite.Commands.Implementation.IsVisibleCommand.IsFalseExpected" filterName="IsFalseExpected" isExposed="True" />
+  </Filter>
+</Filter>
+<Filter entryType="Namespace" fullName="Selenite.Enums" isExposed="False" />
+<Filter entryType="Namespace" fullName="Selenite.Extensions" isExposed="False" />
+<Filter entryType="Namespace" fullName="Selenite.Global" isExposed="False" />
+<Filter entryType="Namespace" fullName="Selenite.Models" isExposed="False" />
+<Filter entryType="Namespace" fullName="Selenite.Services" isExposed="False" />
+<Filter entryType="Namespace" fullName="Selenite.Services.Implementation" isExposed="False" /></ApiFilter>
+    <WebsiteSdkLinkType>Msdn</WebsiteSdkLinkType>
+    <HtmlSdkLinkType>None</HtmlSdkLinkType>
+    <IncludeFavorites>False</IncludeFavorites>
+    <BinaryTOC>True</BinaryTOC>
+    <NamespaceSummaries>
+      <NamespaceSummaryItem name="Selenite.Commands.Base" isDocumented="True" xmlns="">All Commands are split into 2 types.  Single Selector (one element) and Multiple Selector (all matching elements).</NamespaceSummaryItem>
+<NamespaceSummaryItem name="Selenite.Commands.Implementation" isDocumented="True" xmlns="">These are all of the commands available in Selenite.  They are broken down in 2 categories.  "Is" commands return true or false, based on the selected element and the provided criteria.  "Do" commands perform an action, and are typically used to setup the page before performing an "Is" command.</NamespaceSummaryItem></NamespaceSummaries>
+    <MissingTags>Summary, Parameter, Returns, AutoDocumentCtors, Namespace, TypeParameter, AutoDocumentDispose</MissingTags>
+  </PropertyGroup>
+  <!-- There are no properties for these groups.  AnyCPU needs to appear in
+       order for Visual Studio to perform the build.  The others are optional
+       common platform types that may appear. -->
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Win32' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Win32' ">
+  </PropertyGroup>
+  <!-- Import the SHFB build targets -->
+  <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" />
+</Project>
