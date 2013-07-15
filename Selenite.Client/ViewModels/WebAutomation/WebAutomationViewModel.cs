@@ -27,8 +27,6 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
             LoadInformation();
 
-            SelectedManifest = Manifests.FirstOrDefault();
-
             EditCategoriesCommand = new RelayCommand(EditTestCollections, t => EditTestCollectionViewModel == null);
         }
 
@@ -52,7 +50,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
             set
             {
                 Set(value, () => SelectedManifest);
-
+                _manifestService.SetActiveManifest(SelectedManifest.Name);
                 LoadManifest(value);
             }
         }
@@ -76,6 +74,9 @@ namespace Selenite.Client.ViewModels.WebAutomation
                             Name = manifest
                         });
                 }
+
+                var selectedManifestName = _manifestService.GetActiveManifestName();
+                SelectedManifest = Manifests.FirstOrDefault(m => m.Name == selectedManifestName);
             }
             catch(Exception e)
             {

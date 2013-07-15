@@ -45,6 +45,12 @@ namespace Selenite.Services.Implementation
             return _manifestCollection.Value.ActiveManifest;
         }
 
+        public void SetActiveManifest(string manifestName)
+        {
+            _manifestCollection.Value.ActiveManifest = manifestName;
+            SaveManifestCollection();
+        }
+
         public Manifest GetManifest(string manifestName)
         {
             return _manifestCollection.Value.Manifests.FirstOrDefault(m => m.Name == manifestName);
@@ -62,6 +68,11 @@ namespace Selenite.Services.Implementation
                 _manifestCollection.Value.Manifests[i] = manifest;
             }
 
+            SaveManifestCollection();
+        }
+
+        public void SaveManifestCollection()
+        {
             var manifestsJson = JsonConvert.SerializeObject(_manifestCollection.Value);
             _fileService.WriteAllText(ManifestPath, manifestsJson);
         }
