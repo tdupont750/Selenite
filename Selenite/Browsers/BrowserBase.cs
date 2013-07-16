@@ -70,7 +70,9 @@ namespace Selenite.Browsers
                 var testCollections = TestCollectionService.GetTestCollections(manifest);
 
                 return testCollections
+                    .Where(t => t.Enabled)
                     .SelectMany(c => c.Tests)
+                    .Where(t => t.Enabled)
                     .Select(t => new object[] { t });
             }
         }
