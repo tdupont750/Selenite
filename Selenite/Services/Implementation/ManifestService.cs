@@ -85,7 +85,7 @@ namespace Selenite.Services.Implementation
 
         public void SaveManifestCollection()
         {
-            var manifestsJson = JsonConvert.SerializeObject(_manifestCollection.Value);
+            var manifestsJson = JsonConvert.SerializeObject(_manifestCollection.Value, Formatting.Indented);
             _fileService.WriteAllText(ManifestPath, manifestsJson);
         }
     }
