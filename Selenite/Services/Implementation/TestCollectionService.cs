@@ -36,7 +36,7 @@ namespace Selenite.Services.Implementation
             return files;
         }
 
-        public TestCollection GetTestCollection(string testCollectionFile)
+        public TestCollection GetTestCollection(string testCollectionFile, string overrideDomain = null)
         {
             var pathRoot = Path.GetFullPath(_configurationService.TestScriptsPath);
             var path = Path.Combine(pathRoot, testCollectionFile);
@@ -44,7 +44,7 @@ namespace Selenite.Services.Implementation
             var testCollectionJson = _fileService.ReadAllText(path);
             var testCollection = JObject.Parse(testCollectionJson);
 
-            return CreateTestCollection(testCollectionFile, testCollection);
+            return CreateTestCollection(testCollectionFile, testCollection, overrideDomain);
         }
 
         public void SaveTestCollection(TestCollection testCollection)
@@ -59,30 +59,31 @@ namespace Selenite.Services.Implementation
         public IList<TestCollection> GetTestCollections(Manifest manifest)
         {
             var testCollections = manifest.Files
-                .Select(GetTestCollection)
+                .Select(file => GetTestCollection(file, manifest.OverrideDomain))
                 .ToList();
-
-            if (!String.IsNullOrWhiteSpace(manifest.OverrideDomain))
-                foreach (var testCollection in testCollections)
-                    testCollection.DefaultDomain = manifest.OverrideDomain;
 
             return testCollections;
         }
 
-        private TestCollection CreateTestCollection(string name, dynamic testCollection)
+        private TestCollection CreateTestCollection(string name, dynamic testCollection, string overrideDomain)
         {
+            var collection = new TestCollection
+                {
+                    DefaultDomain = string.IsNullOrWhiteSpace(overrideDomain)
+                        ? testCollection.DefaultDomain
+                        : overrideDomain,
+                    Enabled = testCollection.Enabled ?? true,
+                    File = name,
+                };
+
             var tests = new List<Test>();
 
             foreach (var test in testCollection.Tests)
-                tests.Add(CreateTest(test, testCollection.DefaultDomain.ToString(), name));
+                tests.Add(CreateTest(test, collection.DefaultDomain, name));
 
-            return new TestCollection
-            {
-                DefaultDomain = testCollection.DefaultDomain,
-                Enabled = testCollection.Enabled ?? true,
-                File = name,
-                Tests = tests
-            };
+            collection.Tests = tests;
+
+            return collection;
         }
 
         private Test CreateTest(dynamic test, string domain, string testCollectionName)
@@ -101,7 +102,7 @@ namespace Selenite.Services.Implementation
                 Enabled = test.Enabled ?? true,
                 Name = test.Name,
                 Url = url,
-                DomainUrl = new Uri(new Uri(domain), url).ToString()
+                TestUrl = new Uri(new Uri(domain + "/"), url).ToString() // Add a slash to the end of the URL in case it isn't there; URI's ignore multiple slashies.
             };
         }
     }

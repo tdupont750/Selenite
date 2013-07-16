@@ -17,7 +17,7 @@ namespace Selenite.Models
         public IList<ICommand> Commands { get; set; }
 
         [JsonIgnore]
-        public string DomainUrl { get; set; }
+        public string TestUrl { get; set; }
 
         public override string ToString()
         {

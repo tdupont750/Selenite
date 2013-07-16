@@ -15,15 +15,15 @@ namespace Selenite.Services.Implementation
         {
             Trace.WriteLine("Collection: " + test.CollectionName);
             Trace.WriteLine("Name: " + test.Name);
-            Trace.WriteLine("Url: " + test.DomainUrl);
+            Trace.WriteLine("Url: " + test.TestUrl);
 
             try
             {
-                browser.Driver.Url = test.DomainUrl;
+                browser.Driver.Url = test.TestUrl;
 
                 // Hack, sometimes the set does not work?
                 if (browser.Driver.Url == AboutBlank)
-                    browser.Driver.Url = test.DomainUrl;
+                    browser.Driver.Url = test.TestUrl;
 
                 dynamic context = new ExpandoObject();
                 context.DriverType = browser.DriverType;

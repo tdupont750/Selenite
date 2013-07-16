@@ -67,7 +67,7 @@ namespace Selenite.Tests.Services
             var test = testCollection.Tests.First();
             Assert.Equal(1, test.Commands.Count);
             Assert.Equal(String.Empty, test.Url);
-            Assert.Equal("http://google.com/", test.DomainUrl);
+            Assert.Equal("http://google.com/", test.TestUrl);
 
             var command = (IsTitleEqualCommand) test.Commands.First();
             Assert.Equal("IsTitleEqual", command.Name);
