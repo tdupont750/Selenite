@@ -51,6 +51,18 @@ namespace Selenite.Services.Implementation
             SaveManifestCollection();
         }
 
+        public void SetActiveManifestDomain(string domainOverride)
+        {
+            var manifest = _manifestCollection.Value.Manifests
+                .FirstOrDefault(m => m.Name == _manifestCollection.Value.ActiveManifest);
+
+            if (manifest == null) return;
+
+            manifest.OverrideDomain = domainOverride;
+
+            SaveManifest(manifest);
+        }
+
         public Manifest GetManifest(string manifestName)
         {
             return _manifestCollection.Value.Manifests.FirstOrDefault(m => m.Name == manifestName);

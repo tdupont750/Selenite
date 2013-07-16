@@ -67,11 +67,15 @@ namespace Selenite.Client.ViewModels.WebAutomation
             {
                 var manifests = _manifestService.GetManifestNames();
 
-                foreach (var manifest in manifests)
+                foreach (var manifestName in manifests)
                 {
+                    var manifest = _manifestService.GetManifest(manifestName);
+
                     Manifests.Add(new ManifestViewModel
                         {
-                            Name = manifest
+                            Name = manifestName,
+                            DomainOverride = manifest.OverrideDomain,
+                            DomainOverrideChangedCommand = new RelayCommand(param => _manifestService.SetActiveManifestDomain(param.ToString()))
                         });
                 }
 
@@ -103,7 +107,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
                 return;
 
             manifestViewModel.TestCollections.Clear();
-            SelectedManifest.DefaultDomain = manifest.OverrideDomain;
+            SelectedManifest.DomainOverride = manifest.OverrideDomain;
 
             foreach (var testCollectionFile in manifest.Files)
             {

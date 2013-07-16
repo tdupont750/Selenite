@@ -41,8 +41,7 @@
             <TextBlock Grid.Row="2"
                        Margin="0,5,0,0"
                        Text="Domain"/>
-            <TextBox Grid.Row="3"
-                     Text="{Binding SelectedManifest.DefaultDomain}"/>
+            <TextBox Grid.Row="3" Text="{Binding SelectedManifest.DomainOverride}" />
 
             <TextBlock Grid.Row="4"
                        Margin="0,5,0,0"

@@ -10,5 +10,6 @@ namespace Selenite.Services
         Manifest GetManifest(string manifestName);
         void SaveManifest(Manifest manifest);
         void SetActiveManifest(string manifestName);
+        void SetActiveManifestDomain(string domainOverride);
     }
 }

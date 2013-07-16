@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using Selenite.Models;
+using System.Windows.Input;
 
 namespace Selenite.Client.ViewModels.WebAutomation
 {
@@ -16,11 +16,20 @@ namespace Selenite.Client.ViewModels.WebAutomation
             set { Set(value, () => Name); }
         }
 
-        public string DefaultDomain
+        public string DomainOverride
         {
-            get { return Get(() => DefaultDomain); }
-            set { Set(value, () => DefaultDomain); }
+            get { return Get(() => DomainOverride); }
+            set
+            {
+                Set(value, () => DomainOverride);
+                if (DomainOverrideChangedCommand != null)
+                {
+                    DomainOverrideChangedCommand.Execute(value);
+                }
+            }
         }
+
+        public ICommand DomainOverrideChangedCommand { get; set; }
 
         public ObservableCollection<TestCollectionSummaryViewModel> TestCollections { get; set; }
     }
