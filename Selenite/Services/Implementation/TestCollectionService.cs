@@ -27,7 +27,7 @@ namespace Selenite.Services.Implementation
             var pathRoot = Path.GetFullPath(_configurationService.TestScriptsPath);
 
             var files = _fileService
-                .GetFiles(pathRoot, "*.json")
+                .GetFiles(pathRoot, "*.json") // CCHINN: This shouldn't just look at the path of the manifest file, it should find all the files referenced by manifests.
                 .ToList();
 
             var manifestFile = files.FirstOrDefault(f => f.EndsWith(_configurationService.ManifestFileName, StringComparison.InvariantCultureIgnoreCase));

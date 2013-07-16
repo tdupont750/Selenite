@@ -8,6 +8,7 @@
              mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
+            <converters:FileNameOnlyConverter x:Key="FileNameOnlyConverter" />
             <Style TargetType="{x:Type TextBox}">
                 <Setter Property="IsReadOnly" Value="True" />
                 <Style.Triggers>
@@ -143,7 +144,13 @@
                     <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#CC119EDA" Opacity=".5"/>
                     <HierarchicalDataTemplate DataType="{x:Type vm:TestCollectionViewModel}"
                                               ItemsSource="{Binding Children}">
-                        <TextBlock Text="{Binding Name}" />
+                        <TextBlock Text="{Binding Name, Converter={StaticResource FileNameOnlyConverter}}">
+                            <TextBlock.ToolTip>
+                                <Border>
+                                    <TextBlock Text="{Binding Name}" Foreground="Black"/>
+                                </Border>
+                            </TextBlock.ToolTip>
+                        </TextBlock>
                     </HierarchicalDataTemplate>
                     <HierarchicalDataTemplate DataType="{x:Type vm:TestViewModel}"
                                               ItemsSource="{Binding Children}">

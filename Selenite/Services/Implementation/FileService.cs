@@ -7,7 +7,7 @@ namespace Selenite.Services.Implementation
     {
         public IList<string> GetFiles(string path, string searchPattern)
         {
-            return Directory.GetFiles(path, searchPattern);
+            return Directory.GetFiles(path, searchPattern, SearchOption.AllDirectories);
         }
 
         public string ReadAllText(string path)
