@@ -14,6 +14,11 @@ namespace Selenite.Client.ViewModels.WebAutomation
     public class ResultsViewModel : ViewModelBase, ITestMethodRunnerCallback
     {
         public ObservableCollection<TestResultCollectionViewModel> TestResults { get; set; }
+        public TestResultViewModel SelectedTestResult
+        {
+            get { return Get(() => SelectedTestResult); }
+            set { Set(value, () => SelectedTestResult); }
+        }
 
         public int SucceededTests
         {
@@ -77,6 +82,11 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
         private void RunTests(object parameter)
         {
+            TimeElapsed = 0;
+            SucceededTests = 0;
+            SkippedTests = 0;
+            FailedTests = 0;
+
             _isRunning = true;
             TestResults.Clear();
             Task.Factory.StartNew(DoRunTests);
@@ -190,6 +200,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
                 {
                     Status = result.Status,
                     Name = result.TestName,
+                    Url = result.Url,
                     ResultOutput = result.TraceResult,
                     StackTrace = testResult.ExceptionStackTrace
                 };
@@ -224,6 +235,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
                 {
                     Status = result.Status,
                     Name = result.TestName,
+                    Url = result.Url,
                     ResultOutput = result.TraceResult,
                 };
 
@@ -240,6 +252,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
             //{
             //    Status = result.Status,
             //    Name = result.Test.Name,
+            //        Url = result.Url,
             //    ResultOutput = testResult.Reason,
             //};
 

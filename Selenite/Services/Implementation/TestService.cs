@@ -18,7 +18,8 @@ namespace Selenite.Services.Implementation
             var testResult = new TestResult
                 {
                     TestName = test.Name,
-                    CollectionName = test.CollectionName
+                    CollectionName = test.CollectionName,
+                    Url = test.TestUrl
                 };
 
             var traceResult = new StringBuilder();

@@ -10,6 +10,7 @@
         <ResourceDictionary>
             <converters:DoubleToVisibilityConverter x:Key="DoubleToVisibilityConverter" />
             <converters:StatusToColorConverter x:Key="StatusToColorConverter" />
+            <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
             <HierarchicalDataTemplate ItemsSource="{Binding TestResults}" DataType="{x:Type selenite:TestResultCollectionViewModel}">
                 <Label Content="{Binding Name}"/>
             </HierarchicalDataTemplate>
@@ -21,6 +22,35 @@
             </DataTemplate>
             <Style TargetType="{x:Type TreeViewItem}">
                 <Setter Property="IsExpanded" Value="True" />
+            </Style>
+            <Style TargetType="{x:Type TextBlock}" x:Key="DetailsLabel">
+                <Setter Property="Margin" Value="5,0,10,0" />
+                <Setter Property="Foreground" Value="White" />
+            </Style>
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Background" Value="Transparent" />
+            </Style>
+            <Style x:Key="LinkButton" TargetType="Button">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Foreground" Value="Blue"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <TextBlock TextDecorations="Underline" 
+                    Text="{TemplateBinding Content}"
+                    Background="{TemplateBinding Background}"/>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -45,14 +75,55 @@
             </TextBlock.Text>
         </TextBlock>
 
-        <TreeView Grid.Row="2" ItemsSource="{Binding TestResults}">
-            <TreeView.Resources>
-                <!--SelectedItem with focus-->
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#CC119EDA"/>
-                <!--SelectedItem without focus-->
-                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#CC119EDA" Opacity=".5"/>
-            </TreeView.Resources>
-        </TreeView>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TreeView Grid.Column="0" ItemsSource="{Binding TestResults}" SelectedItemChanged="TreeView_SelectedItemChanged">
+                <TreeView.Resources>
+                    <!--SelectedItem with focus-->
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#CC119EDA"/>
+                    <!--SelectedItem without focus-->
+                    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#CC119EDA" Opacity=".5"/>
+                </TreeView.Resources>
+            </TreeView>
+
+            <GridSplitter Grid.Column="1" Width="3" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns" />
+
+            <Grid Grid.Column="2" DataContext="{Binding SelectedTestResult}" Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}}" Margin="5,0,5,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Name:" Style="{StaticResource DetailsLabel}" />
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name}" IsReadOnly="True" />
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Url:" Style="{StaticResource DetailsLabel}" />
+                <Button Grid.Row="1" Grid.Column="1" Content="{Binding Url}" Style="{StaticResource LinkButton}"
+                        Command="{Binding NavigateUrlCommand}" CommandParameter="{Binding Url}" Margin="3,0,0,0" HorizontalAlignment="Left"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Output:" Style="{StaticResource DetailsLabel}" />
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ResultOutput}" IsReadOnly="True" />
+
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Stack Trace:" Style="{StaticResource DetailsLabel}"
+                           Visibility="{Binding StackTrace, Converter={StaticResource NullToVisibilityConverter}}"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding StackTrace}" IsReadOnly="True"
+                         Visibility="{Binding StackTrace, Converter={StaticResource NullToVisibilityConverter}}" />
+
+            </Grid>
+        </Grid>
+
         <Grid Grid.Row="3"
               Margin="0,5,0,0">
             <Grid.ColumnDefinitions>
