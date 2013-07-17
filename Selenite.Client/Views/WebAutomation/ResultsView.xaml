@@ -46,7 +46,12 @@
         </TextBlock>
 
         <TreeView Grid.Row="2" ItemsSource="{Binding TestResults}">
-            
+            <TreeView.Resources>
+                <!--SelectedItem with focus-->
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#CC119EDA"/>
+                <!--SelectedItem without focus-->
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#CC119EDA" Opacity=".5"/>
+            </TreeView.Resources>
         </TreeView>
         <Grid Grid.Row="3"
               Margin="0,5,0,0">
