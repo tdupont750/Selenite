@@ -93,35 +93,37 @@
 
             <GridSplitter Grid.Column="1" Width="3" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns" />
 
-            <Grid Grid.Column="2" DataContext="{Binding SelectedTestResult}" Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}}" Margin="5,0,5,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+            <ScrollViewer Grid.Column="2" Margin="5,0,5,0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                          DataContext="{Binding SelectedTestResult}" Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="Name:" Style="{StaticResource DetailsLabel}" />
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name}" IsReadOnly="True" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Name:" Style="{StaticResource DetailsLabel}" />
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name}" IsReadOnly="True" />
 
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="Url:" Style="{StaticResource DetailsLabel}" />
-                <Button Grid.Row="1" Grid.Column="1" Content="{Binding Url}" Style="{StaticResource LinkButton}"
-                        Command="{Binding NavigateUrlCommand}" CommandParameter="{Binding Url}" Margin="3,0,0,0" HorizontalAlignment="Left"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Url:" Style="{StaticResource DetailsLabel}" />
+                    <Button Grid.Row="1" Grid.Column="1" Content="{Binding Url}" Style="{StaticResource LinkButton}"
+                            Command="{Binding NavigateUrlCommand}" CommandParameter="{Binding Url}" Margin="3,0,0,0" HorizontalAlignment="Left"/>
 
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="Output:" Style="{StaticResource DetailsLabel}" />
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ResultOutput}" IsReadOnly="True" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Output:" Style="{StaticResource DetailsLabel}" />
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ResultOutput}" IsReadOnly="True" />
 
-                <TextBlock Grid.Row="3" Grid.Column="0" Text="Stack Trace:" Style="{StaticResource DetailsLabel}"
-                           Visibility="{Binding StackTrace, Converter={StaticResource NullToVisibilityConverter}}"/>
-                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding StackTrace}" IsReadOnly="True"
-                         Visibility="{Binding StackTrace, Converter={StaticResource NullToVisibilityConverter}}" />
-
-            </Grid>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Stack Trace:" Style="{StaticResource DetailsLabel}"
+                               Visibility="{Binding StackTrace, Converter={StaticResource NullToVisibilityConverter}}"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding StackTrace}" IsReadOnly="True"
+                             Visibility="{Binding StackTrace, Converter={StaticResource NullToVisibilityConverter}}" />
+                </Grid>
+            </ScrollViewer>
         </Grid>
 
         <Grid Grid.Row="3"
