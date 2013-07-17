@@ -1,7 +1,9 @@
 using System;
 using System.Diagnostics;
 using System.Dynamic;
+using System.Text;
 using System.Threading;
+using Newtonsoft.Json;
 using Selenite.Browsers;
 using Selenite.Models;
 
@@ -13,9 +15,15 @@ namespace Selenite.Services.Implementation
 
         public void ExecuteTest(BrowserBase browser, Test test)
         {
-            Trace.WriteLine("Collection: " + test.CollectionName);
-            Trace.WriteLine("Name: " + test.Name);
-            Trace.WriteLine("Url: " + test.TestUrl);
+            var testResult = new TestResult
+                {
+                    Test = test,
+                };
+
+            var traceResult = new StringBuilder();
+            traceResult.AppendLine("Collection: " + test.CollectionName);
+            traceResult.AppendLine("Name: " + test.Name);
+            traceResult.AppendLine("Url: " + test.TestUrl);
 
             try
             {
@@ -43,18 +51,25 @@ namespace Selenite.Services.Implementation
                     }
                 }
 
-                Trace.WriteLine("Success");
+                testResult.Passed = true;
+                traceResult.AppendLine("Success");
             }
             catch
             {
-                Trace.WriteLine(String.Empty);
-                Trace.WriteLine("***** FAILURE *****");
+                testResult.Passed = false;
+                traceResult.AppendLine(String.Empty);
+                traceResult.AppendLine("***** FAILURE *****");
                 throw;
             }
             finally
             {
-                Trace.WriteLine(String.Empty);
-                Trace.WriteLine("------------------------------------------------------------------------");
+                traceResult.AppendLine(String.Empty);
+                traceResult.AppendLine("------------------------------------------------------------------------");
+
+                testResult.TraceResult = traceResult.ToString();
+
+                var testResultJson = JsonConvert.SerializeObject(testResult);
+                Trace.WriteLine(testResultJson);
             }
         }
     }
