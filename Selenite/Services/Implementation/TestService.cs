@@ -17,7 +17,8 @@ namespace Selenite.Services.Implementation
         {
             var testResult = new TestResult
                 {
-                    Test = test,
+                    TestName = test.Name,
+                    CollectionName = test.CollectionName
                 };
 
             var traceResult = new StringBuilder();
@@ -51,12 +52,12 @@ namespace Selenite.Services.Implementation
                     }
                 }
 
-                testResult.Passed = true;
+                testResult.Status = ResultStatus.Passed;
                 traceResult.AppendLine("Success");
             }
             catch
             {
-                testResult.Passed = false;
+                testResult.Status = ResultStatus.Failed;
                 traceResult.AppendLine(String.Empty);
                 traceResult.AppendLine("***** FAILURE *****");
                 throw;

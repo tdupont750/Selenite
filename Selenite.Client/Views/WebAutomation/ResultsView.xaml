@@ -3,23 +3,52 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:Selenite.Client.Converters"
+             xmlns:selenite="clr-namespace:Selenite.Client.ViewModels.WebAutomation"
              mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converters:DoubleToVisibilityConverter x:Key="DoubleToVisibilityConverter" />
+            <converters:StatusToColorConverter x:Key="StatusToColorConverter" />
+            <HierarchicalDataTemplate ItemsSource="{Binding TestResults}" DataType="{x:Type selenite:TestResultCollectionViewModel}">
+                <Label Content="{Binding Name}"/>
+            </HierarchicalDataTemplate>
+            <DataTemplate DataType="{x:Type selenite:TestResultViewModel}">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="10" Height="10" Fill="{Binding Status, Converter={StaticResource StatusToColorConverter}}" Margin="0,0,5,0" />
+                    <TextBlock Text="{Binding Name}" />
+                </StackPanel>
+            </DataTemplate>
+            <Style TargetType="{x:Type TreeViewItem}">
+                <Setter Property="IsExpanded" Value="True" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
-        <TextBlock Text="Output"/>
-        
-        <TextBox Grid.Row="1"
-                 Text="{Binding ResultText}"
-                 IsReadOnly="True"
-                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                 ScrollViewer.VerticalScrollBarVisibility="Auto"/>
 
-        <Grid Grid.Row="2"
+        <TextBlock Grid.Row="0" Text="Results"/>
+
+        <TextBlock Grid.Row="1" DataContext="{Binding}" Visibility="{Binding TimeElapsed, Converter={StaticResource DoubleToVisibilityConverter}}">
+            <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0} passed, {1} failed, {2} skipped ({3}s elapsed)">
+                    <Binding Path="SucceededTests" />
+                    <Binding Path="FailedTests" />
+                    <Binding Path="SkippedTests" />
+                    <Binding Path="TimeElapsed" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+
+        <TreeView Grid.Row="2" ItemsSource="{Binding TestResults}">
+            
+        </TreeView>
+        <Grid Grid.Row="3"
               Margin="0,5,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />

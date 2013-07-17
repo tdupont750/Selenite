@@ -2,8 +2,9 @@
 {
     public class TestResult
     {
-        public bool Passed { get; set; }
-        public Test Test { get; set; }
+        public ResultStatus Status { get; set; }
+        public string CollectionName { get; set; }
+        public string TestName { get; set; }
         public string TraceResult { get; set; }
     }
 }

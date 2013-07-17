@@ -1,19 +1,51 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Newtonsoft.Json;
+using Selenite.Models;
 using Xunit;
 
 namespace Selenite.Client.ViewModels.WebAutomation
 {
     public class ResultsViewModel : ViewModelBase, ITestMethodRunnerCallback
     {
+        public ObservableCollection<TestResultCollectionViewModel> TestResults { get; set; }
+
+        public int SucceededTests
+        {
+            get { return Get(() => SucceededTests); }
+            set { Set(value, () => SucceededTests); }
+        }
+
+        public int FailedTests
+        {
+            get { return Get(() => FailedTests); }
+            set { Set(value, () => FailedTests); }
+        }
+
+        public int SkippedTests
+        {
+            get { return Get(() => SkippedTests); }
+            set { Set(value, () => SkippedTests); }
+        }
+
+        public double TimeElapsed
+        {
+            get { return Get(() => TimeElapsed); }
+            set { Set(value, () => TimeElapsed); }
+        }
+
         private bool _isRunning;
 
         public ResultsViewModel()
         {
             UseFirefox = true;
+
+            TestResults = new ObservableCollection<TestResultCollectionViewModel>();
 
             RunTestsCommand = new RelayCommand(RunTests, t => UseAny && !_isRunning);
         }
@@ -41,18 +73,12 @@ namespace Selenite.Client.ViewModels.WebAutomation
             get { return UseFirefox || UseChrome || UseInternetExplorer; }
         }
 
-        public string ResultText
-        {
-            get { return Get(() => ResultText); }
-            set { Set(value, () => ResultText); }
-        }
-
         public ICommand RunTestsCommand { get; set; }
 
         private void RunTests(object parameter)
         {
             _isRunning = true;
-            ResultText = string.Empty;
+            TestResults.Clear();
             Task.Factory.StartNew(DoRunTests);
         }
 
@@ -98,16 +124,13 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
         public void AssemblyFinished(TestAssembly testAssembly, int total, int failed, int skipped, double time)
         {
-            Application.Current.Dispatcher.BeginInvoke((Action)(() => DoStats(total, failed, skipped, time)));
-        }
-
-        public void DoStats(int total, int failed, int skipped, double time)
-        {
-            ResultText += String.Format("{0} of {1} Succeeded, {2} Failed, {3} Skipped", total - failed - skipped, total, failed, skipped);
-            ResultText += Environment.NewLine;
-            ResultText += String.Format("Ellapsed Time: {0} seconds", time);
-
-            ScrollToBottom();
+            Application.Current.Dispatcher.BeginInvoke((Action)(() =>
+                {
+                    SucceededTests = total - failed - skipped;
+                    FailedTests = failed;
+                    SkippedTests = skipped;
+                    TimeElapsed = time;
+                }));
         }
 
         public void AssemblyStart(TestAssembly testAssembly)
@@ -126,9 +149,15 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
         public void DoExceptionThrown(TestAssembly testAssembly, Exception exception)
         {
-            ResultText += exception + Environment.NewLine + Environment.NewLine;
+            var testResultViewModel = new TestResultViewModel
+                {
+                    Status = ResultStatus.Failed,
+                    Name = "Test Runner Error",
+                    StackTrace = exception.StackTrace,
+                    ResultOutput = exception.Message,
+                };
 
-            ScrollToBottom();
+            AddResult("Test Failure", testResultViewModel);
         }
 
         public bool TestFinished(TestMethod testMethod)
@@ -156,50 +185,67 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
         private void TestFailed(TestFailedResult testResult)
         {
-            var result = testResult.DisplayName + " : " + testResult.ExceptionMessage + Environment.NewLine;
+            var result = JsonConvert.DeserializeObject<Models.TestResult>(testResult.Output);
+            var testResultViewModel = new TestResultViewModel
+                {
+                    Status = result.Status,
+                    Name = result.TestName,
+                    ResultOutput = result.TraceResult,
+                    StackTrace = testResult.ExceptionStackTrace
+                };
 
-            if (!string.IsNullOrEmpty(testResult.ExceptionStackTrace))
-                result += "Stack Trace:" + Environment.NewLine + testResult.ExceptionStackTrace + Environment.NewLine;
+            var collectionName = result.CollectionName;
 
-            if (!string.IsNullOrEmpty(testResult.Output))
-                result += "Output:" + Environment.NewLine + FormatOutput(testResult.Output);
+            AddResult(collectionName, testResultViewModel);
+        }
 
-            ResultText += result + Environment.NewLine;
+        private void AddResult(string collectionName, TestResultViewModel testResultViewModel)
+        {
+            var collection = TestResults.FirstOrDefault(c => c.Name == collectionName);
 
-            ScrollToBottom();
+            if (collection != null)
+            {
+                collection.TestResults.Add(testResultViewModel);
+            }
+            else
+            {
+                TestResults.Add(new TestResultCollectionViewModel
+                    {
+                        Name = collectionName,
+                        TestResults = new ObservableCollection<TestResultViewModel> {testResultViewModel}
+                    });
+            }
         }
 
         private void TestPassed(TestPassedResult testResult)
         {
-            if (string.IsNullOrEmpty(testResult.Output))
-                return;
+            var result = JsonConvert.DeserializeObject<Models.TestResult>(testResult.Output);
+            var testResultViewModel = new TestResultViewModel
+                {
+                    Status = result.Status,
+                    Name = result.TestName,
+                    ResultOutput = result.TraceResult,
+                };
 
-            ResultText += "Output from " + testResult.DisplayName + ":" + Environment.NewLine + FormatOutput(testResult.Output) + Environment.NewLine;
+            var collectionName = result.CollectionName;
 
-             ScrollToBottom();
+            AddResult(collectionName, testResultViewModel);
         }
 
         private void TestSkipped(TestSkippedResult testResult)
         {
-            ResultText += testResult.DisplayName + " : " + testResult.Reason + Environment.NewLine + Environment.NewLine;
+            // CCHINN: Add support for skipped tests.
+            //var result = JsonConvert.DeserializeObject<Models.TestResult>(testResult.Output);
+            //var testResultViewModel = new TestResultViewModel
+            //{
+            //    Status = result.Status,
+            //    Name = result.Test.Name,
+            //    ResultOutput = testResult.Reason,
+            //};
 
-            ScrollToBottom();
-        }
+            //var collectionName = result.Test.CollectionName;
 
-        private string FormatOutput(string output)
-        {
-            var result = "";
-            var trimmedOutput = output.Trim().Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", "\r\n");
-
-            foreach (string line in trimmedOutput.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
-                result += String.Format("  {0}", line) + Environment.NewLine;
-
-            return result;
-        }
-
-        private void ScrollToBottom()
-        {
-            
+            //AddResult(collectionName, testResultViewModel);
         }
     }
 }

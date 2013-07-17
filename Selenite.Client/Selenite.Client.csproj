@@ -59,6 +59,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -100,8 +101,10 @@
     <Compile Include="Browsers\Chrome.cs" />
     <Compile Include="Browsers\Firefox.cs" />
     <Compile Include="Browsers\InternetExplorer.cs" />
+    <Compile Include="Converters\DoubleToVisibilityConverter.cs" />
     <Compile Include="Converters\EnabledOpacityConverter.cs" />
     <Compile Include="Converters\FileNameOnlyConverter.cs" />
+    <Compile Include="Converters\StatusToColorConverter.cs" />
     <Compile Include="Converters\TreeViewHelper.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="Converters\ViewConverter.cs" />
@@ -118,6 +121,8 @@
     <Compile Include="ViewModels\WebAutomation\ManifestViewModel.cs" />
     <Compile Include="ViewModels\WebAutomation\PropertyViewModel.cs" />
     <Compile Include="ViewModels\WebAutomation\ResultsViewModel.cs" />
+    <Compile Include="ViewModels\WebAutomation\TestResultCollectionViewModel.cs" />
+    <Compile Include="ViewModels\WebAutomation\TestResultViewModel.cs" />
     <Compile Include="ViewModels\WebAutomation\TestViewModel.cs" />
     <Compile Include="ViewModels\WebAutomation\WebAutomationViewModel.cs" />
     <Compile Include="Views\Main\MainView.xaml.cs">
