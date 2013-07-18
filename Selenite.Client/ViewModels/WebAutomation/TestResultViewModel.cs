@@ -15,6 +15,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
         public ResultStatus Status { get; set; }
         public string ResultOutput { get; set; }
         public string StackTrace { get; set; }
+        public string Browser { get; set; }
 
         public ICommand NavigateUrlCommand { get; set; }
     }

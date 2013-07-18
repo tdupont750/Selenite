@@ -1,4 +1,6 @@
-﻿namespace Selenite.Models
+﻿using Selenite.Enums;
+
+namespace Selenite.Models
 {
     public class TestResult
     {
@@ -7,5 +9,6 @@
         public string TestName { get; set; }
         public string Url { get; set; }
         public string TraceResult { get; set; }
+        public DriverType DriverType { get; set; }
     }
 }

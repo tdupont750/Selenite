@@ -123,6 +123,7 @@
     <Compile Include="ViewModels\WebAutomation\PropertyViewModel.cs" />
     <Compile Include="ViewModels\WebAutomation\ResultsViewModel.cs" />
     <Compile Include="ViewModels\WebAutomation\TestResultCollectionViewModel.cs" />
+    <Compile Include="ViewModels\WebAutomation\TestResultContainerViewModel.cs" />
     <Compile Include="ViewModels\WebAutomation\TestResultViewModel.cs" />
     <Compile Include="ViewModels\WebAutomation\TestViewModel.cs" />
     <Compile Include="ViewModels\WebAutomation\WebAutomationViewModel.cs" />

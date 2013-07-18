@@ -19,7 +19,8 @@ namespace Selenite.Services.Implementation
                 {
                     TestName = test.Name,
                     CollectionName = test.CollectionName,
-                    Url = test.TestUrl
+                    Url = test.TestUrl,
+                    DriverType = browser.DriverType,
                 };
 
             var traceResult = new StringBuilder();

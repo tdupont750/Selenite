@@ -102,6 +102,7 @@
     <Compile Include="Commands\Implementation\IsTitleContainedCommand.cs" />
     <Compile Include="Commands\Implementation\IsTitleEqualCommand.cs" />
     <Compile Include="Commands\Implementation\IsVisibleCommand.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\PropertyInfoExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Extensions\WebDriverExtensions.cs" />

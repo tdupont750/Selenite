@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Newtonsoft.Json;
+using Selenite.Extensions;
 using Selenite.Models;
 using Xunit;
 
@@ -165,6 +166,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
                     Name = "Test Runner Error",
                     StackTrace = exception.StackTrace,
                     ResultOutput = exception.Message,
+                    Browser = "Unknown",
                 };
 
             AddResult("Test Failure", testResultViewModel);
@@ -202,7 +204,8 @@ namespace Selenite.Client.ViewModels.WebAutomation
                     Name = result.TestName,
                     Url = result.Url,
                     ResultOutput = result.TraceResult,
-                    StackTrace = testResult.ExceptionStackTrace
+                    StackTrace = testResult.ExceptionStackTrace,
+                    Browser = result.DriverType.Description(),
                 };
 
             var collectionName = result.CollectionName;
@@ -216,14 +219,38 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
             if (collection != null)
             {
-                collection.TestResults.Add(testResultViewModel);
+                var container = collection.TestContainers.FirstOrDefault(c => c.Name == testResultViewModel.Name);
+
+                if (container != null)
+                {
+                    container.TestResults.Add(testResultViewModel);
+                }
+                else
+                {
+                    collection.TestContainers.Add(new TestResultContainerViewModel
+                        {
+                            Name = testResultViewModel.Name,
+                            TestResults = new ObservableCollection<TestResultViewModel>
+                                {
+                                    testResultViewModel
+                                }
+                        });
+                }
             }
             else
             {
+                // Test Collection didn't exist so add it.
                 TestResults.Add(new TestResultCollectionViewModel
                     {
                         Name = collectionName,
-                        TestResults = new ObservableCollection<TestResultViewModel> {testResultViewModel}
+                        TestContainers = new ObservableCollection<TestResultContainerViewModel>
+                            {
+                                new TestResultContainerViewModel
+                                    {
+                                        Name = testResultViewModel.Name,
+                                        TestResults = new ObservableCollection<TestResultViewModel> {testResultViewModel}, 
+                                    }
+                            }
                     });
             }
         }
@@ -237,6 +264,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
                     Name = result.TestName,
                     Url = result.Url,
                     ResultOutput = result.TraceResult,
+                    Browser = result.DriverType.Description(),
                 };
 
             var collectionName = result.CollectionName;

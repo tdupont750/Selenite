@@ -11,13 +11,16 @@
             <converters:DoubleToVisibilityConverter x:Key="DoubleToVisibilityConverter" />
             <converters:StatusToColorConverter x:Key="StatusToColorConverter" />
             <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
-            <HierarchicalDataTemplate ItemsSource="{Binding TestResults}" DataType="{x:Type selenite:TestResultCollectionViewModel}">
-                <Label Content="{Binding Name}"/>
+            <HierarchicalDataTemplate ItemsSource="{Binding TestContainers}" DataType="{x:Type selenite:TestResultCollectionViewModel}">
+                <Label Content="{Binding Name}" Padding="3,2,3,2"/>
+            </HierarchicalDataTemplate>
+            <HierarchicalDataTemplate ItemsSource="{Binding TestResults}" DataType="{x:Type selenite:TestResultContainerViewModel}">
+                <Label Content="{Binding Name}" Padding="3,2,3,2"/>
             </HierarchicalDataTemplate>
             <DataTemplate DataType="{x:Type selenite:TestResultViewModel}">
                 <StackPanel Orientation="Horizontal">
-                    <Rectangle Width="10" Height="10" Fill="{Binding Status, Converter={StaticResource StatusToColorConverter}}" Margin="0,0,5,0" />
-                    <TextBlock Text="{Binding Name}" />
+                    <Ellipse Width="10" Height="10" Fill="{Binding Status, Converter={StaticResource StatusToColorConverter}}" Margin="0,0,5,0" />
+                    <TextBlock Text="{Binding Browser}" />
                 </StackPanel>
             </DataTemplate>
             <Style TargetType="{x:Type TreeViewItem}">
@@ -82,7 +85,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TreeView Grid.Column="0" ItemsSource="{Binding TestResults}" SelectedItemChanged="TreeView_SelectedItemChanged">
+            <TreeView Grid.Column="0" ItemsSource="{Binding TestResults}" SelectedItemChanged="TreeView_SelectedItemChanged" Padding="0">
                 <TreeView.Resources>
                     <!--SelectedItem with focus-->
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#CC119EDA"/>
@@ -105,22 +108,26 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="Name:" Style="{StaticResource DetailsLabel}" />
                     <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name}" IsReadOnly="True" />
 
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Url:" Style="{StaticResource DetailsLabel}" />
-                    <Button Grid.Row="1" Grid.Column="1" Content="{Binding Url}" Style="{StaticResource LinkButton}"
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Browser:" Style="{StaticResource DetailsLabel}" />
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Browser}" IsReadOnly="True" />
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Url:" Style="{StaticResource DetailsLabel}" />
+                    <Button Grid.Row="2" Grid.Column="1" Content="{Binding Url}" Style="{StaticResource LinkButton}"
                             Command="{Binding NavigateUrlCommand}" CommandParameter="{Binding Url}" Margin="3,0,0,0" HorizontalAlignment="Left"/>
 
-                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Output:" Style="{StaticResource DetailsLabel}" />
-                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ResultOutput}" IsReadOnly="True" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Output:" Style="{StaticResource DetailsLabel}" />
+                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding ResultOutput}" IsReadOnly="True" />
 
-                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Stack Trace:" Style="{StaticResource DetailsLabel}"
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Stack Trace:" Style="{StaticResource DetailsLabel}"
                                Visibility="{Binding StackTrace, Converter={StaticResource NullToVisibilityConverter}}"/>
-                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding StackTrace}" IsReadOnly="True"
+                    <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding StackTrace}" IsReadOnly="True"
                              Visibility="{Binding StackTrace, Converter={StaticResource NullToVisibilityConverter}}" />
                 </Grid>
             </ScrollViewer>

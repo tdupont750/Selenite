@@ -4,7 +4,12 @@ namespace Selenite.Client.ViewModels.WebAutomation
 {
     public class TestResultCollectionViewModel : ViewModelBase
     {
+        public TestResultCollectionViewModel()
+        {
+            TestContainers = new ObservableCollection<TestResultContainerViewModel>();
+        }
+
         public string Name { get; set; }
-        public ObservableCollection<TestResultViewModel> TestResults { get; set; }
+        public ObservableCollection<TestResultContainerViewModel> TestContainers { get; set; }
     }
 }
