@@ -203,7 +203,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
                     Status = result.Status,
                     Name = result.TestName,
                     Url = result.Url,
-                    ResultOutput = result.TraceResult,
+                    ResultOutput = testResult.ExceptionMessage + Environment.NewLine + result.TraceResult,
                     StackTrace = testResult.ExceptionStackTrace,
                     Browser = result.DriverType.Description(),
                 };
