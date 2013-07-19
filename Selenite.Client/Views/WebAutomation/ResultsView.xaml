@@ -65,18 +65,20 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Results"/>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBlock Text="Results"/>
 
-        <TextBlock Grid.Row="1" DataContext="{Binding}" Visibility="{Binding TimeElapsed, Converter={StaticResource DoubleToVisibilityConverter}}">
-            <TextBlock.Text>
-                <MultiBinding StringFormat="{}{0} passed, {1} failed, {2} skipped ({3}s elapsed)">
-                    <Binding Path="SucceededTests" />
-                    <Binding Path="FailedTests" />
-                    <Binding Path="SkippedTests" />
-                    <Binding Path="TimeElapsed" />
-                </MultiBinding>
-            </TextBlock.Text>
-        </TextBlock>
+            <TextBlock DataContext="{Binding}" Visibility="{Binding TimeElapsed, Converter={StaticResource DoubleToVisibilityConverter}}" Margin="5,0,0,0">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="({0} passed, {1} failed, {2} skipped ({3}s elapsed))">
+                        <Binding Path="SucceededTests" />
+                        <Binding Path="FailedTests" />
+                        <Binding Path="SkippedTests" />
+                        <Binding Path="TimeElapsed" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </StackPanel>
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
