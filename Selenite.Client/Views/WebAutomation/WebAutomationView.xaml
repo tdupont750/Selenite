@@ -47,6 +47,7 @@
                        Margin="0,5,0,0"
                        Text="TestCollections"/>
             <ListView Grid.Row="5"
+                      Background="Transparent"
                       ItemsSource="{Binding SelectedManifest.TestCollections}"
                       VerticalAlignment="Stretch">
                 <ListView.ItemTemplate>
