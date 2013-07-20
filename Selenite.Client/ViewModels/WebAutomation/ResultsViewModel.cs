@@ -49,7 +49,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
         public ResultsViewModel()
         {
-            UseFirefox = true;
+            UsePhantomJs = true;
 
             TestResults = new ObservableCollection<TestResultCollectionViewModel>();
 
@@ -74,9 +74,15 @@ namespace Selenite.Client.ViewModels.WebAutomation
             set { Set(value, () => UseInternetExplorer); }
         }
 
+        public bool UsePhantomJs
+        {
+            get { return Get(() => UsePhantomJs); }
+            set { Set(value, () => UsePhantomJs); }
+        }
+
         private bool UseAny
         {
-            get { return UseFirefox || UseChrome || UseInternetExplorer; }
+            get { return UseFirefox || UseChrome || UseInternetExplorer || UsePhantomJs; }
         }
 
         public ICommand RunTestsCommand { get; set; }
@@ -110,7 +116,8 @@ namespace Selenite.Client.ViewModels.WebAutomation
                         .Where(m =>
                                UseFirefox && m.TestClass.TypeName.Contains("Firefox") ||
                                UseChrome && m.TestClass.TypeName.Contains("Chrome") ||
-                               UseInternetExplorer && m.TestClass.TypeName.Contains("Internet")
+                               UseInternetExplorer && m.TestClass.TypeName.Contains("Internet") ||
+                               UsePhantomJs && m.TestClass.TypeName.Contains("Phantom")
                         )
                         .ToList();
 

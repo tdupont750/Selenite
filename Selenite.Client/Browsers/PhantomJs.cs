@@ -3,7 +3,7 @@ using Selenite.Enums;
 using Selenite.Models;
 using Xunit.Extensions;
 
-namespace Selenite.Tests.Browsers
+namespace Selenite.Client.Browsers
 {
     public class PhantomJs : BrowserBase
     {
@@ -12,11 +12,7 @@ namespace Selenite.Tests.Browsers
             get { return DriverType.PhantomJs; }
         }
 
-#if PHANTOMJS
         [Theory]
-#else
-        [Theory(Skip = "Not built for PhantomJs")]
-#endif
         [PropertyData(TestDataMember)]
         public void ExecuteTests(Test test)
         {
