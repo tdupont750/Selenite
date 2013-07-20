@@ -1,23 +1,42 @@
-﻿using Selenite.Services.Implementation;
+﻿using System;
+using Selenite.Services.Implementation;
 using Xunit;
-using Xunit.Extensions;
 
 namespace Selenite.Tests.Services
 {
-    public class ConfigurationServiceTests
+    public class ConfigurationServiceTests : ConfigurationService
     {
-        [Theory]
-        [InlineData("ChromeDriver")]
-        [InlineData("IEDriver")]
-        public void FindDriverPath(string driverName)
+        protected override string GetAppSetting(string key)
         {
-            var configurationService = new ConfigurationService();
+            return String.Empty;
+        }
 
-            string driverPath;
-            var result = configurationService.FindDriverPath(driverName, out driverPath);
+        [Fact]
+        public void ChromeDriverPathTest()
+        {
+            var actual = ChromeDriverPath;
+            Assert.Contains("ChromeDriver", actual);
+        }
 
-            Assert.True(result);
-            Assert.Contains(driverName, driverPath);
+        [Fact]
+        public void IeDriverPathTest()
+        {
+            var actual = IEDriverPath;
+            Assert.Contains("IEDriver", actual);
+        }
+
+        [Fact]
+        public void TestScriptsPathTest()
+        {
+            var actual = TestScriptsPath;
+            Assert.Contains("TestScripts", actual);
+        }
+
+        [Fact]
+        public void PhantomJsPathTest()
+        {
+            var actual = PhantomJsPath;
+            Assert.Contains("PhantomJs", actual, StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }
