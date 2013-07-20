@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
+using OpenQA.Selenium.PhantomJS;
 using Selenite.Enums;
 using Selenite.Global;
 using Selenite.Services;
@@ -44,6 +45,10 @@ namespace Selenite.Browsers
 
                 case DriverType.Chrome:
                     _driver = new ChromeDriver(_configurationService.ChromeDriverPath);
+                    break;
+
+                case DriverType.PhantomJs:
+                    _driver = new PhantomJSDriver(_configurationService.PhantomJsPath);
                     break;
             }
 

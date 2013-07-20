@@ -11,6 +11,9 @@ namespace Selenite.Enums
         Firefox,
 
         [Description("Internet Explorer")]
-        InternetExplorer
+        InternetExplorer,
+
+        [Description("PhantomJS")]
+        PhantomJs
     }
 }
