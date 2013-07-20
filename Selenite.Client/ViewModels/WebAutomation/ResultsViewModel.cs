@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using Newtonsoft.Json;
 using Selenite.Extensions;
@@ -223,17 +224,20 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
                 if (container != null)
                 {
-                    container.TestResults.Add(testResultViewModel);
+                    var sourceCollection = container.TestResults.SourceCollection as ObservableCollection<TestResultViewModel>;
+                    if (sourceCollection != null)
+                        sourceCollection.Add(testResultViewModel);
                 }
                 else
                 {
                     collection.TestContainers.Add(new TestResultContainerViewModel
                         {
                             Name = testResultViewModel.Name,
-                            TestResults = new ObservableCollection<TestResultViewModel>
-                                {
-                                    testResultViewModel
-                                }
+                            TestResults = CollectionViewSource.GetDefaultView(
+                                new ObservableCollection<TestResultViewModel>
+                                    {
+                                        testResultViewModel
+                                    }),
                         });
                 }
             }
@@ -248,7 +252,11 @@ namespace Selenite.Client.ViewModels.WebAutomation
                                 new TestResultContainerViewModel
                                     {
                                         Name = testResultViewModel.Name,
-                                        TestResults = new ObservableCollection<TestResultViewModel> {testResultViewModel}, 
+                                        TestResults = CollectionViewSource.GetDefaultView(
+                                            new ObservableCollection<TestResultViewModel>
+                                                {
+                                                    testResultViewModel
+                                                }), 
                                     }
                             }
                     });
