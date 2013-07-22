@@ -26,7 +26,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;FIREFOX</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;PHANTOMJS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -74,6 +74,7 @@
     <Compile Include="Browsers\Chrome.cs" />
     <Compile Include="Browsers\Firefox.cs" />
     <Compile Include="Browsers\InternetExplorer.cs" />
+    <Compile Include="Browsers\PhantomJs.cs" />
     <Compile Include="Services\ManifestServiceTests.cs" />
     <Compile Include="Services\TestCollectionServiceTests.cs" />
     <Compile Include="Commands\SendKeyCommandTests.cs" />
@@ -96,6 +97,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\packages\phantomjs.exe.1.8.1\tools\phantomjs\phantomjs.exe">
+      <Link>phantomjs.exe</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="phantomjs-license.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestPages\DoCommands.html" />
     <Content Include="TestPages\IsCommands.html" />
   </ItemGroup>

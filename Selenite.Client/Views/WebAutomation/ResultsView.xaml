@@ -158,6 +158,10 @@
                           Margin="3,0"
                           Content="Firefox"
                           IsChecked="{Binding UseFirefox}"/>
+                <CheckBox VerticalAlignment="Center"
+                          Margin="3,0"
+                          Content="PhantomJS"
+                          IsChecked="{Binding UsePhantomJs}"/>
             </WrapPanel>
 
             <Button Grid.Column="2"

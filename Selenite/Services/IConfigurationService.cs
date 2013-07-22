@@ -4,6 +4,7 @@ namespace Selenite.Services
     {
         string ChromeDriverPath { get; }
         string IEDriverPath { get; }
+        string PhantomJsPath { get; }
         string TestScriptsPath { get; }
         string ManifestFileName { get; }
     }

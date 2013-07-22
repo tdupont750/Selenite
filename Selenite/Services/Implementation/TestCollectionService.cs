@@ -26,8 +26,9 @@ namespace Selenite.Services.Implementation
         {
             var pathRoot = Path.GetFullPath(_configurationService.TestScriptsPath);
 
+            // TODO: This shouldn't just look at the path of the manifest file, it should find all the files referenced by manifests.
             var files = _fileService
-                .GetFiles(pathRoot, "*.json") // CCHINN: This shouldn't just look at the path of the manifest file, it should find all the files referenced by manifests.
+                .GetFiles(pathRoot, "*.json")
                 .ToList();
 
             var manifestFile = files.FirstOrDefault(f => f.EndsWith(_configurationService.ManifestFileName, StringComparison.InvariantCultureIgnoreCase));
@@ -95,6 +96,12 @@ namespace Selenite.Services.Implementation
 
             var url = test.Url.ToString();
 
+            var baseUri = domain.EndsWith("/")
+                ? new Uri(domain)
+                : new Uri(domain + "/");
+
+            var relativeUri = new Uri(baseUri, url);
+
             return new Test
             {
                 CollectionName = testCollectionName,
@@ -102,7 +109,7 @@ namespace Selenite.Services.Implementation
                 Enabled = test.Enabled ?? true,
                 Name = test.Name,
                 Url = url,
-                TestUrl = new Uri(new Uri(domain + "/"), url).ToString() // Add a slash to the end of the URL in case it isn't there; URI's ignore multiple slashies.
+                TestUrl = relativeUri.ToString()
             };
         }
     }
