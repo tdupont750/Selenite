@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using Newtonsoft.Json;
+using Selenite.Client.Properties;
+using Selenite.Enums;
 using Selenite.Extensions;
 using Selenite.Models;
 using Xunit;
@@ -50,7 +52,41 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
         public ResultsViewModel()
         {
-            UsePhantomJs = true;
+            List<DriverType> enabledBrowsers;
+            try
+            {
+                enabledBrowsers = JsonConvert.DeserializeObject<List<DriverType>>(Settings.Default.EnabledBrowsers)
+                    ?? new List<DriverType> { DriverType.PhantomJs };
+            }
+            catch
+            {
+                enabledBrowsers = new List<DriverType> { DriverType.PhantomJs };
+            }
+
+            foreach (var browser in enabledBrowsers)
+            {
+                switch (browser)
+                {
+                    case DriverType.PhantomJs:
+                        UsePhantomJs = true;
+                        break;
+
+                    case DriverType.Firefox:
+                        UseFirefox = true;
+                        break;
+
+                    case DriverType.Chrome:
+                        UseChrome = true;
+                        break;
+
+                    case DriverType.InternetExplorer:
+                        UseInternetExplorer = true;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
 
             TestResults = new ObservableCollection<TestResultCollectionViewModel>();
 
@@ -60,25 +96,69 @@ namespace Selenite.Client.ViewModels.WebAutomation
         public bool UseFirefox
         {
             get { return Get(() => UseFirefox); }
-            set { Set(value, () => UseFirefox); }
+            set
+            {
+                Set(value, () => UseFirefox);
+                SaveEnabledBrowsers();
+            }
         }
 
         public bool UseChrome
         {
             get { return Get(() => UseChrome); }
-            set { Set(value, () => UseChrome); }
+            set
+            {
+                Set(value, () => UseChrome);
+                SaveEnabledBrowsers();
+            }
         }
 
         public bool UseInternetExplorer
         {
             get { return Get(() => UseInternetExplorer); }
-            set { Set(value, () => UseInternetExplorer); }
+            set
+            {
+                Set(value, () => UseInternetExplorer);
+                SaveEnabledBrowsers();
+            }
         }
 
         public bool UsePhantomJs
         {
             get { return Get(() => UsePhantomJs); }
-            set { Set(value, () => UsePhantomJs); }
+            set
+            {
+                Set(value, () => UsePhantomJs);
+                SaveEnabledBrowsers();
+            }
+        }
+
+        private void SaveEnabledBrowsers()
+        {
+            var browsers = new List<DriverType>();
+
+            if (UseFirefox)
+            {
+                browsers.Add(DriverType.Firefox);
+            }
+
+            if (UseChrome)
+            {
+                browsers.Add(DriverType.Chrome);
+            }
+
+            if (UseInternetExplorer)
+            {
+                browsers.Add(DriverType.InternetExplorer);
+            }
+
+            if (UsePhantomJs)
+            {
+                browsers.Add(DriverType.PhantomJs);
+            }
+
+            Settings.Default.EnabledBrowsers = JsonConvert.SerializeObject(browsers);
+            Settings.Default.Save();
         }
 
         private bool UseAny
