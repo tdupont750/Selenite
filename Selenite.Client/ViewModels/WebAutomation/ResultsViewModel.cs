@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,22 +25,27 @@ namespace Selenite.Client.ViewModels.WebAutomation
             set { Set(value, () => SelectedTestResult); }
         }
 
-        public int SucceededTests
+        public int TotalTests
         {
-            get { return Get(() => SucceededTests); }
-            set { Set(value, () => SucceededTests); }
+            get { return PassedTests + FailedTests + SkippedTests; }
+        }
+
+        public int PassedTests
+        {
+            get { return Get(() => PassedTests); }
+            set { Set(value, () => PassedTests, () => TotalTests); }
         }
 
         public int FailedTests
         {
             get { return Get(() => FailedTests); }
-            set { Set(value, () => FailedTests); }
+            set { Set(value, () => FailedTests, () => TotalTests); }
         }
 
         public int SkippedTests
         {
             get { return Get(() => SkippedTests); }
-            set { Set(value, () => SkippedTests); }
+            set { Set(value, () => SkippedTests, () => TotalTests); }
         }
 
         public double TimeElapsed
@@ -50,9 +56,17 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
         private bool _isRunning;
 
+        private List<ICollectionView> _testResultsViews;
+
         public ResultsViewModel()
         {
+            _testResultsViews = new List<ICollectionView>();
+
+            ShowPassed = true;
+            ShowFailed = true;
+
             List<DriverType> enabledBrowsers;
+
             try
             {
                 enabledBrowsers = JsonConvert.DeserializeObject<List<DriverType>>(Settings.Default.EnabledBrowsers)
@@ -81,9 +95,6 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
                     case DriverType.InternetExplorer:
                         UseInternetExplorer = true;
-                        break;
-
-                    default:
                         break;
                 }
             }
@@ -133,6 +144,44 @@ namespace Selenite.Client.ViewModels.WebAutomation
             }
         }
 
+        public bool ShowPassed
+        {
+            get { return Get(() => ShowPassed); }
+            set
+            {
+                Set(value, () => ShowPassed);
+                UpdateFilters();
+            }
+        }
+
+        public bool ShowFailed
+        {
+            get { return Get(() => ShowFailed); }
+            set
+            {
+                Set(value, () => ShowFailed);
+                UpdateFilters();
+            }
+        }
+
+        public bool ShowSkipped
+        {
+            get { return Get(() => ShowSkipped); }
+            set
+            {
+                Set(value, () => ShowSkipped);
+                UpdateFilters();
+            }
+        }
+
+        private void UpdateFilters()
+        {
+            foreach (var view in _testResultsViews)
+            {
+                view.Filter = TestResultsFilter;
+            }
+        }
+
         private void SaveEnabledBrowsers()
         {
             var browsers = new List<DriverType>();
@@ -171,7 +220,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
         private void RunTests(object parameter)
         {
             TimeElapsed = 0;
-            SucceededTests = 0;
+            PassedTests = 0;
             SkippedTests = 0;
             FailedTests = 0;
 
@@ -225,7 +274,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
         {
             Application.Current.Dispatcher.BeginInvoke((Action)(() =>
                 {
-                    SucceededTests = total - failed - skipped;
+                    PassedTests = total - failed - skipped;
                     FailedTests = failed;
                     SkippedTests = skipped;
                     TimeElapsed = time;
@@ -303,6 +352,21 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
         private void AddResult(string collectionName, TestResultViewModel testResultViewModel)
         {
+            switch (testResultViewModel.Status)
+            {
+                case ResultStatus.Failed:
+                    FailedTests++;
+                    break;
+
+                case ResultStatus.Passed:
+                    PassedTests++;
+                    break;
+
+                case ResultStatus.Skipped:
+                    SkippedTests++;
+                    break;
+            }
+
             var collection = TestResults.FirstOrDefault(c => c.Name == collectionName);
 
             if (collection != null)
@@ -320,11 +384,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
                     collection.TestContainers.Add(new TestResultContainerViewModel
                         {
                             Name = testResultViewModel.Name,
-                            TestResults = CollectionViewSource.GetDefaultView(
-                                new ObservableCollection<TestResultViewModel>
-                                    {
-                                        testResultViewModel
-                                    }),
+                            TestResults = GetTestView(testResultViewModel),
                         });
                 }
             }
@@ -339,15 +399,38 @@ namespace Selenite.Client.ViewModels.WebAutomation
                                 new TestResultContainerViewModel
                                     {
                                         Name = testResultViewModel.Name,
-                                        TestResults = CollectionViewSource.GetDefaultView(
-                                            new ObservableCollection<TestResultViewModel>
-                                                {
-                                                    testResultViewModel
-                                                }), 
+                                        TestResults = GetTestView(testResultViewModel),
                                     }
                             }
                     });
             }
+        }
+
+        private ICollectionView GetTestView(TestResultViewModel testResult)
+        {
+            var testResults = new ObservableCollection<TestResultViewModel>
+                {
+                    testResult
+                };
+
+            var testResultsView = CollectionViewSource.GetDefaultView(testResults);
+            testResultsView.Filter = TestResultsFilter;
+
+            _testResultsViews.Add(testResultsView);
+
+            return testResultsView;
+        }
+
+        public bool TestResultsFilter(object param)
+        {
+            var viewModel = param as TestResultViewModel;
+
+            if (viewModel == null)
+                return false;
+
+            return (ShowPassed && viewModel.Status == ResultStatus.Passed)
+                   || (ShowFailed && viewModel.Status == ResultStatus.Failed)
+                   || (ShowSkipped && viewModel.Status == ResultStatus.Skipped);
         }
 
         private void TestPassed(TestPassedResult testResult)

@@ -68,18 +68,36 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <TextBlock Text="Results"/>
 
-            <TextBlock DataContext="{Binding}" Visibility="{Binding TimeElapsed, Converter={StaticResource DoubleToVisibilityConverter}}" Margin="5,0,0,0">
-                <TextBlock.Text>
-                    <MultiBinding StringFormat="({0} passed, {1} failed, {2} skipped ({3}s elapsed))">
-                        <Binding Path="SucceededTests" />
-                        <Binding Path="FailedTests" />
-                        <Binding Path="SkippedTests" />
-                        <Binding Path="TimeElapsed" />
-                    </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
+            <TextBlock Margin="5,0,0,0"
+                DataContext="{Binding}"
+                Visibility="{Binding TimeElapsed, Converter={StaticResource DoubleToVisibilityConverter}}"
+                Text="{Binding TimeElapsed, StringFormat=({0}s elapsed)}" />
         </StackPanel>
-
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" >
+            <TextBlock Text="Show: "
+                Visibility="{Binding TotalTests, Converter={StaticResource DoubleToVisibilityConverter}}" />
+            <CheckBox Margin="0,0,10,0"
+                Visibility="{Binding PassedTests, Converter={StaticResource DoubleToVisibilityConverter}}"
+                IsChecked="{Binding ShowPassed, Mode=TwoWay}">
+                <CheckBox.Content>
+                    <TextBlock Text="{Binding PassedTests, StringFormat=Passed ({0})}" />
+                </CheckBox.Content>
+            </CheckBox>
+            <CheckBox Margin="0,0,10,0"
+                Visibility="{Binding FailedTests, Converter={StaticResource DoubleToVisibilityConverter}}"
+                IsChecked="{Binding ShowFailed, Mode=TwoWay}">
+                <CheckBox.Content>
+                    <TextBlock Text="{Binding FailedTests, StringFormat=Failed ({0})}" />
+                </CheckBox.Content>
+            </CheckBox>
+            <CheckBox
+                Visibility="{Binding SkippedTests, Converter={StaticResource DoubleToVisibilityConverter}}"
+                IsChecked="{Binding ShowSkipped, Mode=TwoWay}">
+                <CheckBox.Content>
+                    <TextBlock Text="{Binding SkippedTests, StringFormat=Skipped ({0})}" />
+                </CheckBox.Content>
+            </CheckBox>
+        </StackPanel>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
