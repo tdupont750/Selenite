@@ -1,143 +1,228 @@
 {
-    DefaultDomain: "http://localhost/selenite/testpages/",
-	Tests : [{
-		Name: "DoCheckBox",
-		Url: "DoCommands.html",
-		Commands: [{
-			Name: "IsChecked",
-			Selector: "input[name=\"CheckBoxA\"]",
-			IsFalseExpected: true
-		}, {
-			Name: "DoCheckBox",
-			Selector: "input[name=\"CheckBoxA\"]"
-		}, {
-			Name: "IsChecked",
-			Selector: "input[name=\"CheckBoxA\"]"
-		}]
-	}, {
-		Name: "DoClear",
-		Url: "DoCommands.html",
-		Commands: [{
-			Name: "IsAttributeEqual",
-			Selector: "#DoClear",
-			Attribute: "value",
-			Value: "Hello World"
-		}, {
-			Name: "DoClear",
-			Selector: "#DoClear"
-		}, {
-			Name: "IsAttributeEqual",
-			Selector: "#DoClear",
-			Attribute: "value",
-			Value: ""
-		}]
-	}, {
-		Name: "DoClick",
-		Url: "DoCommands.html",
-		Commands: [{
-			Name: "IsChecked",
-			Selector: "#DoClick",
-			IsFalseExpected: true
-		}, {
-			Name: "DoClick",
-			Selector: "#DoClick"
-		}, {
-			Name: "IsChecked",
-			Selector: "#DoClick"
-		}]
-	}, {
-		Name: "DoPressEnter",
-		Url: "DoCommands.html",
-		Commands: [{
-			Name: "IsAttributeEqual",
-			Selector: "#DoPressEnter",
-			Attribute: "value",
-			Value: ""
-		}, {
-			Name: "DoPressEnter",
-			Selector: "#DoPressEnter"
-		}, {
-			Name: "DoPause",
-			Pause: 100
-		}, {
-			Name: "IsAttributeEqual",
-			Selector: "#DoPressEnter",
-			Attribute: "value",
-			Value: "Goodnight Moon"
-		}]
-	}, {
-		Name: "DoSelectDropdown",
-		Url: "DoCommands.html",
-		Commands: [{
-			Name: "IsDropdownSelected",
-			Selector: "#DoSelectDropdown",
-			Value: "A"
-		}, {
-			Name: "DoSelectDropdown",
-			Selector: "#DoSelectDropdown",
-			Value: "B"
-		}, {
-			Name: "IsDropdownSelected",
-			Selector: "#DoSelectDropdown",
-			Value: "B"
-		}, {
-			Name: "DoSelectDropdown",
-			Selector: "#DoSelectDropdown",
-			Text: "Z"
-		}, {
-			Name: "IsDropdownSelected",
-			Selector: "#DoSelectDropdown",
-			Text: "Z"
-		}]
-	}, {
-		Name: "DoSendKey",
-		Url: "DoCommands.html",
-		Commands: [{
-			Name: "IsAttributeEqual",
-			Selector: "#DoSendKey",
-			Attribute: "value",
-			Value: "Hello"
-		}, {
-			Name: "DoSendKey",
-			Selector: "#DoSendKey",
-			Key: "Semicolon"
-		}, {
-			Name: "IsAttributeEqual",
-			Selector: "#DoSendKey",
-			Attribute: "value",
-			Value: "Hello;"
-		}]
-	}, {
-		Name: "DoSendKeys",
-		Url: "DoCommands.html",
-		Commands: [{
-			Name: "IsAttributeEqual",
-			Selector: "#DoSendKeys",
-			Attribute: "value",
-			Value: "Hello"
-		}, {
-			Name: "DoSendKeys",
-			Selector: "#DoSendKeys",
-			Keys: " world!"
-		}, {
-			Name: "IsAttributeEqual",
-			Selector: "#DoSendKeys",
-			Attribute: "value",
-			Value: "Hello world!"
-		}]
-	}, {
-		Name: "DoUncheckBox",
-		Url: "DoCommands.html",
-		Commands: [{
-			Name: "IsChecked",
-			Selector: "input[name=\"CheckBoxB\"]"
-		}, {
-			Name: "DoUncheckBox",
-			Selector: "input[name=\"CheckBoxB\"]"
-		}, {
-			Name: "IsChecked",
-			Selector: "input[name=\"CheckBoxB\"]",
-			IsFalseExpected: true
-		}]
-	}]
+  "Enabled": true,
+  "DefaultDomain": "http://localhost/selenite/testpages/",
+  "Tests": [
+    {
+      "Enabled": true,
+      "Name": "DoCheckBox",
+      "Url": "DoCommands.html",
+      "Commands": [
+        {
+          "IsFalseExpected": true,
+          "Selector": "input[name=\"CheckBoxA\"]",
+          "Name": "IsChecked"
+        },
+        {
+          "Selector": "input[name=\"CheckBoxA\"]",
+          "Name": "DoCheckBox"
+        },
+        {
+          "IsFalseExpected": false,
+          "Selector": "input[name=\"CheckBoxA\"]",
+          "Name": "IsChecked"
+        }
+      ]
+    },
+    {
+      "Enabled": true,
+      "Name": "DoClear",
+      "Url": "DoCommands.html",
+      "Commands": [
+        {
+          "Attribute": "value",
+          "Value": "Hello World",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": false,
+          "Selector": "#DoClear",
+          "Name": "IsAttributeEqual"
+        },
+        {
+          "Selector": "#DoClear",
+          "Name": "DoClear"
+        },
+        {
+          "Attribute": "value",
+          "Value": "",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": false,
+          "Selector": "#DoClear",
+          "Name": "IsAttributeEqual"
+        }
+      ]
+    },
+    {
+      "Enabled": true,
+      "Name": "DoClick",
+      "Url": "DoCommands.html",
+      "Commands": [
+        {
+          "IsFalseExpected": true,
+          "Selector": "#DoClick",
+          "Name": "IsChecked"
+        },
+        {
+          "Selector": "#DoClick",
+          "Name": "DoClick"
+        },
+        {
+          "IsFalseExpected": false,
+          "Selector": "#DoClick",
+          "Name": "IsChecked"
+        }
+      ]
+    },
+    {
+      "Enabled": true,
+      "Name": "DoPressEnter",
+      "Url": "DoCommands.html",
+      "Commands": [
+        {
+          "Attribute": "value",
+          "Value": "",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": false,
+          "Selector": "#DoPressEnter",
+          "Name": "IsAttributeEqual"
+        },
+        {
+          "Selector": "#DoPressEnter",
+          "Name": "DoPressEnter"
+        },
+        {
+          "Duration": 0,
+          "Name": "DoPause"
+        },
+        {
+          "Attribute": "value",
+          "Value": "Goodnight Moon",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": false,
+          "Selector": "#DoPressEnter",
+          "Name": "IsAttributeEqual"
+        }
+      ]
+    },
+    {
+      "Enabled": true,
+      "Name": "DoSelectDropdown",
+      "Url": "DoCommands.html",
+      "Commands": [
+        {
+          "Text": null,
+          "Value": "A",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": false,
+          "Selector": "#DoSelectDropdown",
+          "Name": "IsDropdownSelected"
+        },
+        {
+          "Text": null,
+          "Value": "B",
+          "IsCaseSensitive": false,
+          "Selector": "#DoSelectDropdown",
+          "Name": "DoSelectDropdown"
+        },
+        {
+          "Text": null,
+          "Value": "B",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": false,
+          "Selector": "#DoSelectDropdown",
+          "Name": "IsDropdownSelected"
+        },
+        {
+          "Text": "Z",
+          "Value": null,
+          "IsCaseSensitive": false,
+          "Selector": "#DoSelectDropdown",
+          "Name": "DoSelectDropdown"
+        },
+        {
+          "Text": "Z",
+          "Value": null,
+          "IsCaseSensitive": false,
+          "IsFalseExpected": false,
+          "Selector": "#DoSelectDropdown",
+          "Name": "IsDropdownSelected"
+        }
+      ]
+    },
+    {
+      "Enabled": true,
+      "Name": "DoSendKey",
+      "Url": "DoCommands.html",
+      "Commands": [
+        {
+          "Attribute": "value",
+          "Value": "Hello",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": false,
+          "Selector": "#DoSendKey",
+          "Name": "IsAttributeEqual"
+        },
+        {
+          "Key": "Semicolon",
+          "Selector": "#DoSendKey",
+          "Name": "DoSendKey"
+        },
+        {
+          "Attribute": "value",
+          "Value": "Hello;",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": false,
+          "Selector": "#DoSendKey",
+          "Name": "IsAttributeEqual"
+        }
+      ]
+    },
+    {
+      "Enabled": true,
+      "Name": "DoSendKeys",
+      "Url": "DoCommands.html",
+      "Commands": [
+        {
+          "Attribute": "value",
+          "Value": "Hello",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": false,
+          "Selector": "#DoSendKeys",
+          "Name": "IsAttributeEqual"
+        },
+        {
+          "Keys": " world!",
+          "Selector": "#DoSendKeys",
+          "Name": "DoSendKeys"
+        },
+        {
+          "Attribute": "value",
+          "Value": "Hello world!",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": false,
+          "Selector": "#DoSendKeys",
+          "Name": "IsAttributeEqual"
+        }
+      ]
+    },
+    {
+      "Enabled": true,
+      "Name": "DoUncheckBox",
+      "Url": "DoCommands.html",
+      "Commands": [
+        {
+          "IsFalseExpected": false,
+          "Selector": "input[name=\"CheckBoxB\"]",
+          "Name": "IsChecked"
+        },
+        {
+          "Selector": "input[name=\"CheckBoxB\"]",
+          "Name": "DoUncheckBox"
+        },
+        {
+          "IsFalseExpected": true,
+          "Selector": "input[name=\"CheckBoxB\"]",
+          "Name": "IsChecked"
+        }
+      ]
+    }
+  ]
 }

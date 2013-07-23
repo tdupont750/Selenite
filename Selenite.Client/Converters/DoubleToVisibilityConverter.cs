@@ -9,7 +9,7 @@ namespace Selenite.Client.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (double)value > 0.0d ? Visibility.Visible : Visibility.Collapsed;
+            return System.Convert.ToDouble(value) > 0.0d ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
