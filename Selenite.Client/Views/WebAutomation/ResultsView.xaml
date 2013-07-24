@@ -11,6 +11,7 @@
             <converters:DoubleToVisibilityConverter x:Key="DoubleToVisibilityConverter" />
             <converters:StatusToColorConverter x:Key="StatusToColorConverter" />
             <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <HierarchicalDataTemplate ItemsSource="{Binding TestContainers}" DataType="{x:Type selenite:TestResultCollectionViewModel}">
                 <Label Content="{Binding Name}" Padding="3,2,3,2"/>
             </HierarchicalDataTemplate>
@@ -25,6 +26,10 @@
             </DataTemplate>
             <Style TargetType="{x:Type TreeViewItem}">
                 <Setter Property="IsExpanded" Value="True" />
+                <Setter Property="Visibility" Value="{Binding RelativeSource={RelativeSource Self},
+                    Path=ItemsSource.IsEmpty,
+                    Converter={StaticResource BooleanToVisibilityConverter},
+                    ConverterParameter=invert}" />
             </Style>
             <Style TargetType="{x:Type TextBlock}" x:Key="DetailsLabel">
                 <Setter Property="Margin" Value="5,0,10,0" />

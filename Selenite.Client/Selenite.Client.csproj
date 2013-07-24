@@ -102,6 +102,7 @@
     <Compile Include="Browsers\Firefox.cs" />
     <Compile Include="Browsers\InternetExplorer.cs" />
     <Compile Include="Browsers\PhantomJs.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\DoubleToVisibilityConverter.cs" />
     <Compile Include="Converters\EnabledOpacityConverter.cs" />
     <Compile Include="Converters\FileNameOnlyConverter.cs" />
