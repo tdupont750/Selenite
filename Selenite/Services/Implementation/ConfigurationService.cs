@@ -104,6 +104,13 @@ namespace Selenite.Services.Implementation
         {
             var currentDirectory = Directory.GetCurrentDirectory();
 
+            var path = subPathFunc(currentDirectory, args);
+
+            if (!string.IsNullOrEmpty(path))
+            {
+                return path;
+            }
+
             for (var i = 0; i <= MaxSearchDepth; i++)
             {
                 currentDirectory = Path.Combine(currentDirectory, "../");
