@@ -97,9 +97,11 @@
                     <TextBlock Text="{Binding SkippedTests, StringFormat=Skipped ({0})}" />
                 </CheckBox.Content>
             </CheckBox>
-            <Button Content="Export"
-                    Visibility="{Binding TotalTests, Converter={StaticResource DoubleToVisibilityConverter}}"
-                    Command="{Binding ExportToClipboardCommand}" />
+            <Menu Visibility="{Binding TimeElapsed, Converter={StaticResource DoubleToVisibilityConverter}}">
+                <MenuItem Header="Export">
+                    <MenuItem Header="Clipboard" Command="{Binding ExportToClipboardCommand}" />
+                </MenuItem>
+            </Menu>
         </StackPanel>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
