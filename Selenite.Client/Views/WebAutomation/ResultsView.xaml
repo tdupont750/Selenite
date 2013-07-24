@@ -97,6 +97,9 @@
                     <TextBlock Text="{Binding SkippedTests, StringFormat=Skipped ({0})}" />
                 </CheckBox.Content>
             </CheckBox>
+            <Button Content="Export"
+                    Visibility="{Binding TotalTests, Converter={StaticResource DoubleToVisibilityConverter}}"
+                    Command="{Binding ExportToClipboardCommand}" />
         </StackPanel>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

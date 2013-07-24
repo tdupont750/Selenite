@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
@@ -102,6 +103,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
             TestResults = new ObservableCollection<TestResultCollectionViewModel>();
 
             RunTestsCommand = new RelayCommand(RunTests, t => UseAny && !_isRunning);
+            ExportToClipboardCommand = new RelayCommand(ExportToClipboard, t => !_isRunning);
         }
 
         public bool UseFirefox
@@ -217,6 +219,8 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
         public ICommand RunTestsCommand { get; set; }
 
+        public ICommand ExportToClipboardCommand { get; set; }
+
         private void RunTests(object parameter)
         {
             TimeElapsed = 0;
@@ -263,6 +267,57 @@ namespace Selenite.Client.ViewModels.WebAutomation
             {
                 Application.Current.Dispatcher.BeginInvoke((Action)(DoDone));
             }
+        }
+
+        private void ExportToClipboard(object parameter)
+        {
+            var export = new StringBuilder();
+
+            foreach (var collection in TestResults)
+            {
+                export.Append("Test Collection: ");
+                export.AppendLine(collection.Name);
+
+                foreach (var container in collection.TestContainers)
+                {
+                    export.Append("  ");
+                    export.AppendLine(container.Name);
+
+                    foreach (TestResultViewModel result in container.TestResults.SourceCollection)
+                    {
+                        // TODO: Respect visible filters?
+                        export.Append("    Browser: ");
+                        export.Append(result.Browser);
+
+                        if (result.Status == ResultStatus.Passed)
+                        {
+                            export.AppendLine(" - Passed");
+                        }
+                        else if (result.Status == ResultStatus.Failed)
+                        {
+                            export.AppendLine(" ***** FAILED *****");
+                        }
+                        else
+                        {
+                            export.AppendLine(" // Skipped \\");
+                        }
+
+                        export.Append("    Url: ");
+                        export.AppendLine(result.Url);
+
+                        export.Append("    Output: ");
+                        export.AppendLine(result.ResultOutput);
+
+                        if (!string.IsNullOrWhiteSpace(result.StackTrace))
+                        {
+                            export.Append("    Stack Trace: ");
+                            export.AppendLine(result.StackTrace);
+                        }
+                    }
+                }
+            }
+
+            Clipboard.SetText(export.ToString());
         }
 
         public void DoDone()
