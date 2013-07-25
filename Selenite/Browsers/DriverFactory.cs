@@ -48,7 +48,10 @@ namespace Selenite.Browsers
                     break;
 
                 case DriverType.PhantomJs:
-                    _driver = new PhantomJSDriver(_configurationService.PhantomJsPath);
+                    var service = PhantomJSDriverService.CreateDefaultService(_configurationService.PhantomJsPath);
+                    service.CookiesFile = "cookies.txt";
+
+                    _driver = new PhantomJSDriver(service, new PhantomJSOptions());
                     break;
             }
 
