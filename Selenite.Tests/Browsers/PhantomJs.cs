@@ -13,11 +13,10 @@ namespace Selenite.Tests.Browsers
         }
 
 #if PHANTOMJS
-        [Theory]
+        [Theory, BrowserData]
 #else
         [Theory(Skip = "Not built for PhantomJs")]
 #endif
-        [PropertyData(TestDataMember)]
         public void ExecuteTests(Test test)
         {
             ExecuteTest(test);

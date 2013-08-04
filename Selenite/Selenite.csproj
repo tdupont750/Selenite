@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Browsers\BrowserBase.cs" />
+    <Compile Include="Browsers\BrowserDataAttribute.cs" />
     <Compile Include="Commands\Base\CommandAttribute.cs" />
     <Compile Include="Commands\Base\SingleSelectorCommandBase.cs" />
     <Compile Include="Commands\Implementation\DoCheckBoxCommand.cs" />

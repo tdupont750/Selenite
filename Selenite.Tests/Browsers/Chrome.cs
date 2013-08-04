@@ -13,11 +13,10 @@ namespace Selenite.Tests.Browsers
         }
 
 #if CHROME
-        [Theory]
+        [Theory, BrowserData]
 #else
         [Theory(Skip = "Not built for Chrome")]
 #endif
-        [PropertyData(TestDataMember)]
         public void ExecuteTests(Test test)
         {
             ExecuteTest(test);

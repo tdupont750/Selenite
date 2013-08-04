@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using OpenQA.Selenium;
 using Selenite.Enums;
 using Selenite.Global;
@@ -13,11 +11,7 @@ namespace Selenite.Browsers
     public abstract class BrowserBase : IDisposable, IUseFixture<DriverFactory>
     {
         protected const string AboutBlank = "about:blank";
-        protected const string TestDataMember = "TestData";
 
-        protected static readonly IConfigurationService ConfigurationService = ServiceResolver.Get<IConfigurationService>();
-        protected static readonly ITestCollectionService TestCollectionService = ServiceResolver.Get<ITestCollectionService>();
-        protected static readonly IManifestService ManifestService = ServiceResolver.Get<IManifestService>();
         protected static readonly ITestService TestService = ServiceResolver.Get<ITestService>();
 
         private bool _isDisposed;
@@ -31,10 +25,10 @@ namespace Selenite.Browsers
             Dispose(true);
         }
 
-        public void SetFixture(DriverFactory driverService)
+        public void SetFixture(DriverFactory driverFactory)
         {
-            driverService.Init(DriverType);
-            Driver = driverService.GetBrowser();
+            driverFactory.Init(DriverType);
+            Driver = driverFactory.GetBrowser();
         }
 
         protected void ExecuteTest(Test test)
@@ -59,22 +53,6 @@ namespace Selenite.Browsers
                 GC.SuppressFinalize(this);
 
             _isDisposed = true;
-        }
-
-        public static IEnumerable<object[]> TestData
-        {
-            get
-            {
-                var manifestName = ManifestService.GetActiveManifestName();
-                var manifest = ManifestService.GetManifest(manifestName);
-                var testCollections = TestCollectionService.GetTestCollections(manifest);
-
-                return testCollections
-                    .Where(t => t.Enabled)
-                    .SelectMany(c => c.Tests)
-                    .Where(t => t.Enabled)
-                    .Select(t => new object[] { t });
-            }
         }
     }
 }

@@ -13,11 +13,10 @@ namespace Selenite.Tests.Browsers
         }
 
 #if FIREFOX
-        [Theory]
+        [Theory, BrowserData]
 #else
         [Theory(Skip = "Not built for FireFox")]
 #endif
-        [PropertyData(TestDataMember)]
         public void ExecuteTests(Test test)
         {
             ExecuteTest(test);
