@@ -12,8 +12,7 @@ namespace Selenite.Client.Browsers
             get { return DriverType.PhantomJs; }
         }
 
-        [Theory]
-        [PropertyData(TestDataMember)]
+        [Theory, BrowserData]
         public void ExecuteTests(Test test)
         {
             ExecuteTest(test);

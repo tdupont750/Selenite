@@ -13,11 +13,10 @@ namespace Selenite.Tests.Browsers
         }
 
 #if IE
-        [Theory]
+        [Theory, BrowserData]
 #else
         [Theory(Skip = "Not built for IE")]
 #endif
-        [PropertyData(TestDataMember)]
         public void ExecuteTests(Test test)
         {
             ExecuteTest(test);
