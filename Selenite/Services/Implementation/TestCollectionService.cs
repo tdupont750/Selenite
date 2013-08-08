@@ -53,7 +53,7 @@ namespace Selenite.Services.Implementation
             var pathRoot = Path.GetFullPath(_configurationService.TestScriptsPath);
             var path = Path.Combine(pathRoot, testCollection.File);
 
-            var testCollectionJson = JsonConvert.SerializeObject(testCollection, Formatting.Indented);
+            var testCollectionJson = JsonConvert.SerializeObject(testCollection, Formatting.Indented, new JsonSerializerSettings { DefaultValueHandling = DefaultValueHandling.Ignore });
             _fileService.WriteAllText(path, testCollectionJson);
         }
 
