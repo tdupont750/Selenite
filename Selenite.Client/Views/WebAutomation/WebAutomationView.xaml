@@ -33,7 +33,7 @@
 
             <StackPanel Grid.Row="0" Orientation="Horizontal">
                 <TextBlock Text="Manifests"/>
-                <Button Margin="0" Height="12" Width="12" Command="{Binding LoadManifestCommand}" Cursor="Hand" Padding="0">
+                <Button Margin="0" Height="12" Width="12" Command="{Binding LoadManifestCommand}" Cursor="Hand" Padding="0" Visibility="Hidden">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Opacity" Value="0.4" />

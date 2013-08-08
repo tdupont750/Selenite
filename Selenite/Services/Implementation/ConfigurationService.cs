@@ -55,19 +55,15 @@ namespace Selenite.Services.Implementation
         {
             get
             {
-                var manifestPath = Selenite.Default.ManifestPath;
-
-                if (string.IsNullOrEmpty(manifestPath))
-                {
-                    return GetPath("TestScripts", "TestScriptsPath", FindTestScriptsPath);
-                }
-
-                return ResolvePath(manifestPath, FindTestScriptsPath);
+                return GetPath("TestScripts", "TestScriptsPath", FindTestScriptsPath);
             }
             set
             {
-                Selenite.Default.ManifestPath = value;
-                Selenite.Default.Save();
+                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                config.AppSettings.Settings.Remove("TestScriptsPath");
+                config.AppSettings.Settings.Add("TestScriptsPath", value);
+                config.Save(ConfigurationSaveMode.Modified, true);
+                ConfigurationManager.RefreshSection("appSettings");
             }
         }
 
