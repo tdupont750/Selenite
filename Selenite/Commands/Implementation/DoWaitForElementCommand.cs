@@ -11,10 +11,6 @@ namespace Selenite.Commands.Implementation
     /// </summary>
     public class DoWaitForElementCommand : CommandBase
     {
-        public DoWaitForElementCommand()
-        {
-            Timeout = 5000;
-        }
         /// <summary>
         /// The specified time to pause, in milliseconds (2000 = 2 seconds).
         /// This parameter is required.
@@ -33,7 +29,7 @@ namespace Selenite.Commands.Implementation
 
         public override void Execute(IWebDriver driver, dynamic context)
         {
-            var wait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(Timeout));
+            var wait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(Timeout == 0 ? 5000 : Timeout));
             
             try {
                 wait.Until(d => d.FindElement(By.CssSelector(Selector)));

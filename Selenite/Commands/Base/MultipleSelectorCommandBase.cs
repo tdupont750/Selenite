@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using System;
 
 namespace Selenite.Commands.Base
 {
@@ -14,9 +16,26 @@ namespace Selenite.Commands.Base
         /// </summary>
         public string Selector { get; set; }
 
+        /// <summary>
+        /// Whether or not the command should wait for the element to exist.
+        /// </summary>
+        public bool Wait { get; set; }
+
+        /// <summary>
+        /// The timeout period in milliseconds to wait for the element with the given selector to exist.
+        /// </summary>
+        public int WaitTimeout { get; set; }
+
         public override void Execute(IWebDriver driver, dynamic context)
         {
-            var elements = driver.FindElements(By.CssSelector(Selector));
+            IList<IWebElement> elements;
+            if (Wait)
+            {
+                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(WaitTimeout == 0 ? 5000 : WaitTimeout));
+                var element = wait.Until(d => d.FindElement(By.CssSelector(Selector)));
+            }
+
+            elements = driver.FindElements(By.CssSelector(Selector));
             Execute(driver, context, elements);
         }
 
