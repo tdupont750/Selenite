@@ -46,6 +46,32 @@
 			Selector: "#DoClick"
 		}]
 	}, {
+		Name: "DoWaitForElement",
+		Url: "DoCommands.html",
+		Commands: [{
+			Name: "DoClick",
+			Selector: "#DoWaitForElement"
+		}, {
+			Name: "DoWaitForElement",
+			Selector: "#DoWaitForElementResult"
+		}, {
+			Name: "IsTextContained",
+			Selector: "#DoWaitForElementResult",
+			Text: "Result!"
+		}]
+	}, {
+		Name: "DoWaitForElementFail",
+		Url: "DoCommands.html",
+		Commands: [{
+			Name: "DoClick",
+			Selector: "#DoWaitForElement"
+		}, {
+			Name: "DoWaitForElement",
+			Selector: "#DoWaitForElementThatWillNotExist",
+			IsFalseExpected: true,
+			Timeout: 2000
+		}]
+	}, {
 		Name: "DoPressEnter",
 		Url: "DoCommands.html",
 		Commands: [{
