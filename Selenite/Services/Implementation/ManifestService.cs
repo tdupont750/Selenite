@@ -12,7 +12,7 @@ namespace Selenite.Services.Implementation
         private readonly IConfigurationService _configurationService;
         private readonly IFileService _fileService;
 
-        private readonly Lazy<ManifestCollection> _manifestCollection;
+        private Lazy<ManifestCollection> _manifestCollection;
 
         public ManifestService(IConfigurationService configurationService, IFileService fileService)
         {
@@ -31,6 +31,11 @@ namespace Selenite.Services.Implementation
         {
             var manifestsJson = _fileService.ReadAllText(ManifestPath);
             return JsonConvert.DeserializeObject<ManifestCollection>(manifestsJson);
+        }
+
+        public void ReloadManifest()
+        {
+            _manifestCollection = new Lazy<ManifestCollection>(LoadManifestCollection);
         }
 
         public IList<string> GetManifestNames()

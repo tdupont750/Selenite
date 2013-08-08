@@ -53,7 +53,22 @@ namespace Selenite.Services.Implementation
 
         public string TestScriptsPath
         {
-            get { return GetPath("TestScripts", "TestScriptsPath", FindTestScriptsPath); }
+            get
+            {
+                var manifestPath = Selenite.Default.ManifestPath;
+
+                if (string.IsNullOrEmpty(manifestPath))
+                {
+                    return GetPath("TestScripts", "TestScriptsPath", FindTestScriptsPath);
+                }
+
+                return ResolvePath(manifestPath, FindTestScriptsPath);
+            }
+            set
+            {
+                Selenite.Default.ManifestPath = value;
+                Selenite.Default.Save();
+            }
         }
 
         public string ManifestFileName
@@ -89,6 +104,20 @@ namespace Selenite.Services.Implementation
         private string GetPath(string name, string key, Func<string, dynamic, string> subPathFunc, dynamic args = null)
         {
             var path = GetAppSetting(key);
+
+            var resolvedPath = ResolvePath(path, subPathFunc, args);
+
+            if (string.IsNullOrWhiteSpace(resolvedPath))
+            {
+                var message = String.Format(ErrorMessageFormat, name, key);
+                throw new ConfigurationErrorsException(message);
+            }
+
+            return resolvedPath;
+        }
+
+        private string ResolvePath(string path, Func<string, dynamic, string> subPathFunc, dynamic args = null)
+        {
             if (!String.IsNullOrWhiteSpace(path))
                 return path;
 
@@ -96,8 +125,7 @@ namespace Selenite.Services.Implementation
             if (!String.IsNullOrWhiteSpace(path))
                 return path;
 
-            var message = String.Format(ErrorMessageFormat, name, key);
-            throw new ConfigurationErrorsException(message);
+            return null;
         }
 
         private string FindPath(Func<string, dynamic, string> subPathFunc, dynamic args)

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using Microsoft.Win32;
 using Selenite.Models;
 using Selenite.Services;
 
@@ -12,11 +14,13 @@ namespace Selenite.Client.ViewModels.WebAutomation
     {
         private readonly IManifestService _manifestService;
         private readonly ITestCollectionService _testCollectionService;
+        private readonly IConfigurationService _configurationService;
 
-        public WebAutomationViewModel(IManifestService manifestService, ITestCollectionService testCollectionService)
+        public WebAutomationViewModel(IManifestService manifestService, ITestCollectionService testCollectionService, IConfigurationService configurationService)
         {
             _manifestService = manifestService;
             _testCollectionService = testCollectionService;
+            _configurationService = configurationService;
 
             Header = "Web Automation";
 
@@ -28,6 +32,22 @@ namespace Selenite.Client.ViewModels.WebAutomation
             LoadInformation();
 
             EditCategoriesCommand = new RelayCommand(EditTestCollections, t => EditTestCollectionViewModel == null);
+
+            LoadManifestCommand = new RelayCommand(parameter =>
+                {
+                    var dialog = new OpenFileDialog
+                        {
+                            Filter = "Manifest File|.manifests.json",
+                        };
+
+                    var result = dialog.ShowDialog();
+                    if (result == true)
+                    {
+                        _configurationService.TestScriptsPath = Path.GetDirectoryName(dialog.FileName);
+                        _manifestService.ReloadManifest();
+                        LoadInformation();
+                    }
+                });
         }
 
         #region Properties
@@ -56,6 +76,8 @@ namespace Selenite.Client.ViewModels.WebAutomation
         }
 
         public ICommand EditCategoriesCommand { get; set; }
+
+        public ICommand LoadManifestCommand { get; set; }
 
         #endregion
 

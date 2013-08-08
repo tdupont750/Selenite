@@ -31,8 +31,10 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0"
-                       Text="Manifests"/>
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <TextBlock Text="Manifests"/>
+                <Button Content="Load" Margin="5,0,0,0" Command="{Binding LoadManifestCommand}" />
+            </StackPanel>
             <ComboBox Grid.Row="1"
                       ItemsSource="{Binding Manifests}"
                       SelectedItem="{Binding SelectedManifest}"
