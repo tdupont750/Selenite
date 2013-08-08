@@ -1,266 +1,419 @@
 {
-	DefaultDomain: "http://localhost/selenite/testpages/",
-	Tests : [{
-		Name: "IsAttributeContained",
-		Url: "IsCommands.html",
-		Commands: [{
-			Name: "IsAttributeContained",
-			Selector: "#IsAttribute",
-			Attribute: "value",
-			Value: "hELLO"
-		}, {
-			Name: "IsAttributeContained",
-			Selector: "#IsAttribute",
-			Attribute: "value",
-			Value: "Hello",
-			IsCaseSensitive: true
-		}, {
-			Name: "IsAttributeContained",
-			Selector: "#IsAttribute",
-			Attribute: "value",
-			Value: "Goodnight",
-			IsFalseExpected: true
-		}, {
-			Name: "IsAttributeContained",
-			Selector: "#IsAttribute",
-			Attribute: "value",
-			Value: "hELLO",
-			IsCaseSensitive: true,
-			IsFalseExpected: true
-		}]
-	}, {
-		Name: "IsAttributeEqual",
-		Url: "IsCommands.html",
-		Commands: [{
-			Name: "IsAttributeEqual",
-			Selector: "#IsAttribute",
-			Attribute: "value",
-			Value: "hELLO wORLD"
-		}, {
-			Name: "IsAttributeEqual",
-			Selector: "#IsAttribute",
-			Attribute: "value",
-			Value: "Hello World",
-			IsCaseSensitive: true
-		}, {
-			Name: "IsAttributeEqual",
-			Selector: "#IsAttribute",
-			Attribute: "value",
-			Value: "Goodnight Moon",
-			IsFalseExpected: true
-		}, {
-			Name: "IsAttributeEqual",
-			Selector: "#IsAttribute",
-			Attribute: "value",
-			Value: "hELLO wORLD",
-			IsCaseSensitive: true,
-			IsFalseExpected: true
-		}]
-	}, {
-		Name: "IsChecked",
-		Url: "IsCommands.html",
-		Commands: [{
-			Name: "IsChecked",
-			Selector: "input[name=\"CheckBoxA\"]"
-		}, {
-			Name: "IsChecked",
-			Selector: "input[name=\"CheckBoxB\"]",
-			IsFalseExpected: true
-		}]
-	}, {
-		Name: "IsClass",
-		Url: "IsCommands.html",
-		Commands: [{
-			Name: "IsClass",
-			Selector: "#IsClassA",
-			Class: 'A'
-		}, {
-			Name: "IsClass",
-			Selector: "#IsClassB",
-			Class: 'A',
-			IsFalseExpected: true
-		}]
-	}, {
-		Name: "IsCountEqual",
-		Url: "IsCommands.html",
-		Commands: [{
-			Name: "IsCountEqual",
-			Selector: "#IsCountEqual > span",
-			Count: 2
-		}, {
-			Name: "IsCountEqual",
-			Selector: "#IsCountEqual > span.A",
-			Count: 2,
-			IsFalseExpected: true
-		}]
-	}, {
-		Name: "IsCountGreater",
-		Url: "IsCommands.html",
-		Commands: [{
-			Name: "IsCountGreater",
-			Selector: "#IsCountEqual > span",
-			Count: 1
-		}, {
-			Name: "IsCountGreater",
-			Selector: "#IsCountEqual > span",
-			Count: 2,
-			OrEqualTo: true
-		}]
-	}, {
-		Name: "IsCountLess",
-		Url: "IsCommands.html",
-		Commands: [{
-			Name: "IsCountLess",
-			Selector: "#IsCountEqual > span",
-			Count: 3
-		}, {
-			Name: "IsCountLess",
-			Selector: "#IsCountEqual > span",
-			Count: 2,
-			OrEqualTo: true
-		}]
-	}, {
-		Name: "IsDropdownSelected",
-		Url: "IsCommands.html",
-		Commands: [{
-			Name: "IsDropdownSelected",
-			Selector: "#IsDropdownSelected",
-			Value: "B"
-		}, {
-			Name: "IsDropdownSelected",
-			Selector: "#IsDropdownSelected",
-			Value: "A",
-			IsFalseExpected: true
-		}, {
-			Name: "IsDropdownSelected",
-			Selector: "#IsDropdownSelected",
-			Text: "Y"
-		}, {
-			Name: "IsDropdownSelected",
-			Selector: "#IsDropdownSelected",
-			Text: "Z",
-			IsFalseExpected: true
-		}]
-	}, {
-		Name: "IsEnabled",
-		Url: "IsCommands.html",
-		Commands: [{
-			Name: "IsEnabled",
-			Selector: "#IsEnabledA"
-		}, {
-			Name: "IsEnabled",
-			Selector: "#IsEnabledB",
-			IsFalseExpected: true
-		}]
-	}, {
-		Name: "IsSelected",
-		Url: "IsCommands.html",
-		Commands: [{
-			Name: "IsSelected",
-			Selector: "#IsDropdownSelected > option[value=\"B\"]"
-		}, {
-			Name: "IsSelected",
-			Selector: "#IsDropdownSelected > option[value=\"A\"]",
-			IsFalseExpected: true
-		}]
-	}, {
-		Name: "IsTextContained",
-		Url: "IsCommands.html",
-		Commands: [{
-			Name: "IsTextContained",
-			Selector: "#Text",
-			Text: "hELLO"
-		}, {
-			Name: "IsTextContained",
-			Selector: "#Text",
-			Text: "World",
-			IsCaseSensitive: true
-		}, {
-			Name: "IsTextContained",
-			Selector: "#Text",
-			Text: "Goodnight",
-			IsFalseExpected: true
-		}, {
-			Name: "IsTextContained",
-			Selector: "#Text",
-			Text: "wORLD",
-			IsCaseSensitive: true,
-			IsFalseExpected: true
-		}]
-	}, {
-		Name: "IsTextEqual",
-		Url: "IsCommands.html",
-		Commands: [{
-			Name: "IsTextEqual",
-			Selector: "#Text",
-			Text: "hELLO wORLD"
-		}, {
-			Name: "IsTextEqual",
-			Selector: "#Text",
-			Text: "Hello World",
-			IsCaseSensitive: true
-		}, {
-			Name: "IsTextEqual",
-			Selector: "#Text",
-			Text: "Goodnight Moon",
-			IsFalseExpected: true
-		}, {
-			Name: "IsTextEqual",
-			Selector: "#Text",
-			Text: "hELLO wORLD",
-			IsCaseSensitive: true,
-			IsFalseExpected: true
-		}]
-	}, {
-		Name: "IsTitleContained",
-		Url: "IsCommands.html",
-		Commands: [{
-			Name: "IsTitleContained",
-			Title: "cOMMAND"
-		}, {
-			Name: "IsTitleContained",
-			Title: "Command",
-			IsCaseSensitive: true
-		}, {
-			Name: "IsTitleContained",
-			Title: "Are",
-			IsFalseExpected: true
-		}, {
-			Name: "IsTitleContained",
-			Title: "cOMMAND",
-			IsCaseSensitive: true,
-			IsFalseExpected: true
-		}]
-	}, {
-		Name: "IsTitleEqual",
-		Url: "IsCommands.html",
-		Commands: [{
-			Name: "IsTitleEqual",
-			Title: "iScOMMANDS"
-		}, {
-			Name: "IsTitleEqual",
-			Title: "IsCommands",
-			IsCaseSensitive: true
-		}, {
-			Name: "IsTitleEqual",
-			Title: "AreCommand",
-			IsFalseExpected: true
-		}, {
-			Name: "IsTitleEqual",
-			Title: "iScOMMANDS",
-			IsCaseSensitive: true,
-			IsFalseExpected: true
-		}]
-	}, {
-		Name: "IsVisible",
-		Url: "IsCommands.html",
-		Commands: [{
-			Name: "IsVisible",
-			Selector: "#IsVisibleA"
-		}, {
-			Name: "IsVisible",
-			Selector: "#IsVisibleB",
-			IsFalseExpected: true
-		}]
-	}]
+  "Enabled": true,
+  "DefaultDomain": "http://localhost/selenite/testpages/",
+  "Tests": [
+    {
+      "Enabled": true,
+      "Name": "IsAttributeContained",
+      "Url": "IsCommands.html",
+      "Commands": [
+        {
+          "Attribute": "value",
+          "Value": "hELLO",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": false,
+          "Selector": "#IsAttribute",
+          "Name": "IsAttributeContained"
+        },
+        {
+          "Attribute": "value",
+          "Value": "Hello",
+          "IsCaseSensitive": true,
+          "IsFalseExpected": false,
+          "Selector": "#IsAttribute",
+          "Name": "IsAttributeContained"
+        },
+        {
+          "Attribute": "value",
+          "Value": "Goodnight",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": true,
+          "Selector": "#IsAttribute",
+          "Name": "IsAttributeContained"
+        },
+        {
+          "Attribute": "value",
+          "Value": "hELLO",
+          "IsCaseSensitive": true,
+          "IsFalseExpected": true,
+          "Selector": "#IsAttribute",
+          "Name": "IsAttributeContained"
+        }
+      ]
+    },
+    {
+      "Enabled": true,
+      "Name": "IsAttributeEqual",
+      "Url": "IsCommands.html",
+      "Commands": [
+        {
+          "Attribute": "value",
+          "Value": "hELLO wORLD",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": false,
+          "Selector": "#IsAttribute",
+          "Name": "IsAttributeEqual"
+        },
+        {
+          "Attribute": "value",
+          "Value": "Hello World",
+          "IsCaseSensitive": true,
+          "IsFalseExpected": false,
+          "Selector": "#IsAttribute",
+          "Name": "IsAttributeEqual"
+        },
+        {
+          "Attribute": "value",
+          "Value": "Goodnight Moon",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": true,
+          "Selector": "#IsAttribute",
+          "Name": "IsAttributeEqual"
+        },
+        {
+          "Attribute": "value",
+          "Value": "hELLO wORLD",
+          "IsCaseSensitive": true,
+          "IsFalseExpected": true,
+          "Selector": "#IsAttribute",
+          "Name": "IsAttributeEqual"
+        }
+      ]
+    },
+    {
+      "Enabled": true,
+      "Name": "IsChecked",
+      "Url": "IsCommands.html",
+      "Commands": [
+        {
+          "IsFalseExpected": false,
+          "Selector": "input[name=\"CheckBoxA\"]",
+          "Name": "IsChecked"
+        },
+        {
+          "IsFalseExpected": true,
+          "Selector": "input[name=\"CheckBoxB\"]",
+          "Name": "IsChecked"
+        }
+      ]
+    },
+    {
+      "Enabled": true,
+      "Name": "IsClass",
+      "Url": "IsCommands.html",
+      "Commands": [
+        {
+          "Class": "A",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": false,
+          "Selector": "#IsClassA",
+          "Name": "IsClass"
+        },
+        {
+          "Class": "A",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": true,
+          "Selector": "#IsClassB",
+          "Name": "IsClass"
+        }
+      ]
+    },
+    {
+      "Enabled": true,
+      "Name": "IsCountEqual",
+      "Url": "IsCommands.html",
+      "Commands": [
+        {
+          "Count": 2,
+          "IsFalseExpected": false,
+          "Selector": "#IsCountEqual > span",
+          "Name": "IsCountEqual"
+        },
+        {
+          "Count": 2,
+          "IsFalseExpected": true,
+          "Selector": "#IsCountEqual > span.A",
+          "Name": "IsCountEqual"
+        }
+      ]
+    },
+    {
+      "Enabled": true,
+      "Name": "IsCountGreater",
+      "Url": "IsCommands.html",
+      "Commands": [
+        {
+          "Count": 1,
+          "OrEqualTo": false,
+          "Selector": "#IsCountEqual > span",
+          "Name": "IsCountGreater"
+        },
+        {
+          "Count": 2,
+          "OrEqualTo": true,
+          "Selector": "#IsCountEqual > span",
+          "Name": "IsCountGreater"
+        }
+      ]
+    },
+    {
+      "Enabled": true,
+      "Name": "IsCountLess",
+      "Url": "IsCommands.html",
+      "Commands": [
+        {
+          "Count": 3,
+          "OrEqualTo": false,
+          "Selector": "#IsCountEqual > span",
+          "Name": "IsCountLess"
+        },
+        {
+          "Count": 2,
+          "OrEqualTo": true,
+          "Selector": "#IsCountEqual > span",
+          "Name": "IsCountLess"
+        }
+      ]
+    },
+    {
+      "Enabled": true,
+      "Name": "IsDropdownSelected",
+      "Url": "IsCommands.html",
+      "Commands": [
+        {
+          "Text": null,
+          "Value": "B",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": false,
+          "Selector": "#IsDropdownSelected",
+          "Name": "IsDropdownSelected"
+        },
+        {
+          "Text": null,
+          "Value": "A",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": true,
+          "Selector": "#IsDropdownSelected",
+          "Name": "IsDropdownSelected"
+        },
+        {
+          "Text": "Y",
+          "Value": null,
+          "IsCaseSensitive": false,
+          "IsFalseExpected": false,
+          "Selector": "#IsDropdownSelected",
+          "Name": "IsDropdownSelected"
+        },
+        {
+          "Text": "Z",
+          "Value": null,
+          "IsCaseSensitive": false,
+          "IsFalseExpected": true,
+          "Selector": "#IsDropdownSelected",
+          "Name": "IsDropdownSelected"
+        }
+      ]
+    },
+    {
+      "Enabled": true,
+      "Name": "IsEnabled",
+      "Url": "IsCommands.html",
+      "Commands": [
+        {
+          "IsFalseExpected": false,
+          "Selector": "#IsEnabledA",
+          "Name": "IsEnabled"
+        },
+        {
+          "IsFalseExpected": true,
+          "Selector": "#IsEnabledB",
+          "Name": "IsEnabled"
+        }
+      ]
+    },
+    {
+      "Enabled": true,
+      "Name": "IsSelected",
+      "Url": "IsCommands.html",
+      "Commands": [
+        {
+          "IsFalseExpected": false,
+          "Selector": "#IsDropdownSelected > option[value=\"B\"]",
+          "Name": "IsSelected"
+        },
+        {
+          "IsFalseExpected": true,
+          "Selector": "#IsDropdownSelected > option[value=\"A\"]",
+          "Name": "IsSelected"
+        }
+      ]
+    },
+    {
+      "Enabled": true,
+      "Name": "IsTextContained",
+      "Url": "IsCommands.html",
+      "Commands": [
+        {
+          "Text": "hELLO",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": false,
+          "Selector": "#Text",
+          "Name": "IsTextContained"
+        },
+        {
+          "Text": "World",
+          "IsCaseSensitive": true,
+          "IsFalseExpected": false,
+          "Selector": "#Text",
+          "Name": "IsTextContained"
+        },
+        {
+          "Text": "Goodnight",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": true,
+          "Selector": "#Text",
+          "Name": "IsTextContained"
+        },
+        {
+          "Text": "wORLD",
+          "IsCaseSensitive": true,
+          "IsFalseExpected": true,
+          "Selector": "#Text",
+          "Name": "IsTextContained"
+        }
+      ]
+    },
+	{
+		"Enabled": true,
+		"Name": "IsTextContainedWithWait",
+		"Url": "IsCommands.html",
+		Commands: [
+		  {
+		    "Name": "DoClick",
+			"Selector": "#CreateText"
+		  },
+		  {
+		    "Name": "IsTextContained",
+			"Text": "Created Text",
+			"Selector": "#CreatedText",
+			"Wait": true,
+			"WaitTimeout": 2000
+		  }
+		]
+	},
+    {
+      "Enabled": true,
+      "Name": "IsTextEqual",
+      "Url": "IsCommands.html",
+      "Commands": [
+        {
+          "Text": "hELLO wORLD",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": false,
+          "Selector": "#Text",
+          "Name": "IsTextEqual"
+        },
+        {
+          "Text": "Hello World",
+          "IsCaseSensitive": true,
+          "IsFalseExpected": false,
+          "Selector": "#Text",
+          "Name": "IsTextEqual"
+        },
+        {
+          "Text": "Goodnight Moon",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": true,
+          "Selector": "#Text",
+          "Name": "IsTextEqual"
+        },
+        {
+          "Text": "hELLO wORLD",
+          "IsCaseSensitive": true,
+          "IsFalseExpected": true,
+          "Selector": "#Text",
+          "Name": "IsTextEqual"
+        }
+      ]
+    },
+    {
+      "Enabled": true,
+      "Name": "IsTitleContained",
+      "Url": "IsCommands.html",
+      "Commands": [
+        {
+          "Title": "cOMMAND",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": false,
+          "Name": "IsTitleContained"
+        },
+        {
+          "Title": "Command",
+          "IsCaseSensitive": true,
+          "IsFalseExpected": false,
+          "Name": "IsTitleContained"
+        },
+        {
+          "Title": "Are",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": true,
+          "Name": "IsTitleContained"
+        },
+        {
+          "Title": "cOMMAND",
+          "IsCaseSensitive": true,
+          "IsFalseExpected": true,
+          "Name": "IsTitleContained"
+        }
+      ]
+    },
+    {
+      "Enabled": true,
+      "Name": "IsTitleEqual",
+      "Url": "IsCommands.html",
+      "Commands": [
+        {
+          "Title": "iScOMMANDS",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": false,
+          "Name": "IsTitleEqual"
+        },
+        {
+          "Title": "IsCommands",
+          "IsCaseSensitive": true,
+          "IsFalseExpected": false,
+          "Name": "IsTitleEqual"
+        },
+        {
+          "Title": "AreCommand",
+          "IsCaseSensitive": false,
+          "IsFalseExpected": true,
+          "Name": "IsTitleEqual"
+        },
+        {
+          "Title": "iScOMMANDS",
+          "IsCaseSensitive": true,
+          "IsFalseExpected": true,
+          "Name": "IsTitleEqual"
+        }
+      ]
+    },
+    {
+      "Enabled": true,
+      "Name": "IsVisible",
+      "Url": "IsCommands.html",
+      "Commands": [
+        {
+          "IsFalseExpected": false,
+          "Selector": "#IsVisibleA",
+          "Name": "IsVisible"
+        },
+        {
+          "IsFalseExpected": true,
+          "Selector": "#IsVisibleB",
+          "Name": "IsVisible"
+        }
+      ]
+    }
+  ]
 }
