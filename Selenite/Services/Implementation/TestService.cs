@@ -6,6 +6,7 @@ using System.Threading;
 using Newtonsoft.Json;
 using Selenite.Browsers;
 using Selenite.Models;
+using OpenQA.Selenium;
 
 namespace Selenite.Services.Implementation
 {
@@ -39,8 +40,9 @@ namespace Selenite.Services.Implementation
                 dynamic context = new ExpandoObject();
                 context.DriverType = browser.DriverType;
 
-                foreach (var command in test.Commands)
+                for (var i = 0; i < test.Commands.Count; i++) 
                 {
+                    var command = test.Commands[i];
                     Thread.Sleep(100);
 
                     try
@@ -49,7 +51,26 @@ namespace Selenite.Services.Implementation
                     }
                     catch (Exception ex)
                     {
-                        var message = String.Format("Test: {0}, Command: {1}{2}{3}", test.Name, command.Name, Environment.NewLine, ex.Message);
+                        string commandJson;
+                        try
+                        {
+                            commandJson = JsonConvert.SerializeObject(
+                                command,
+                                Formatting.Indented,
+                                new JsonSerializerSettings { DefaultValueHandling = DefaultValueHandling.Ignore }
+                            );
+                        }
+                        catch(Exception serializeEx)
+                        {
+                            commandJson = "Unable to serialize command: " + serializeEx.Message;
+                        }
+                        var message = String.Format("Test: {0}, Command #{1}: {2}{3}Command Config:{3}{4}{3}{5}",
+                            test.Name,
+                            i + 1, 
+                            command.Name, 
+                            Environment.NewLine, 
+                            commandJson, 
+                            ex.Message); 
                         throw new Exception(message, ex);
                     }
                 }
