@@ -1,6 +1,8 @@
 using System;
 using System.Diagnostics;
+using System.Drawing.Imaging;
 using System.Dynamic;
+using System.IO;
 using System.Text;
 using System.Threading;
 using Newtonsoft.Json;
@@ -12,7 +14,15 @@ namespace Selenite.Services.Implementation
 {
     public class TestService : ITestService
     {
+        private readonly IConfigurationService _configurationService;
+
         public const string AboutBlank = "about:blank";
+        private const string ScreenshotFilenameFormat = "./Screenshots/{0}-{1}-{2}.png";
+
+        public TestService(IConfigurationService configurationService)
+        {
+            _configurationService = configurationService;
+        }
 
         public void ExecuteTest(BrowserBase browser, Test test)
         {
@@ -51,6 +61,27 @@ namespace Selenite.Services.Implementation
                     }
                     catch (Exception ex)
                     {
+                        var screenshotDriver = browser.Driver as ITakesScreenshot;
+
+                        if (screenshotDriver != null)
+                        {
+                            var screenshot = screenshotDriver.GetScreenshot();
+                            var ssFilename = string.Format(ScreenshotFilenameFormat,
+                                                           testResult.CollectionName,
+                                                           testResult.TestName,
+                                                           testResult.DriverType);
+
+                            var path = Path.GetDirectoryName(ssFilename);
+
+                            if (!Directory.Exists(path))
+                            {
+                                Directory.CreateDirectory(path);
+                            }
+
+                            screenshot.SaveAsFile(
+                                ssFilename,
+                                ImageFormat.Png);
+                        }
                         string commandJson;
                         try
                         {

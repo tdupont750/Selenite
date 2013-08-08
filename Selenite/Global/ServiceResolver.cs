@@ -42,7 +42,7 @@ namespace Selenite.Global
             var fileService = new FileService();
             var testCollectionService = new TestCollectionService(configurationService, fileService, commandService);
             var manifestService = new ManifestService(configurationService, fileService);
-            var testService = new TestService();
+            var testService = new TestService(configurationService);
 
             return new Dictionary<Type, object>
             {

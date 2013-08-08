@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using Selenite.Client.Properties;
 using Selenite.Enums;
 using Selenite.Extensions;
 using Selenite.Models;
+using Selenite.Services;
 using Xunit;
 
 namespace Selenite.Client.ViewModels.WebAutomation
@@ -235,6 +237,15 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
         public void DoRunTests()
         {
+            if (Directory.Exists("./Screenshots"))
+            {
+                var screenshotDirectory = new DirectoryInfo("./Screenshots");
+                foreach (var file in screenshotDirectory.GetFiles("*.png"))
+                {
+                    file.Delete();
+                }
+            }
+
             var executingAssembly = System.Reflection.Assembly.GetExecutingAssembly();
 
             try
