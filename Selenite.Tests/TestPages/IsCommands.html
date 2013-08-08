@@ -1,3 +1,4 @@
+<!DOCTYPE html />
 <html>
 	<head>
 		<title>IsCommands</title>
@@ -36,5 +37,19 @@
 			<span id="IsVisibleA">A</span>
 			<span id="IsVisibleB" style="display:none;">B</span>
 		</p>
+        <script>
+            function onCreateText() {
+                setTimeout(function () {
+                    var container = document.getElementById("CreateText").parentNode;
+                    var div = document.createElement("div");
+                    div.id = "CreatedText";
+                    div.innerHTML = "Created Text";
+                    container.appendChild(div);
+                }, 1000);
+            }
+        </script>
+        <p>
+            <input type="button" value="Create Text" id="CreateText" onclick="onCreateText()" />
+        </p>
 	</body>
 </html>
