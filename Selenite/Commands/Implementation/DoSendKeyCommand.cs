@@ -45,7 +45,8 @@ namespace Selenite.Commands.Implementation
 
         private string GetKeyValue()
         {
-            var field = KeyMembers.FirstOrDefault(m => m.Name.Equals(Key, StringComparison.InvariantCultureIgnoreCase)) as FieldInfo;
+            var resolvedKey = Test.ResolveMacros(Key);
+            var field = KeyMembers.FirstOrDefault(m => m.Name.Equals(resolvedKey, StringComparison.InvariantCultureIgnoreCase)) as FieldInfo;
 
             if (field == null)
                 throw new ArgumentException();

@@ -6,7 +6,8 @@
       "OverrideDomain": "",
       "Files": [
         "DoCommands.json",
-        "IsCommands.json"
+        "IsCommands.json",
+        "Macros.json"
       ]
     }
   ]

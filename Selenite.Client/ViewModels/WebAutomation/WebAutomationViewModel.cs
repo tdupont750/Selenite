@@ -141,7 +141,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("TestCollection: " + testCollectionFile + Environment.NewLine + e.Message,
+                    MessageBox.Show("TestCollection: " + testCollectionFile + Environment.NewLine + e.ToString(),
                                     "Error Loading TestCollection", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 

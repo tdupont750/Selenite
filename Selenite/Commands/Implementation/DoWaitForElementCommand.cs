@@ -34,16 +34,18 @@ namespace Selenite.Commands.Implementation
 
         public override void Execute(IWebDriver driver, dynamic context)
         {
+            var resolvedSelector = Test.ResolveMacros(Selector);
+
             var wait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(Timeout == 0 ? 5000 : Timeout));
             
             try {
                 if (WaitForVisible)
                 {
-                    wait.Until(d => ExpectedConditions.ElementIsVisible(By.CssSelector(Selector))(d));
+                    wait.Until(d => ExpectedConditions.ElementIsVisible(By.CssSelector(resolvedSelector))(d));
                 }
                 else
                 {
-                    wait.Until(d => d.FindElement(By.CssSelector(Selector)));
+                    wait.Until(d => d.FindElement(By.CssSelector(resolvedSelector)));
                 }
                 if (IsFalseExpected)
                     throw new InvalidOperationException("Element with selector '" + Selector + "' exists.");

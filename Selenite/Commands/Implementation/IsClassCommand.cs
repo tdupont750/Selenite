@@ -35,11 +35,12 @@ namespace Selenite.Commands.Implementation
                 : StringComparer.InvariantCultureIgnoreCase;
 
             var classes = element.GetAttribute("class").Split(' ');
+            var resolvedClass = Test.ResolveMacros(Class);
 
             if (IsFalseExpected)
-                Assert.DoesNotContain(Class, classes, stringComparer);
+                Assert.DoesNotContain(resolvedClass, classes, stringComparer);
             else
-                Assert.Contains(Class, classes, stringComparer);
+                Assert.Contains(resolvedClass, classes, stringComparer);
         }
     }
 }

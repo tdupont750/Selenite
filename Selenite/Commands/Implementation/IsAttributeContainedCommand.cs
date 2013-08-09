@@ -40,14 +40,17 @@ namespace Selenite.Commands.Implementation
                 ? StringComparison.InvariantCulture
                 : StringComparison.InvariantCultureIgnoreCase;
 
+            var resolvedAttribute = Test.ResolveMacros(Attribute);
+            var resolvedValue = Test.ResolveMacros(Value);
+
             var attribute = element
-                .GetAttribute(Attribute)
+                .GetAttribute(resolvedAttribute)
                 .Trim();
 
             if (IsFalseExpected)
-                Assert.DoesNotContain(Value.Trim(), attribute, stringComparison);
+                Assert.DoesNotContain(resolvedValue.Trim(), attribute, stringComparison);
             else
-                Assert.Contains(Value.Trim(), attribute, stringComparison);
+                Assert.Contains(resolvedValue.Trim(), attribute, stringComparison);
         }
     }
 }

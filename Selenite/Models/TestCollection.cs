@@ -11,5 +11,6 @@ namespace Selenite.Models
         
         public string DefaultDomain { get; set; }
         public IList<Test> Tests { get; set; }
+        public IDictionary<string, string> Macros { get; set; }
     }
 }

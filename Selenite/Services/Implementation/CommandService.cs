@@ -6,6 +6,7 @@ using Newtonsoft.Json.Linq;
 using Selenite.Commands;
 using Selenite.Commands.Base;
 using Selenite.Extensions;
+using Selenite.Models;
 
 namespace Selenite.Services.Implementation
 {
@@ -54,17 +55,17 @@ namespace Selenite.Services.Implementation
                 .ToList();
         }
 
-        public ICommand CreateCommand(string name, IDictionary<string, string> values)
+        public ICommand CreateCommand(string name, IDictionary<string, string> values, Test test)
         {
             dynamic command = new {Name = name};
 
             foreach (var value in values)
                 command[value.Key] = value.Value;
 
-            return CreateCommand(command);
+            return CreateCommand(command, test);
         }
 
-        public ICommand CreateCommand(dynamic command)
+        public ICommand CreateCommand(dynamic command, Test test)
         {
             string name = command.Name;
             if (String.IsNullOrWhiteSpace(name))
@@ -75,6 +76,7 @@ namespace Selenite.Services.Implementation
                 throw new ArgumentException("Command not found: " + name);
 
             dynamic result = Activator.CreateInstance(type);
+
             var properties = GetProperties(type);
 
             foreach (var property in properties)
@@ -92,9 +94,11 @@ namespace Selenite.Services.Implementation
                 property.InvokeSetMethod((object) result, converted);
             }
 
-            result.Validate();
+            var commandBase = (CommandBase)result;
+            commandBase.Test = test;
+            commandBase.Validate();
 
-            return (CommandBase) result;
+            return commandBase;
         }
 
         private IEnumerable<PropertyInfo> GetProperties(Type type)

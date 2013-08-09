@@ -1,0 +1,25 @@
+{
+    DefaultDomain: "http://localhost/selenite/testpages/",
+	Macros: {
+		GlobalMacro1: "GlobalOne",
+		GlobalMacro2: "GlobalTwo"
+	},
+	Tests : [{
+		Name: "MacroResolution",
+		Url: "DoCommands.html",
+		Macros: {
+			LocalMacro1: "LocalOne",
+			GlobalMacro2: "LocalOverriddenTwo-@{LocalMacro1}"
+		},
+		Commands: [{
+			Name: "DoSendKeys",
+			Selector: "#MacroBox",
+			Keys: "[@{GlobalMacro1},@{GlobalMacro2},@{LocalMacro1}]"
+		}, {
+			Name: "IsAttributeEqual",
+			Selector: "#MacroBox",
+			Attribute: "value",
+			Value: "[GlobalOne,LocalOverriddenTwo-LocalOne,LocalOne]"
+		}]
+	}]
+}

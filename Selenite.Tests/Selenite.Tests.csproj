@@ -87,6 +87,7 @@
     </None>
     <None Include="packages.config" />
     <None Include="TestScripts\.manifests.json" />
+    <None Include="TestScripts\Macros.json" />
     <None Include="TestScripts\DoCommands.json" />
     <None Include="TestScripts\IsCommands.json" />
   </ItemGroup>

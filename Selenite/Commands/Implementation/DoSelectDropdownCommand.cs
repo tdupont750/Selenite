@@ -39,20 +39,23 @@ namespace Selenite.Commands.Implementation
 
         protected override void Execute(IWebDriver driver, dynamic context, IWebElement element)
         {
-            var isValue = String.IsNullOrWhiteSpace(Text);
+            var resolvedText = Test.ResolveMacros(Text);
+            var resolvedValue = Test.ResolveMacros(Value);
+
+            var isValue = String.IsNullOrWhiteSpace(resolvedText);
 
             var stringComparison = IsCaseSensitive
                 ? StringComparison.InvariantCulture
                 : StringComparison.InvariantCultureIgnoreCase;
 
             var option = isValue
-                ? element.GetOptionByValue(Value, stringComparison)
-                : element.GetOptionByText(Text, stringComparison);
+                ? element.GetOptionByValue(resolvedValue, stringComparison)
+                : element.GetOptionByText(resolvedText, stringComparison);
 
             if (option == null)
             {
                 var key = isValue ? "Value" : "Text";
-                var value = isValue ? Value : Text;
+                var value = isValue ? resolvedValue : resolvedText;
                 var message = String.Format("Unable to locate option by {0}: {1}", key, value);
                 throw new Exception(message);
             }

@@ -18,10 +18,12 @@ namespace Selenite.Commands.Implementation
 
         protected override void Execute(IWebDriver driver, dynamic context, IWebElement element)
         {
+            var resolvedKeys = Test.ResolveMacros(Keys);
+
             // HACK: Firefox has issues with typing long strings.
             if (context.DriverType == DriverType.Firefox)
             {
-                foreach (var key in Keys)
+                foreach (var key in resolvedKeys)
                 {
                     Thread.Sleep(50);
                     element.SendKeys(key.ToString());
@@ -29,7 +31,7 @@ namespace Selenite.Commands.Implementation
             }
             else
             {
-                element.SendKeys(Keys);
+                element.SendKeys(resolvedKeys);
             }
         }
     }

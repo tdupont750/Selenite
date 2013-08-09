@@ -27,14 +27,15 @@ namespace Selenite.Commands.Base
 
         public override void Execute(IWebDriver driver, dynamic context)
         {
+            var resolvedSelector = Test.ResolveMacros(Selector);
             IWebElement element;
             if (Wait)
             {
                 var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(WaitTimeout == 0 ? 5000 : WaitTimeout));
-                element = wait.Until(d => d.FindElement(By.CssSelector(Selector)));
+                element = wait.Until(d => d.FindElement(By.CssSelector(resolvedSelector)));
             }
             else {
-                element = driver.FindElement(By.CssSelector(Selector));
+                element = driver.FindElement(By.CssSelector(resolvedSelector));
             }
             Execute(driver, context, element);
         }

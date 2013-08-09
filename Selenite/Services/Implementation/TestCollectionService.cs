@@ -75,25 +75,37 @@ namespace Selenite.Services.Implementation
                         : overrideDomain,
                     Enabled = testCollection.Enabled ?? true,
                     File = name,
+                    Macros = GetDictionaryFromJObject(testCollection.Macros)
                 };
 
             var tests = new List<Test>();
 
             foreach (var test in testCollection.Tests)
-                tests.Add(CreateTest(test, collection.DefaultDomain, name));
+                tests.Add(CreateTest(collection, test, collection.DefaultDomain, name));
 
             collection.Tests = tests;
 
             return collection;
         }
 
-        private Test CreateTest(dynamic test, string domain, string testCollectionName)
+        private IDictionary<string, string> GetDictionaryFromJObject(JObject obj)
         {
-            var commands = new List<ICommand>();
+            IDictionary<string, string> dictionary = null;
 
-            foreach (var command in test.Commands)
-                commands.Add(_commandService.CreateCommand(command));
+            IDictionary<string, JToken> jobjectMacros = obj;
+            if (jobjectMacros != null)
+            {
+                dictionary = new Dictionary<string, string>();
+                foreach (var b in jobjectMacros)
+                {
+                    dictionary[b.Key] = b.Value.ToString();
+                }
+            }
+            return dictionary;
+        }
 
+        private Test CreateTest(TestCollection testCollection, dynamic test, string domain, string testCollectionName)
+        {
             var url = test.Url.ToString();
 
             var baseUri = domain.EndsWith("/")
@@ -102,15 +114,25 @@ namespace Selenite.Services.Implementation
 
             var relativeUri = new Uri(baseUri, url);
 
-            return new Test
+            var testInstance = new Test
             {
                 CollectionName = testCollectionName,
-                Commands = commands,
+                TestCollection = testCollection,
                 Enabled = test.Enabled ?? true,
                 Name = test.Name,
                 Url = url,
-                TestUrl = relativeUri.ToString()
+                TestUrl = relativeUri.ToString(),
+                Macros = GetDictionaryFromJObject(test.Macros)
             };
+
+            var commands = new List<ICommand>();
+
+            foreach (var command in test.Commands)
+                commands.Add(_commandService.CreateCommand(command, testInstance));
+
+            testInstance.Commands = commands;
+
+            return testInstance;
         }
     }
 }

@@ -31,14 +31,16 @@ namespace Selenite.Commands.Implementation
 
         public override void Execute(IWebDriver driver, dynamic context)
         {
+            var resolvedTitle = Test.ResolveMacros(Title);
+
             var stringComparer = IsCaseSensitive
                 ? StringComparer.InvariantCulture
                 : StringComparer.InvariantCultureIgnoreCase;
 
             if (IsFalseExpected)
-                Assert.NotEqual(Title.Trim(), driver.Title.Trim(), stringComparer);
+                Assert.NotEqual(resolvedTitle.Trim(), driver.Title.Trim(), stringComparer);
             else
-                Assert.Equal(Title.Trim(), driver.Title.Trim(), stringComparer);
+                Assert.Equal(resolvedTitle.Trim(), driver.Title.Trim(), stringComparer);
         }
     }
 }
