@@ -42,11 +42,16 @@ namespace Selenite.Services.Implementation
 
             try
             {
-                browser.Driver.Url = test.TestUrl;
-
-                // Hack, sometimes the set does not work?
-                if (browser.Driver.Url == AboutBlank)
+                var limit = 10;
+                while (browser.Driver.Url == AboutBlank)
+                {
+                    limit--;
+                    if (limit <= 0)
+                    {
+                        throw new InvalidOperationException("Unable to navigate the driver to the given url: " + test.TestUrl);
+                    }
                     browser.Driver.Url = test.TestUrl;
+                }
 
                 dynamic context = new ExpandoObject();
                 context.DriverType = browser.DriverType;

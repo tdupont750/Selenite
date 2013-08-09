@@ -55,6 +55,10 @@ namespace Selenite.Browsers
                     break;
             }
 
+            var window = _driver.Manage().Window;
+            window.Size = new System.Drawing.Size(1024, 800);
+            window.Position = new System.Drawing.Point(0, 0);
+
             _type = browser;
         }
 
