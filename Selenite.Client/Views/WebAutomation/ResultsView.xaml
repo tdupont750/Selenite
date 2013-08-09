@@ -139,6 +139,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -150,14 +151,20 @@
 
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="Url:" Style="{StaticResource DetailsLabel}" />
                     <Button Grid.Row="2" Grid.Column="1" Content="{Binding Url}" Style="{StaticResource LinkButton}"
-                            Command="{Binding NavigateUrlCommand}" CommandParameter="{Binding Url}" Margin="3,0,0,0" HorizontalAlignment="Left"/>
+                            Command="{Binding OpenProcessCommand}" CommandParameter="{Binding Url}" Margin="3,0,0,0" HorizontalAlignment="Left"/>
 
-                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Output:" Style="{StaticResource DetailsLabel}" />
-                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding ResultOutput}" IsReadOnly="True" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Screenshot:" Style="{StaticResource DetailsLabel}"
+                               Visibility="{Binding ScreenshotPath, Converter={StaticResource NullToVisibilityConverter}}"/>
+                    <Button Grid.Row="3" Grid.Column="1" Content="View Screenshot" Style="{StaticResource LinkButton}"
+                            Command="{Binding OpenProcessCommand}" CommandParameter="{Binding ScreenshotPath}" Margin="3,0,0,0" HorizontalAlignment="Left"
+                            Visibility="{Binding ScreenshotPath, Converter={StaticResource NullToVisibilityConverter}}"/>
 
-                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Stack Trace:" Style="{StaticResource DetailsLabel}"
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Output:" Style="{StaticResource DetailsLabel}" />
+                    <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding ResultOutput}" IsReadOnly="True" />
+
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Stack Trace:" Style="{StaticResource DetailsLabel}"
                                Visibility="{Binding StackTrace, Converter={StaticResource NullToVisibilityConverter}}"/>
-                    <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding StackTrace}" IsReadOnly="True"
+                    <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding StackTrace}" IsReadOnly="True"
                              Visibility="{Binding StackTrace, Converter={StaticResource NullToVisibilityConverter}}" />
                 </Grid>
             </ScrollViewer>

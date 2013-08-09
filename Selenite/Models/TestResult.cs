@@ -8,6 +8,7 @@ namespace Selenite.Models
         public string CollectionName { get; set; }
         public string TestName { get; set; }
         public string Url { get; set; }
+        public string ScreenshotPath { get; set; }
         public string TraceResult { get; set; }
         public DriverType DriverType { get; set; }
     }

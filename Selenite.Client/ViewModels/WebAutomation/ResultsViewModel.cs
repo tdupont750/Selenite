@@ -406,6 +406,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
                     Status = result.Status,
                     Name = result.TestName,
                     Url = result.Url,
+                    ScreenshotPath = result.ScreenshotPath,
                     ResultOutput = testResult.ExceptionMessage + Environment.NewLine + result.TraceResult,
                     StackTrace = testResult.ExceptionStackTrace,
                     Browser = result.DriverType.Description(),
@@ -507,6 +508,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
                     Status = result.Status,
                     Name = result.TestName,
                     Url = result.Url,
+                    ScreenshotPath = result.ScreenshotPath,
                     ResultOutput = result.TraceResult,
                     Browser = result.DriverType.Description(),
                 };

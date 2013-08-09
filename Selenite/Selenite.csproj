@@ -116,11 +116,6 @@
     <Compile Include="Models\ManifestCollection.cs" />
     <Compile Include="Models\ResultStatus.cs" />
     <Compile Include="Models\TestResult.cs" />
-    <Compile Include="Selenite.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Selenite.settings</DependentUpon>
-    </Compile>
     <Compile Include="Services\ICommandService.cs" />
     <Compile Include="Services\Implementation\TestCollectionService.cs" />
     <Compile Include="Models\Manifest.cs" />
@@ -146,10 +141,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Selenite.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Selenite.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\packages\phantomjs.exe.1.8.1\tools\phantomjs\phantomjs.exe">

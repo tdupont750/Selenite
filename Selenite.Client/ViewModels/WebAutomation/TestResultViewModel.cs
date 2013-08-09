@@ -7,7 +7,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
     {
         public TestResultViewModel()
         {
-            NavigateUrlCommand = new RelayCommand(parameter => System.Diagnostics.Process.Start(parameter.ToString()));
+            OpenProcessCommand = new RelayCommand(parameter => System.Diagnostics.Process.Start(parameter.ToString()));
         }
 
         public string Name { get; set; }
@@ -16,7 +16,8 @@ namespace Selenite.Client.ViewModels.WebAutomation
         public string ResultOutput { get; set; }
         public string StackTrace { get; set; }
         public string Browser { get; set; }
+        public string ScreenshotPath { get; set; }
 
-        public ICommand NavigateUrlCommand { get; set; }
+        public ICommand OpenProcessCommand { get; set; }
     }
 }

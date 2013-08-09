@@ -17,7 +17,8 @@ namespace Selenite.Services.Implementation
         private readonly IConfigurationService _configurationService;
 
         public const string AboutBlank = "about:blank";
-        private const string ScreenshotFilenameFormat = "./Screenshots/{0}-{1}-{2}.png";
+        private const string ScreenshotPath = "./Screenshots";
+        private const string ScreenshotFilenameFormat = "{0}-{1}-{2}.png";
 
         public TestService(IConfigurationService configurationService)
         {
@@ -71,15 +72,18 @@ namespace Selenite.Services.Implementation
                                                            testResult.TestName,
                                                            testResult.DriverType);
 
-                            var path = Path.GetDirectoryName(ssFilename);
+                            var path = Path.GetFullPath(ScreenshotPath);
 
                             if (!Directory.Exists(path))
                             {
                                 Directory.CreateDirectory(path);
                             }
 
+                            var ssPath = Path.Combine(path, ssFilename);
+
+                            testResult.ScreenshotPath = ssPath;
                             screenshot.SaveAsFile(
-                                ssFilename,
+                                ssPath,
                                 ImageFormat.Png);
                         }
                         string commandJson;
