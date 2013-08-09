@@ -1,4 +1,5 @@
-﻿using Selenite.Client.ViewModels.WebAutomation;
+﻿using Selenite.Client.ViewModels;
+using Selenite.Client.ViewModels.WebAutomation;
 
 namespace Selenite.Client.Views.WebAutomation
 {
@@ -20,7 +21,7 @@ namespace Selenite.Client.Views.WebAutomation
         {
             var viewModel = (ResultsViewModel) DataContext;
 
-            var testResult = e.NewValue as TestResultViewModel;
+            var testResult = e.NewValue as ViewModelBase;
 
             if (testResult != null)
             {

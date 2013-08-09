@@ -22,7 +22,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
     public class ResultsViewModel : ViewModelBase, ITestMethodRunnerCallback
     {
         public ObservableCollection<TestResultCollectionViewModel> TestResults { get; set; }
-        public TestResultViewModel SelectedTestResult
+        public ViewModelBase SelectedTestResult
         {
             get { return Get(() => SelectedTestResult); }
             set { Set(value, () => SelectedTestResult); }
@@ -232,6 +232,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
             _isRunning = true;
             TestResults.Clear();
+            SelectedTestResult = null;
             Task.Factory.StartNew(DoRunTests);
         }
 
