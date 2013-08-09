@@ -12,6 +12,7 @@
             <converters:StatusToColorConverter x:Key="StatusToColorConverter" />
             <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
             <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <converters:TestResultToCountConverter x:Key="TestResultToCountConverter" />
             <HierarchicalDataTemplate ItemsSource="{Binding TestContainers}" DataType="{x:Type selenite:TestResultCollectionViewModel}">
                 <Label Content="{Binding Name}" Padding="3,2,3,2"/>
             </HierarchicalDataTemplate>
@@ -144,7 +145,14 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Grid>
-                                                <TextBlock Text="{Binding Name}" />
+                                                <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0} {1}">
+                                                            <Binding Path="Name" />
+                                                            <Binding Path="TestResults" Converter="{StaticResource TestResultToCountConverter}" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
                                             </Grid>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
