@@ -87,9 +87,18 @@ namespace Selenite.Services.Implementation
                             var ssPath = Path.Combine(path, ssFilename);
 
                             testResult.ScreenshotPath = ssPath;
-                            screenshot.SaveAsFile(
-                                ssPath,
-                                ImageFormat.Png);
+
+                            try
+                            {
+                                screenshot.SaveAsFile(
+                                    ssPath,
+                                    ImageFormat.Png);
+                            }
+                            catch (Exception)
+                            {
+                                traceResult.AppendLine(string.Format("Unable to write screenshot to: {0}", ssPath));
+                                throw;
+                            }
                         }
                         string commandJson;
                         try
