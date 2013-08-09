@@ -23,6 +23,11 @@ namespace Selenite.Commands.Implementation
         public string Selector { get; set; }
 
         /// <summary>
+        /// If true, waits for the element to be visible as well.
+        /// </summary>
+        public bool WaitForVisible { get; set; }
+
+        /// <summary>
         /// If true, the element is expected not to exist after the timeout period.
         /// </summary>
         public bool IsFalseExpected { get; set; }
@@ -32,7 +37,14 @@ namespace Selenite.Commands.Implementation
             var wait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(Timeout == 0 ? 5000 : Timeout));
             
             try {
-                wait.Until(d => d.FindElement(By.CssSelector(Selector)));
+                if (WaitForVisible)
+                {
+                    wait.Until(d => ExpectedConditions.ElementIsVisible(By.CssSelector(Selector))(d));
+                }
+                else
+                {
+                    wait.Until(d => d.FindElement(By.CssSelector(Selector)));
+                }
                 if (IsFalseExpected)
                     throw new InvalidOperationException("Element with selector '" + Selector + "' exists.");
             }
