@@ -1,4 +1,6 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows;
+using System.Windows.Input;
 using Selenite.Models;
 
 namespace Selenite.Client.ViewModels.WebAutomation
@@ -7,7 +9,19 @@ namespace Selenite.Client.ViewModels.WebAutomation
     {
         public TestResultViewModel()
         {
-            OpenProcessCommand = new RelayCommand(parameter => System.Diagnostics.Process.Start(parameter.ToString()));
+            OpenProcessCommand = new RelayCommand(parameter =>
+                {
+                    try
+                    {
+                        System.Diagnostics.Process.Start(parameter.ToString());
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show(
+                            string.Format("Unable to open \"{0}\".", parameter.ToString()),
+                            "Error");
+                    }
+                });
         }
 
         public string Name { get; set; }
