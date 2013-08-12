@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using Newtonsoft.Json;
 
 namespace Selenite.Models
@@ -7,6 +8,8 @@ namespace Selenite.Models
     {
         [JsonIgnore]
         public string File { get; set; }
+
+        [DefaultValue(true)]
         public bool Enabled { get; set; }
         
         public string DefaultDomain { get; set; }
