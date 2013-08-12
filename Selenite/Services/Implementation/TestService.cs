@@ -75,7 +75,9 @@ namespace Selenite.Services.Implementation
                             var ssFilename = string.Format(ScreenshotFilenameFormat,
                                                            testResult.CollectionName,
                                                            testResult.TestName,
-                                                           testResult.DriverType);
+                                                           testResult.DriverType)
+                                                           .Replace("/", "_")
+                                                           .Replace("\\", "_");
 
                             var path = Path.GetFullPath(ScreenshotPath);
 
@@ -94,10 +96,9 @@ namespace Selenite.Services.Implementation
                                     ssPath,
                                     ImageFormat.Png);
                             }
-                            catch (Exception)
+                            catch (Exception screenshotEx)
                             {
-                                traceResult.AppendLine(string.Format("Unable to write screenshot to: {0}", ssPath));
-                                throw;
+                                throw new InvalidOperationException(string.Format("Unable to write screenshot to: {0}.", ssPath), screenshotEx);
                             }
                         }
                         string commandJson;
