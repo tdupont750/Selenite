@@ -11,13 +11,12 @@ namespace Selenite.Models
         private Regex _macroRegex = new Regex("\\@\\{[a-z0-9A-Z_]+\\}", RegexOptions.Compiled);
 
         [JsonIgnore]
-        public string CollectionName { get; set; }
-        [JsonIgnore]
         public TestCollection TestCollection { get; set; }
 
         public bool Enabled { get; set; }
         public string Name { get; set; }
-        
+        public string Description { get; set; }
+
         public string Url { get; set; }
         public IList<ICommand> Commands { get; set; }
 
@@ -54,7 +53,7 @@ namespace Selenite.Models
 
         public override string ToString()
         {
-            return String.Concat(CollectionName, " - ", Name);
+            return String.Concat(TestCollection.File, " - ", Name);
         }
     }
 }

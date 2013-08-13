@@ -30,13 +30,15 @@ namespace Selenite.Services.Implementation
             var testResult = new TestResult
                 {
                     TestName = test.Name,
-                    CollectionName = test.CollectionName,
+                    TestDescription = test.Description,
+                    CollectionName = test.TestCollection.File,
+                    CollectionDescription = test.TestCollection.Description,
                     Url = test.TestUrl,
                     DriverType = browser.DriverType,
                 };
 
             var traceResult = new StringBuilder();
-            traceResult.AppendLine("Collection: " + test.CollectionName);
+            traceResult.AppendLine("Collection: " + test.TestCollection.File);
             traceResult.AppendLine("Name: " + test.Name);
             traceResult.AppendLine("Url: " + test.TestUrl);
 

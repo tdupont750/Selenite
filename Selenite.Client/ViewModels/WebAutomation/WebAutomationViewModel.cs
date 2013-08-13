@@ -96,6 +96,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
                     Manifests.Add(new ManifestViewModel
                         {
                             Name = manifestName,
+                            Description = manifest.Description,
                             DomainOverride = manifest.OverrideDomain,
                             DomainOverrideChangedCommand = new RelayCommand(param => _manifestService.SetActiveManifestDomain(param != null ? param.ToString() : string.Empty))
                         });

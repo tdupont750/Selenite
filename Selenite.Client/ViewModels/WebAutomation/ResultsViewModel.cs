@@ -406,6 +406,8 @@ namespace Selenite.Client.ViewModels.WebAutomation
                 {
                     Status = result.Status,
                     Name = result.TestName,
+                    Description = result.TestDescription,
+                    CollectionDescription = result.CollectionDescription,
                     Url = result.Url,
                     ScreenshotPath = result.ScreenshotPath,
                     ResultOutput = testResult.ExceptionMessage + Environment.NewLine + result.TraceResult,
@@ -453,6 +455,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
                         {
                             Name = testResultViewModel.Name,
                             TestResults = GetTestView(testResultViewModel),
+                            Description = testResultViewModel.Description
                         });
                 }
             }
@@ -462,11 +465,13 @@ namespace Selenite.Client.ViewModels.WebAutomation
                 TestResults.Add(new TestResultCollectionViewModel
                     {
                         Name = collectionName,
+                        Description = testResultViewModel.CollectionDescription,
                         TestContainers = new ObservableCollection<TestResultContainerViewModel>
                             {
                                 new TestResultContainerViewModel
                                     {
                                         Name = testResultViewModel.Name,
+                                        Description = testResultViewModel.Description,
                                         TestResults = GetTestView(testResultViewModel),
                                     }
                             }
@@ -508,6 +513,8 @@ namespace Selenite.Client.ViewModels.WebAutomation
                 {
                     Status = result.Status,
                     Name = result.TestName,
+                    Description = result.TestDescription,
+                    CollectionDescription = result.CollectionDescription,
                     Url = result.Url,
                     ScreenshotPath = result.ScreenshotPath,
                     ResultOutput = result.TraceResult,

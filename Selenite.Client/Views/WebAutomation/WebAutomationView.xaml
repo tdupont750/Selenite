@@ -5,10 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:Converters="clr-namespace:Selenite.Client.Converters"
-             mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
+             xmlns:behaviors="clr-namespace:Selenite.Client.Behaviors" mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <Converters:ViewConverter x:Key="ViewConverter"/>
         <Converters:EnabledOpacityConverter x:Key="EnabledToOpacityConverter" />
+        <behaviors:ComboBoxItemTemplateSelector x:Key="ComboBoxItemTemplateSelector" />
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -59,8 +60,22 @@
             </StackPanel>
             <ComboBox Grid.Row="1"
                       ItemsSource="{Binding Manifests}"
-                      SelectedItem="{Binding SelectedManifest}"
-                      DisplayMemberPath="Name"/>
+                      ItemTemplateSelector="{StaticResource ComboBoxItemTemplateSelector}"
+                      SelectedItem="{Binding SelectedManifest}">
+                <behaviors:ComboBoxItemTemplateSelector.DropDownTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" Text="{Binding Name}" />
+                            <TextBlock Text="{Binding Description}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </behaviors:ComboBoxItemTemplateSelector.DropDownTemplate>
+                <behaviors:ComboBoxItemTemplateSelector.SelectedTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </behaviors:ComboBoxItemTemplateSelector.SelectedTemplate>
+            </ComboBox>
 
             <TextBlock Grid.Row="2"
                        Margin="0,5,0,0"

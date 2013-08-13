@@ -25,6 +25,8 @@ namespace Selenite.Client.ViewModels.WebAutomation
         }
 
         public string Name { get; set; }
+        public string Description { get; set; }
+        public string CollectionDescription { get; set; }
         public string Url { get; set; }
         public ResultStatus Status { get; set; }
         public string ResultOutput { get; set; }

@@ -75,13 +75,14 @@ namespace Selenite.Services.Implementation
                         : overrideDomain,
                     Enabled = testCollection.Enabled ?? true,
                     File = name,
+                    Description = testCollection.Description,
                     Macros = GetDictionaryFromJObject(testCollection.Macros)
                 };
 
             var tests = new List<Test>();
 
             foreach (var test in testCollection.Tests)
-                tests.Add(CreateTest(collection, test, collection.DefaultDomain, name));
+                tests.Add(CreateTest(collection, test, collection.DefaultDomain, name, collection.Description));
 
             collection.Tests = tests;
 
@@ -104,7 +105,7 @@ namespace Selenite.Services.Implementation
             return dictionary;
         }
 
-        private Test CreateTest(TestCollection testCollection, dynamic test, string domain, string testCollectionName)
+        private Test CreateTest(TestCollection testCollection, dynamic test, string domain, string testCollectionName, string testCollectionDescription = null)
         {
             var url = test.Url.ToString();
 
@@ -116,10 +117,10 @@ namespace Selenite.Services.Implementation
 
             var testInstance = new Test
             {
-                CollectionName = testCollectionName,
                 TestCollection = testCollection,
                 Enabled = test.Enabled ?? true,
                 Name = test.Name,
+                Description = test.Description,
                 Url = url,
                 TestUrl = relativeUri.ToString(),
                 Macros = GetDictionaryFromJObject(test.Macros)

@@ -10,11 +10,9 @@ namespace Selenite.Client.ViewModels.WebAutomation
             TestCollections = new ObservableCollection<TestCollectionSummaryViewModel>();
         }
 
-        public string Name
-        {
-            get { return Get(() => Name); }
-            set { Set(value, () => Name); }
-        }
+        public string Name { get; set; }
+
+        public string Description { get; set; }
 
         public string DomainOverride
         {

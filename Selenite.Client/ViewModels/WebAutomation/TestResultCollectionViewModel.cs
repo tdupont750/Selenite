@@ -10,6 +10,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
         }
 
         public string Name { get; set; }
+        public string Description { get; set; }
         public ObservableCollection<TestResultContainerViewModel> TestContainers { get; set; }
     }
 }

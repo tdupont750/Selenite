@@ -137,11 +137,13 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0" Text="{Binding Name}" />
-                                <Label Grid.Row="1" Content="Executed the following tests:" />
-                                <ItemsControl Grid.Row="2" Margin="10,0,0,0" ItemsSource="{Binding TestContainers}">
+                                <TextBlock Grid.Row="0" Text="{Binding Name}" FontWeight="Bold" />
+                                <TextBlock Grid.Row="1" Text="{Binding Description}" Visibility="{Binding Description, Converter={StaticResource NullToVisibilityConverter}}" />
+                                <Label Grid.Row="2" Content="Executed the following tests:" />
+                                <ItemsControl Grid.Row="3" Margin="10,0,0,0" ItemsSource="{Binding TestContainers}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Grid>
@@ -166,11 +168,13 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Text="{Binding Name}" />
-                                    <Label Grid.Row="1" Content="Executed in the following browsers:" />
-                                    <ItemsControl Grid.Row="2" Margin="10,0,0,0" ItemsSource="{Binding TestResults}">
+                                    <TextBlock Grid.Row="0" Text="{Binding Name}" FontWeight="Bold" />
+                                    <TextBlock Grid.Row="1" Text="{Binding Description}" Visibility="{Binding Description, Converter={StaticResource NullToVisibilityConverter}}" />
+                                    <Label Grid.Row="2" Content="Executed in the following browsers:" />
+                                    <ItemsControl Grid.Row="3" Margin="10,0,0,0" ItemsSource="{Binding TestResults}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal">
