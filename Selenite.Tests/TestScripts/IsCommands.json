@@ -1,17 +1,31 @@
 {
   "Enabled": true,
+  "Description": "Tests the 'IsCommands.html' page.",
   "DefaultDomain": "http://localhost/selenite/testpages/",
   "Tests": [
     {
       "Enabled": true,
+      "Description": "This test should always fail.",
+      "Name": "Test fail test.",
+      "Url": "IsCommands.html",
+      "Commands": [
+        {
+          "Attribute": "value",
+          "Value": "Fail!",
+          "Selector": "#DoesNotExist",
+          "Name": "IsAttributeContained"
+        }
+      ]
+    },
+    {
+      "Enabled": true,
+      "Description": "Tests if the attribute is contained!",
       "Name": "IsAttributeContained",
       "Url": "IsCommands.html",
       "Commands": [
         {
           "Attribute": "value",
           "Value": "hELLO",
-          "IsCaseSensitive": false,
-          "IsFalseExpected": false,
           "Selector": "#IsAttribute",
           "Name": "IsAttributeContained"
         },
@@ -19,14 +33,12 @@
           "Attribute": "value",
           "Value": "Hello",
           "IsCaseSensitive": true,
-          "IsFalseExpected": false,
           "Selector": "#IsAttribute",
           "Name": "IsAttributeContained"
         },
         {
           "Attribute": "value",
           "Value": "Goodnight",
-          "IsCaseSensitive": false,
           "IsFalseExpected": true,
           "Selector": "#IsAttribute",
           "Name": "IsAttributeContained"
@@ -49,8 +61,6 @@
         {
           "Attribute": "value",
           "Value": "hELLO wORLD",
-          "IsCaseSensitive": false,
-          "IsFalseExpected": false,
           "Selector": "#IsAttribute",
           "Name": "IsAttributeEqual"
         },
@@ -58,14 +68,12 @@
           "Attribute": "value",
           "Value": "Hello World",
           "IsCaseSensitive": true,
-          "IsFalseExpected": false,
           "Selector": "#IsAttribute",
           "Name": "IsAttributeEqual"
         },
         {
           "Attribute": "value",
           "Value": "Goodnight Moon",
-          "IsCaseSensitive": false,
           "IsFalseExpected": true,
           "Selector": "#IsAttribute",
           "Name": "IsAttributeEqual"
@@ -86,7 +94,6 @@
       "Url": "IsCommands.html",
       "Commands": [
         {
-          "IsFalseExpected": false,
           "Selector": "input[name=\"CheckBoxA\"]",
           "Name": "IsChecked"
         },
@@ -104,14 +111,11 @@
       "Commands": [
         {
           "Class": "A",
-          "IsCaseSensitive": false,
-          "IsFalseExpected": false,
           "Selector": "#IsClassA",
           "Name": "IsClass"
         },
         {
           "Class": "A",
-          "IsCaseSensitive": false,
           "IsFalseExpected": true,
           "Selector": "#IsClassB",
           "Name": "IsClass"
@@ -125,7 +129,6 @@
       "Commands": [
         {
           "Count": 2,
-          "IsFalseExpected": false,
           "Selector": "#IsCountEqual > span",
           "Name": "IsCountEqual"
         },
@@ -144,7 +147,6 @@
       "Commands": [
         {
           "Count": 1,
-          "OrEqualTo": false,
           "Selector": "#IsCountEqual > span",
           "Name": "IsCountGreater"
         },
@@ -163,7 +165,6 @@
       "Commands": [
         {
           "Count": 3,
-          "OrEqualTo": false,
           "Selector": "#IsCountEqual > span",
           "Name": "IsCountLess"
         },
@@ -181,33 +182,23 @@
       "Url": "IsCommands.html",
       "Commands": [
         {
-          "Text": null,
           "Value": "B",
-          "IsCaseSensitive": false,
-          "IsFalseExpected": false,
           "Selector": "#IsDropdownSelected",
           "Name": "IsDropdownSelected"
         },
         {
-          "Text": null,
           "Value": "A",
-          "IsCaseSensitive": false,
           "IsFalseExpected": true,
           "Selector": "#IsDropdownSelected",
           "Name": "IsDropdownSelected"
         },
         {
           "Text": "Y",
-          "Value": null,
-          "IsCaseSensitive": false,
-          "IsFalseExpected": false,
           "Selector": "#IsDropdownSelected",
           "Name": "IsDropdownSelected"
         },
         {
           "Text": "Z",
-          "Value": null,
-          "IsCaseSensitive": false,
           "IsFalseExpected": true,
           "Selector": "#IsDropdownSelected",
           "Name": "IsDropdownSelected"
@@ -220,7 +211,6 @@
       "Url": "IsCommands.html",
       "Commands": [
         {
-          "IsFalseExpected": false,
           "Selector": "#IsEnabledA",
           "Name": "IsEnabled"
         },
@@ -237,7 +227,6 @@
       "Url": "IsCommands.html",
       "Commands": [
         {
-          "IsFalseExpected": false,
           "Selector": "#IsDropdownSelected > option[value=\"B\"]",
           "Name": "IsSelected"
         },
@@ -255,21 +244,17 @@
       "Commands": [
         {
           "Text": "hELLO",
-          "IsCaseSensitive": false,
-          "IsFalseExpected": false,
           "Selector": "#Text",
           "Name": "IsTextContained"
         },
         {
           "Text": "World",
           "IsCaseSensitive": true,
-          "IsFalseExpected": false,
           "Selector": "#Text",
           "Name": "IsTextContained"
         },
         {
           "Text": "Goodnight",
-          "IsCaseSensitive": false,
           "IsFalseExpected": true,
           "Selector": "#Text",
           "Name": "IsTextContained"
@@ -283,24 +268,24 @@
         }
       ]
     },
-	{
-		"Enabled": true,
-		"Name": "IsTextContainedWithWait",
-		"Url": "IsCommands.html",
-		Commands: [
-		  {
-		    "Name": "DoClick",
-			"Selector": "#CreateText"
-		  },
-		  {
-		    "Name": "IsTextContained",
-			"Text": "Created Text",
-			"Selector": "#CreatedText",
-			"Wait": true,
-			"WaitTimeout": 2000
-		  }
-		]
-	},
+    {
+      "Enabled": true,
+      "Name": "IsTextContainedWithWait",
+      "Url": "IsCommands.html",
+      "Commands": [
+        {
+          "Selector": "#CreateText",
+          "Name": "DoClick"
+        },
+        {
+          "Text": "Created Text",
+          "Selector": "#CreatedText",
+          "Wait": true,
+          "WaitTimeout": 2000,
+          "Name": "IsTextContained"
+        }
+      ]
+    },
     {
       "Enabled": true,
       "Name": "IsTextEqual",
@@ -308,21 +293,17 @@
       "Commands": [
         {
           "Text": "hELLO wORLD",
-          "IsCaseSensitive": false,
-          "IsFalseExpected": false,
           "Selector": "#Text",
           "Name": "IsTextEqual"
         },
         {
           "Text": "Hello World",
           "IsCaseSensitive": true,
-          "IsFalseExpected": false,
           "Selector": "#Text",
           "Name": "IsTextEqual"
         },
         {
           "Text": "Goodnight Moon",
-          "IsCaseSensitive": false,
           "IsFalseExpected": true,
           "Selector": "#Text",
           "Name": "IsTextEqual"
@@ -343,19 +324,15 @@
       "Commands": [
         {
           "Title": "cOMMAND",
-          "IsCaseSensitive": false,
-          "IsFalseExpected": false,
           "Name": "IsTitleContained"
         },
         {
           "Title": "Command",
           "IsCaseSensitive": true,
-          "IsFalseExpected": false,
           "Name": "IsTitleContained"
         },
         {
           "Title": "Are",
-          "IsCaseSensitive": false,
           "IsFalseExpected": true,
           "Name": "IsTitleContained"
         },
@@ -374,19 +351,15 @@
       "Commands": [
         {
           "Title": "iScOMMANDS",
-          "IsCaseSensitive": false,
-          "IsFalseExpected": false,
           "Name": "IsTitleEqual"
         },
         {
           "Title": "IsCommands",
           "IsCaseSensitive": true,
-          "IsFalseExpected": false,
           "Name": "IsTitleEqual"
         },
         {
           "Title": "AreCommand",
-          "IsCaseSensitive": false,
           "IsFalseExpected": true,
           "Name": "IsTitleEqual"
         },
@@ -404,7 +377,6 @@
       "Url": "IsCommands.html",
       "Commands": [
         {
-          "IsFalseExpected": false,
           "Selector": "#IsVisibleA",
           "Name": "IsVisible"
         },

@@ -3,11 +3,21 @@
   "Manifests": [
     {
       "Name": "SeleniteTests",
+      "Description": "All tests",
       "OverrideDomain": "",
       "Files": [
         "DoCommands.json",
         "IsCommands.json",
         "Macros.json"
+      ]
+    },
+    {
+      "Name": "NonMacroTests",
+      "Description": "All tests except Macros",
+      "OverrideDomain": "",
+      "Files": [
+        "DoCommands.json",
+        "IsCommands.json"
       ]
     }
   ]
