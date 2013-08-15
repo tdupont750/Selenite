@@ -3,6 +3,7 @@
 
 /Selenite.Client/obj
 /Selenite.Client/bin
+/Selenite.Client/publish
 
 /Selenite.Tests/obj
 /Selenite.Tests/bin

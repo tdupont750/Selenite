@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -33,6 +34,7 @@ namespace Selenite.Browsers
                 throw new InvalidOperationException("DriverService already initialized");
             }
 
+            var currentDirectory = Directory.GetCurrentDirectory();
             switch (browser)
             {
                 case DriverType.Firefox:
@@ -40,15 +42,15 @@ namespace Selenite.Browsers
                     break;
 
                 case DriverType.InternetExplorer:
-                    _driver = new InternetExplorerDriver(_configurationService.IEDriverPath);
+                    _driver = new InternetExplorerDriver(currentDirectory);
                     break;
 
                 case DriverType.Chrome:
-                    _driver = new ChromeDriver(_configurationService.ChromeDriverPath);
+                    _driver = new ChromeDriver(currentDirectory);
                     break;
 
                 case DriverType.PhantomJs:
-                    var service = PhantomJSDriverService.CreateDefaultService(_configurationService.PhantomJsPath);
+                    var service = PhantomJSDriverService.CreateDefaultService(currentDirectory);
                     service.CookiesFile = "cookies.txt";
 
                     _driver = new PhantomJSDriver(service, new PhantomJSOptions());

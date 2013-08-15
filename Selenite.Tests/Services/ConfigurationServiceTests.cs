@@ -12,31 +12,10 @@ namespace Selenite.Tests.Services
         }
 
         [Fact]
-        public void ChromeDriverPathTest()
-        {
-            var actual = ChromeDriverPath;
-            Assert.Contains("ChromeDriver", actual);
-        }
-
-        [Fact]
-        public void IeDriverPathTest()
-        {
-            var actual = IEDriverPath;
-            Assert.Contains("IEDriver", actual);
-        }
-
-        [Fact]
         public void TestScriptsPathTest()
         {
             var actual = TestScriptsPath;
             Assert.Contains("TestScripts", actual);
-        }
-
-        [Fact]
-        public void PhantomJsPathTest()
-        {
-            var actual = PhantomJsPath;
-            Assert.Contains("PhantomJs", actual, StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }

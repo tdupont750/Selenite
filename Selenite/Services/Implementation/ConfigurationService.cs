@@ -10,45 +10,6 @@ namespace Selenite.Services.Implementation
         private const int MaxSearchDepth = 5;
         private const string ErrorMessageFormat = "Unable to locate {0}, please specify {1} in the ApplicationSettings";
 
-        #region DriverPaths
-
-        public string ChromeDriverPath
-        {
-            get { return GetDriverPath("ChromeDriver", "ChromeDriverPath"); }
-        }
-
-        public string IEDriverPath
-        {
-            get { return GetDriverPath("IEDriver", "InternetExplorerDriverPath"); }
-        }
-
-        private string GetDriverPath(string key, string driverName)
-        {
-            return GetPath(key, driverName, FindSubPath, new
-            {
-                SubPathPrefix = "WebDriver." + key,
-                TargetDirectory = "tools"
-            });
-        }
-
-        #endregion
-
-        #region PhantomJsPath
-
-        public string PhantomJsPath
-        {
-            get
-            {
-                return GetPath("PhantomJs", "PhantomJsPath", FindSubPath, new
-                {
-                    SubPathPrefix = "phantomjs.exe",
-                    TargetDirectory = @"tools\phantomjs"
-                });
-            }
-        }
-        
-        #endregion
-
         #region TestScriptsPath
 
         public string TestScriptsPath
@@ -151,7 +112,7 @@ namespace Selenite.Services.Implementation
         private string FindSubPath(string currentDirectory, dynamic args)
         {
             var directories = Directory.GetDirectories(currentDirectory);
-            var subPath = Path.Combine(currentDirectory, "packages");
+            string subPath = args.SubPathPrefix;
 
             if (directories.Contains(subPath))
             {
