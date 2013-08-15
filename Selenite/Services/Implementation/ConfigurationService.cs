@@ -108,31 +108,6 @@ namespace Selenite.Services.Implementation
 
             return String.Empty;
         }
-
-        private string FindSubPath(string currentDirectory, dynamic args)
-        {
-            var directories = Directory.GetDirectories(currentDirectory);
-            string subPath = args.SubPathPrefix;
-
-            if (directories.Contains(subPath))
-            {
-                directories = Directory.GetDirectories(subPath);
-
-                var prefixPath = Path.Combine(subPath, args.SubPathPrefix);
-                subPath = directories.FirstOrDefault(c => c.StartsWith(prefixPath, StringComparison.InvariantCultureIgnoreCase));
-
-                if (!String.IsNullOrWhiteSpace(subPath))
-                {
-                    subPath = Path.Combine(subPath, args.TargetDirectory);
-
-                    if (Directory.Exists(subPath))
-                        return subPath;
-                }
-            }
-
-            return String.Empty;
-        }
-
         #endregion
     }
 }
