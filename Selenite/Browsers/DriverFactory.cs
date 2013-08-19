@@ -6,15 +6,11 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.PhantomJS;
 using Selenite.Enums;
-using Selenite.Global;
-using Selenite.Services;
 
 namespace Selenite.Browsers
 {
     public class DriverFactory : IDisposable
     {
-        private readonly IConfigurationService _configurationService = ServiceResolver.Get<IConfigurationService>();
-        
         private bool _isDisposed;
         private IWebDriver _driver;
         private DriverType? _type;
@@ -55,11 +51,15 @@ namespace Selenite.Browsers
 
                     _driver = new PhantomJSDriver(service, new PhantomJSOptions());
                     break;
+
+                default:
+                    throw new InvalidOperationException("Unkown Driver Type: " + browser);
             }
 
             var window = _driver.Manage().Window;
             window.Size = new System.Drawing.Size(1024, 800);
             window.Position = new System.Drawing.Point(0, 0);
+            _driver.Url = "about:blank";
 
             _type = browser;
         }
