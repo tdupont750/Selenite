@@ -31,7 +31,7 @@ namespace Selenite.Commands.Implementation
 
         public override void Validate()
         {
-            if (String.IsNullOrWhiteSpace(Text) ^ String.IsNullOrWhiteSpace(Value))
+            if (Text == null ^ Value == null)
                 return;
 
             throw new ArgumentException("Must have Text or Value");

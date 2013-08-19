@@ -25,6 +25,43 @@ namespace Selenite.Services.Implementation
             _configurationService = configurationService;
         }
 
+        private void CaptureScreenshot(IWebDriver driver, TestResult testResult)
+        {
+            var screenshotDriver = driver as ITakesScreenshot;
+
+            if (screenshotDriver != null)
+            {
+                try
+                {
+                    var ssFilename = string.Format(ScreenshotFilenameFormat,
+                        testResult.CollectionName,
+                        testResult.TestName,
+                        testResult.DriverType)
+                        .Replace("/", "_")
+                        .Replace("\\", "_");
+
+                    var path = Path.GetFullPath(ScreenshotPath);
+                    var ssPath = Path.Combine(path, ssFilename);
+
+                    testResult.ScreenshotPath = ssPath;
+
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    var screenshot = screenshotDriver.GetScreenshot();
+                    screenshot.SaveAsFile(
+                        ssPath,
+                        ImageFormat.Png);
+                }
+                catch (Exception screenshotEx)
+                {
+                    throw new InvalidOperationException(string.Format("Unable to write screenshot to: {0}.", testResult.ScreenshotPath), screenshotEx);
+                }
+            }            
+        }
+
         public void ExecuteTest(BrowserBase browser, Test test)
         {
             var testResult = new TestResult
@@ -69,39 +106,8 @@ namespace Selenite.Services.Implementation
                     }
                     catch (Exception ex)
                     {
-                        var screenshotDriver = browser.Driver as ITakesScreenshot;
+                        CaptureScreenshot(browser.Driver, testResult);
 
-                        if (screenshotDriver != null)
-                        {
-                            try
-                            {
-                                var ssFilename = string.Format(ScreenshotFilenameFormat,
-                                    testResult.CollectionName,
-                                    testResult.TestName,
-                                    testResult.DriverType)
-                                    .Replace("/", "_")
-                                    .Replace("\\", "_");
-
-                                var path = Path.GetFullPath(ScreenshotPath);
-                                var ssPath = Path.Combine(path, ssFilename);
-                                
-                                testResult.ScreenshotPath = ssPath;
-
-                                if (!Directory.Exists(path))
-                                {
-                                    Directory.CreateDirectory(path);
-                                }
-
-                                var screenshot = screenshotDriver.GetScreenshot();
-                                screenshot.SaveAsFile(
-                                    ssPath,
-                                    ImageFormat.Png);
-                            }
-                            catch (Exception screenshotEx)
-                            {
-                                throw new InvalidOperationException(string.Format("Unable to write screenshot to: {0}.", testResult.ScreenshotPath), screenshotEx);
-                            }
-                        }
                         string commandJson;
                         try
                         {
@@ -131,6 +137,8 @@ namespace Selenite.Services.Implementation
             }
             catch
             {
+                CaptureScreenshot(browser.Driver, testResult);
+
                 testResult.Status = ResultStatus.Failed;
                 traceResult.AppendLine(String.Empty);
                 traceResult.AppendLine("***** FAILURE *****");
