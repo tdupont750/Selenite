@@ -2,6 +2,8 @@ using System;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using Newtonsoft.Json;
+using Selenite.Models;
 
 namespace Selenite.Services.Implementation
 {
@@ -14,17 +16,53 @@ namespace Selenite.Services.Implementation
 
         public string TestScriptsPath
         {
+            get { return GetManifestPath(); }
+            set { SetManifestPath(value); }
+        }
+
+        private string GetManifestPath()
+        {
+            var currentDirectory = Directory.GetCurrentDirectory();
+            var manifestPath = Path.Combine(currentDirectory, ManifestFileName);
+
+            if (!File.Exists(manifestPath))
+            {
+                return DefaultManifestPath;
+            }
+
+            var manifest = JsonConvert.DeserializeObject<MasterManifest>(File.ReadAllText(manifestPath));
+
+            if (manifest == null || string.IsNullOrEmpty(manifest.ManifestPath))
+            {
+                return DefaultManifestPath;
+            }
+
+            return manifest.ManifestPath;
+        }
+
+        private string DefaultManifestPath
+        {
             get
             {
-                return GetPath("TestScripts", "TestScriptsPath", FindTestScriptsPath);
+                var path = GetPath("TestScripts", "TestScriptsPath", FindTestScriptsPath);
+                SetManifestPath(path);
+                return path;
             }
-            set
+        }
+
+        private void SetManifestPath(string path)
+        {
+            var currentDirectory = Directory.GetCurrentDirectory();
+            var manifestPath = Path.Combine(currentDirectory, ManifestFileName);
+
+            var manifest = new MasterManifest
+                {
+                    ManifestPath = path,
+                };
+
+            using (var sw = new StreamWriter(manifestPath, false))
             {
-                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                config.AppSettings.Settings.Remove("TestScriptsPath");
-                config.AppSettings.Settings.Add("TestScriptsPath", value);
-                config.Save(ConfigurationSaveMode.Modified, true);
-                ConfigurationManager.RefreshSection("appSettings");
+                sw.WriteLine(JsonConvert.SerializeObject(manifest));
             }
         }
 
