@@ -21,19 +21,57 @@ namespace Selenite.Services.Implementation
             set { SetManifestPath(value); }
         }
 
-        private string GetManifestPath()
+        public ManifestInfo ActiveManifestInfo
+        {
+            get
+            {
+                var manifests = GetManifestInfoCollection();
+                return manifests.Manifests[manifests.ActiveManifest];
+            }
+            set
+            {
+                var manifests = GetManifestInfoCollection();
+                manifests.Manifests[manifests.ActiveManifest] = value;
+                SaveManifestInfoCollection(manifests);
+            }
+        }
+
+        private ManifestInfoCollection GetManifestInfoCollection()
         {
             var currentDirectory = Directory.GetCurrentDirectory();
             var manifestPath = Path.Combine(currentDirectory, ManifestFileName);
 
             if (!File.Exists(manifestPath))
             {
-                return DefaultManifestPath;
+                return null;
             }
 
             var manifests = JsonConvert.DeserializeObject<ManifestInfoCollection>(File.ReadAllText(manifestPath));
 
-            if (manifests == null || manifests.ActiveManifest == null)
+            if (manifests == null || !manifests.Manifests.Any() || string.IsNullOrEmpty(manifests.ActiveManifest))
+            {
+                return null;
+            }
+
+            return manifests;
+        }
+
+        private void SaveManifestInfoCollection(ManifestInfoCollection manifests)
+        {
+            var currentDirectory = Directory.GetCurrentDirectory();
+            var manifestPath = Path.Combine(currentDirectory, ManifestFileName);
+
+            using (var sw = new StreamWriter(manifestPath, false))
+            {
+                sw.WriteLine(JsonConvert.SerializeObject(manifests, Formatting.Indented));
+            }
+        }
+
+        private string GetManifestPath()
+        {
+            var manifests = GetManifestInfoCollection();
+
+            if (manifests == null)
             {
                 return DefaultManifestPath;
             }
@@ -53,20 +91,11 @@ namespace Selenite.Services.Implementation
 
         private void SetManifestPath(string path)
         {
-            var currentDirectory = Directory.GetCurrentDirectory();
-            var manifestPath = Path.Combine(currentDirectory, ManifestFileName);
+            var manifests = GetManifestInfoCollection();
 
-            var manifests = File.Exists(manifestPath)
-                                ? JsonConvert.DeserializeObject<ManifestInfoCollection>(File.ReadAllText(manifestPath))
-                                : null;
-
-            // No manifest or invalid state, start a new one.
-            if (manifests == null || !manifests.Manifests.Any() || manifests.ActiveManifest == null)
+            if (manifests == null)
             {
-                var manifestInfo = new ManifestInfo
-                {
-                    // FEED ME SEYMOUR!
-                };
+                var manifestInfo = new ManifestInfo();
 
                 manifests = new ManifestInfoCollection
                     {
@@ -82,19 +111,14 @@ namespace Selenite.Services.Implementation
                 }
                 else
                 {
-                    var manifestInfo = new ManifestInfo
-                    {
-                    };
+                    var manifestInfo = new ManifestInfo();
 
                     manifests.Manifests.Add(path, manifestInfo);
                     manifests.ActiveManifest = path;
                 }
             }
 
-            using (var sw = new StreamWriter(manifestPath, false))
-            {
-                sw.WriteLine(JsonConvert.SerializeObject(manifests, Formatting.Indented));
-            }
+            SaveManifestInfoCollection(manifests);
         }
 
         public string ManifestFileName

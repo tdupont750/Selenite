@@ -51,8 +51,9 @@ namespace Selenite.Tests.Services
                 .Callback<string, string>((p, c) => WriteAllTextValue = c);
 
             var commandService = new CommandService();
+            var manifestService = new Mock<IManifestService>();
 
-            return new TestCollectionService(configurationService.Object, fileService.Object, commandService);
+            return new TestCollectionService(configurationService.Object, fileService.Object, commandService, manifestService.Object);
         }
 
         [Theory]
@@ -82,7 +83,7 @@ namespace Selenite.Tests.Services
             var testCollectionService = GetTestCollectionService(name, json);
 
             var testCollection = testCollectionService.GetTestCollection(name);
-            testCollectionService.SaveTestCollection(testCollection);
+            testCollectionService.SaveTestCollectionInfo(testCollection);
 
             Assert.Equal(json, WriteAllTextValue);
         }

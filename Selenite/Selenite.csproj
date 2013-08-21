@@ -117,6 +117,7 @@
     <Compile Include="Models\ManifestInfo.cs" />
     <Compile Include="Models\ManifestInfoCollection.cs" />
     <Compile Include="Models\ResultStatus.cs" />
+    <Compile Include="Models\TestCollectionInfo.cs" />
     <Compile Include="Models\TestResult.cs" />
     <Compile Include="Services\ICommandService.cs" />
     <Compile Include="Services\Implementation\TestCollectionService.cs" />

@@ -40,8 +40,8 @@ namespace Selenite.Global
             var configurationService = new ConfigurationService();
             var commandService = new CommandService();
             var fileService = new FileService();
-            var testCollectionService = new TestCollectionService(configurationService, fileService, commandService);
             var manifestService = new ManifestService(configurationService, fileService);
+            var testCollectionService = new TestCollectionService(configurationService, fileService, commandService, manifestService);
             var testService = new TestService(configurationService);
 
             return new Dictionary<Type, object>

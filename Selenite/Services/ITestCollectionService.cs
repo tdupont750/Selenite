@@ -7,7 +7,7 @@ namespace Selenite.Services
     {
         IList<string> GetTestCollectionFiles();
         TestCollection GetTestCollection(string testCollectionFile, string domainOverride = null);
-        void SaveTestCollection(TestCollection testCollection);
+        void SaveTestCollectionInfo(TestCollection testCollection);
         IList<TestCollection> GetTestCollections(Manifest manifest);
     }
 }
