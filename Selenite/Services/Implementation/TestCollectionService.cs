@@ -90,7 +90,9 @@ namespace Selenite.Services.Implementation
             // Go through the manifest info and see if we need to disable any tests.
             foreach (var testCollection in testCollections)
             {
-                var tc = manifestInfo.TestCollections.FirstOrDefault(testColl => testColl.Name == testCollection.File);
+                var tc = manifestInfo.TestCollections != null
+                             ? manifestInfo.TestCollections.FirstOrDefault(testColl => testColl.Name == testCollection.File)
+                             : null;
 
                 if (tc != null)
                 {
