@@ -114,7 +114,8 @@
     <Compile Include="Extensions\WebElementExtensions.cs" />
     <Compile Include="Global\ServiceResolver.cs" />
     <Compile Include="Models\ManifestCollection.cs" />
-    <Compile Include="Models\MasterManifest.cs" />
+    <Compile Include="Models\ManifestInfo.cs" />
+    <Compile Include="Models\ManifestInfoCollection.cs" />
     <Compile Include="Models\ResultStatus.cs" />
     <Compile Include="Models\TestResult.cs" />
     <Compile Include="Services\ICommandService.cs" />

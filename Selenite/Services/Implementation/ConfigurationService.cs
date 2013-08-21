@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -30,14 +31,14 @@ namespace Selenite.Services.Implementation
                 return DefaultManifestPath;
             }
 
-            var manifest = JsonConvert.DeserializeObject<MasterManifest>(File.ReadAllText(manifestPath));
+            var manifests = JsonConvert.DeserializeObject<ManifestInfoCollection>(File.ReadAllText(manifestPath));
 
-            if (manifest == null || string.IsNullOrEmpty(manifest.ManifestPath))
+            if (manifests == null || manifests.ActiveManifest == null)
             {
                 return DefaultManifestPath;
             }
 
-            return manifest.ManifestPath;
+            return manifests.ActiveManifest;
         }
 
         private string DefaultManifestPath
@@ -55,14 +56,44 @@ namespace Selenite.Services.Implementation
             var currentDirectory = Directory.GetCurrentDirectory();
             var manifestPath = Path.Combine(currentDirectory, ManifestFileName);
 
-            var manifest = new MasterManifest
+            var manifests = File.Exists(manifestPath)
+                                ? JsonConvert.DeserializeObject<ManifestInfoCollection>(File.ReadAllText(manifestPath))
+                                : null;
+
+            // No manifest or invalid state, start a new one.
+            if (manifests == null || !manifests.Manifests.Any() || manifests.ActiveManifest == null)
+            {
+                var manifestInfo = new ManifestInfo
                 {
-                    ManifestPath = path,
+                    // FEED ME SEYMOUR!
                 };
+
+                manifests = new ManifestInfoCollection
+                    {
+                        ActiveManifest = path,
+                        Manifests = new Dictionary<string, ManifestInfo> { { path, manifestInfo } },
+                    };
+            }
+            else
+            {
+                if (manifests.Manifests.ContainsKey(path))
+                {
+                    manifests.ActiveManifest = path;
+                }
+                else
+                {
+                    var manifestInfo = new ManifestInfo
+                    {
+                    };
+
+                    manifests.Manifests.Add(path, manifestInfo);
+                    manifests.ActiveManifest = path;
+                }
+            }
 
             using (var sw = new StreamWriter(manifestPath, false))
             {
-                sw.WriteLine(JsonConvert.SerializeObject(manifest));
+                sw.WriteLine(JsonConvert.SerializeObject(manifests, Formatting.Indented));
             }
         }
 

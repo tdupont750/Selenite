@@ -19,9 +19,9 @@ namespace Selenite.Browsers
             var testCollections = TestCollectionService.GetTestCollections(manifest);
 
             return testCollections
-                .Where(t => t.Enabled)
+                .Where(tc => tc.Enabled)
                 .SelectMany(c => c.Tests)
-                .Where(t => t.Enabled)
+                .Where(test => test.Enabled)
                 .Select(t => new object[] { t });
         }
     }
