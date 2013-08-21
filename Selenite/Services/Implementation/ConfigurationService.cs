@@ -164,7 +164,7 @@ namespace Selenite.Services.Implementation
                 throw new ConfigurationErrorsException(message);
             }
 
-            return resolvedPath;
+            return Path.GetFullPath(resolvedPath);
         }
 
         private string ResolvePath(string path, Func<string, dynamic, string> subPathFunc, dynamic args = null)

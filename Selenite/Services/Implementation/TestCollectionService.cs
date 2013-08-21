@@ -70,11 +70,7 @@ namespace Selenite.Services.Implementation
                 activeManifest.TestCollections.Remove(tci);
             }
 
-            // Only add the test collection back if there's anything disabled.
-            if (!testCollectionInfo.IsEnabled || testCollectionInfo.DisabledTests.Any())
-            {
-                activeManifest.TestCollections.Add(testCollectionInfo);
-            }
+            activeManifest.TestCollections.Add(testCollectionInfo);
 
             _configurationService.ActiveManifestInfo = activeManifest;
         }
