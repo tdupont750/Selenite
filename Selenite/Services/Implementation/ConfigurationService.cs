@@ -12,6 +12,7 @@ namespace Selenite.Services.Implementation
     {
         private const int MaxSearchDepth = 5;
         private const string ErrorMessageFormat = "Unable to locate {0}, please specify {1} in the ApplicationSettings";
+        private const string ManifestInfoFileName = ".manifest.user";
 
         #region TestScriptsPath
 
@@ -39,7 +40,7 @@ namespace Selenite.Services.Implementation
         private ManifestInfoCollection GetManifestInfoCollection()
         {
             var currentDirectory = Directory.GetCurrentDirectory();
-            var manifestPath = Path.Combine(currentDirectory, ManifestFileName);
+            var manifestPath = Path.Combine(currentDirectory, ManifestInfoFileName);
 
             if (!File.Exists(manifestPath))
             {
@@ -59,7 +60,7 @@ namespace Selenite.Services.Implementation
         private void SaveManifestInfoCollection(ManifestInfoCollection manifests)
         {
             var currentDirectory = Directory.GetCurrentDirectory();
-            var manifestPath = Path.Combine(currentDirectory, ManifestFileName);
+            var manifestPath = Path.Combine(currentDirectory, ManifestInfoFileName);
 
             using (var sw = new StreamWriter(manifestPath, false))
             {

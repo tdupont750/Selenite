@@ -113,7 +113,9 @@ namespace Selenite.Services.Implementation
         private TestCollection CreateTestCollection(string name, dynamic testCollection, string overrideDomain)
         {
             var manifestInfo = _configurationService.ActiveManifestInfo;
-            var testCollectionInfo = manifestInfo.TestCollections.FirstOrDefault(tc => tc.Name == name);
+            var testCollectionInfo = manifestInfo.TestCollections != null
+                                         ? manifestInfo.TestCollections.FirstOrDefault(tc => tc.Name == name)
+                                         : null;
 
             var isEnabled = testCollectionInfo != null
                                 ? testCollectionInfo.IsEnabled

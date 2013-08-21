@@ -80,7 +80,10 @@ namespace Selenite.Services.Implementation
                 return null;
 
             var manifestInfo = _configurationService.ActiveManifestInfo;
-            manifest.OverrideDomain = manifestInfo.ManifestDomainOverride[manifestName];
+            if (manifestInfo != null && manifestInfo.ManifestDomainOverride != null && manifestInfo.ManifestDomainOverride.ContainsKey(manifestName))
+            {
+                manifest.OverrideDomain = manifestInfo.ManifestDomainOverride[manifestName];
+            }
 
             return manifest;
         }
