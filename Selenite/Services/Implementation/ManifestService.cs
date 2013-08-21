@@ -47,13 +47,17 @@ namespace Selenite.Services.Implementation
 
         public string GetActiveManifestName()
         {
-            return _manifestCollection.Value.ActiveManifest;
+            var manifestInfo = _configurationService.ActiveManifestInfo;
+
+            return string.IsNullOrEmpty(manifestInfo.ActiveManifest)
+                       ? _manifestCollection.Value.ActiveManifest
+                       : manifestInfo.ActiveManifest;
         }
 
         public void SetActiveManifest(string manifestName)
         {
             _manifestCollection.Value.ActiveManifest = manifestName;
-            SaveManifestCollection();
+            SaveManifestInfo();
         }
 
         public void SetActiveManifestDomain(string domainOverride)
@@ -70,12 +74,20 @@ namespace Selenite.Services.Implementation
 
         public Manifest GetManifest(string manifestName)
         {
-            return _manifestCollection.Value.Manifests.FirstOrDefault(m => m.Name == manifestName);
+            var manifest = _manifestCollection.Value.Manifests.FirstOrDefault(m => m.Name == manifestName);
+
+            if (manifest == null)
+                return null;
+
+            var manifestInfo = _configurationService.ActiveManifestInfo;
+            manifest.OverrideDomain = manifestInfo.ManifestDomainOverride[manifestName];
+
+            return manifest;
         }
 
         public void SaveManifest(Manifest manifest)
         {
-            var oldManifest = GetManifest(manifest.Name);
+            var oldManifest = _manifestCollection.Value.Manifests.FirstOrDefault(m => m.Name == manifest.Name);
 
             if (oldManifest == null)
                 _manifestCollection.Value.Manifests.Add(manifest);
@@ -85,13 +97,17 @@ namespace Selenite.Services.Implementation
                 _manifestCollection.Value.Manifests[i] = manifest;
             }
 
-            SaveManifestCollection();
+            SaveManifestInfo();
         }
 
-        public void SaveManifestCollection()
+        public void SaveManifestInfo()
         {
-            var manifestsJson = JsonConvert.SerializeObject(_manifestCollection.Value, Formatting.Indented, new JsonSerializerSettings { DefaultValueHandling = DefaultValueHandling.Ignore });
-            _fileService.WriteAllText(ManifestPath, manifestsJson);
+            var manifestInfo = _configurationService.ActiveManifestInfo;
+            manifestInfo.ActiveManifest = _manifestCollection.Value.ActiveManifest;
+            manifestInfo.ManifestDomainOverride = _manifestCollection.Value.Manifests
+                .ToDictionary(manifest => manifest.Name, manifest => manifest.OverrideDomain);
+
+            _configurationService.ActiveManifestInfo = manifestInfo;
         }
     }
 }

@@ -207,7 +207,7 @@
                     Visibility="Collapsed"/>
 
             <Button Grid.Column="2"
-                    Content="Cancel"
+                    Content="Done"
                     Width="100"
                     Command="{Binding CancelCommand}" />
         </Grid>
