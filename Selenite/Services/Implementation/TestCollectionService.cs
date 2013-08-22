@@ -107,6 +107,13 @@ namespace Selenite.Services.Implementation
             return testCollections;
         }
 
+        public IList<TestCollection> GetTestCollections(IList<string> testCollectionFiles)
+        {
+            return testCollectionFiles
+                .Select(file => GetTestCollection(file))
+                .ToList();
+        }
+
         // TODO: See if the UI can go through the same flow as the test runner and use GetTestCollections instead of this method.
         private TestCollection CreateTestCollection(string name, dynamic testCollection, string overrideDomain)
         {
@@ -130,7 +137,7 @@ namespace Selenite.Services.Implementation
                     Macros = GetDictionaryFromJObject(testCollection.Macros)
                 };
 
-            var tests = new List<Test>();
+            var tests = new List<SeleniteTest>();
 
             foreach (var test in testCollection.Tests)
             {
@@ -165,7 +172,7 @@ namespace Selenite.Services.Implementation
             return dictionary;
         }
 
-        private Test CreateTest(TestCollection testCollection, dynamic test, string domain, bool isEnabled = true)
+        private SeleniteTest CreateTest(TestCollection testCollection, dynamic test, string domain, bool isEnabled = true)
         {
             var url = test.Url.ToString();
 
@@ -175,7 +182,7 @@ namespace Selenite.Services.Implementation
 
             var relativeUri = new Uri(baseUri, url);
 
-            var testInstance = new Test
+            var testInstance = new SeleniteTest
             {
                 TestCollection = testCollection,
                 Enabled = isEnabled,

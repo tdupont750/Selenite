@@ -1,6 +1,5 @@
 using OpenQA.Selenium;
 using Selenite.Commands.Base;
-using Selenite.Extensions;
 using Xunit;
 
 namespace Selenite.Commands.Implementation

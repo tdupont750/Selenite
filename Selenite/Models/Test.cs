@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace Selenite.Models
 {
-    public class Test
+    public class SeleniteTest
     {
         private Regex _macroRegex = new Regex("\\@\\{[a-z0-9A-Z_]+\\}", RegexOptions.Compiled);
 

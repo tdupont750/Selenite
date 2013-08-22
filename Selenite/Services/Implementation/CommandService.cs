@@ -5,7 +5,6 @@ using System.Reflection;
 using Newtonsoft.Json.Linq;
 using Selenite.Commands;
 using Selenite.Commands.Base;
-using Selenite.Extensions;
 using Selenite.Models;
 
 namespace Selenite.Services.Implementation
@@ -55,7 +54,7 @@ namespace Selenite.Services.Implementation
                 .ToList();
         }
 
-        public ICommand CreateCommand(string name, IDictionary<string, string> values, Test test)
+        public ICommand CreateCommand(string name, IDictionary<string, string> values, SeleniteTest test)
         {
             dynamic command = new {Name = name};
 
@@ -65,7 +64,7 @@ namespace Selenite.Services.Implementation
             return CreateCommand(command, test);
         }
 
-        public ICommand CreateCommand(dynamic command, Test test)
+        public ICommand CreateCommand(dynamic command, SeleniteTest test)
         {
             string name = command.Name;
             if (String.IsNullOrWhiteSpace(name))

@@ -2,7 +2,7 @@ using System;
 using OpenQA.Selenium;
 using Selenite.Enums;
 
-namespace Selenite.Extensions
+namespace Selenite
 {
     public static class WebDriverExtensions
     {

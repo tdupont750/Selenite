@@ -24,12 +24,12 @@ namespace Selenite.Client.ViewModels.WebAutomation
             LoadTestCollections();
 
             SaveCommand = new RelayCommand(t =>
-                {
-                    SaveTestCollection();
+            {
+                SaveTestCollection();
 
-                    if(CancelCommand != null)
-                        CancelCommand.Execute(null);
-                });
+                if (CancelCommand != null)
+                    CancelCommand.Execute(null);
+            });
 
             SelectedItem = TestCollections.FirstOrDefault();
         }
@@ -80,11 +80,11 @@ namespace Selenite.Client.ViewModels.WebAutomation
                     return;
 
                 var testCollectionViewModel = new TestCollectionViewModel
-                    {
-                        Domain = testCollection.DefaultDomain,
-                        IsEnabled = testCollection.Enabled,
-                        Name = testCollection.File
-                    };
+                {
+                    Domain = testCollection.DefaultDomain,
+                    IsEnabled = testCollection.Enabled,
+                    Name = testCollection.File
+                };
 
                 if (testCollection.Tests == null)
                     return;
@@ -92,16 +92,16 @@ namespace Selenite.Client.ViewModels.WebAutomation
                 foreach (var test in testCollection.Tests)
                 {
                     var testViewModel = new TestViewModel
+                    {
+                        IsEnabled = test.Enabled,
+                        Name = test.Name,
+                        Url = test.Url,
+                        IsEnabledChangedCommand = new RelayCommand(enabled =>
                         {
-                            IsEnabled = test.Enabled,
-                            Name = test.Name,
-                            Url = test.Url,
-                            IsEnabledChangedCommand = new RelayCommand(enabled =>
-                                {
-                                    test.Enabled = (bool)enabled;
-                                    _testCollectionServiceService.SaveTestCollectionInfo(testCollection);
-                                })
-                        };
+                            test.Enabled = (bool) enabled;
+                            _testCollectionServiceService.SaveTestCollectionInfo(testCollection);
+                        })
+                    };
 
                     if (test.Commands == null)
                         return;
@@ -109,20 +109,20 @@ namespace Selenite.Client.ViewModels.WebAutomation
                     foreach (var command in test.Commands)
                     {
                         var commandViewModel = new CommandViewModel
-                            {
-                                Name = command.Name,
-                                Command = command,
-                            };
+                        {
+                            Name = command.Name,
+                            Command = command,
+                        };
 
                         var properties = _commandService.GetCommandValues(command);
 
                         foreach (var item in properties)
                         {
                             commandViewModel.Properties.Add(new CommandPropertyViewModel
-                                {
-                                    Name = item.Key,
-                                    Value = item.Value
-                                });
+                            {
+                                Name = item.Key,
+                                Value = item.Value
+                            });
                         }
 
                         testViewModel.Children.Add(commandViewModel);

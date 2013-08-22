@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace Selenite.Extensions
+namespace Selenite
 {
     public static class PropertyInfoExtensions
     {

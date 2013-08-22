@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium;
-using Selenite.Extensions;
 using Selenite.Models;
 using Newtonsoft.Json;
 
@@ -9,7 +8,7 @@ namespace Selenite.Commands.Base
     public abstract class CommandBase : ICommand
     {
         [JsonIgnore]
-        public Test Test { get; set; }
+        public SeleniteTest Test { get; set; }
 
         public string Name
         {

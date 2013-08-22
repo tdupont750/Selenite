@@ -19,6 +19,7 @@ namespace Selenite.Global
         public static object Get(Type type)
         {
             var result = _resolver(type);
+
             if (result == null)
                 throw new NullReferenceException("Unable to resolve type: " + type.FullName);
 
@@ -32,6 +33,10 @@ namespace Selenite.Global
 
         private static object DefaultResolver(Type type)
         {
+            // DriverFactory is Transient
+            if (typeof (IDriverFactory) == type)
+                return new DriverFactory();
+
             return DefaultServiceMap.Value[type];
         }
 
@@ -42,7 +47,7 @@ namespace Selenite.Global
             var fileService = new FileService();
             var manifestService = new ManifestService(configurationService, fileService);
             var testCollectionService = new TestCollectionService(configurationService, fileService, commandService, manifestService);
-            var testService = new TestService(configurationService);
+            var testService = new TestService();
 
             return new Dictionary<Type, object>
             {

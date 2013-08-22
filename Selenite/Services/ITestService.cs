@@ -1,10 +1,11 @@
-using Selenite.Browsers;
+using OpenQA.Selenium;
+using Selenite.Enums;
 using Selenite.Models;
 
 namespace Selenite.Services
 {
     public interface ITestService
     {
-        void ExecuteTest(BrowserBase browser, Test test);
+        void ExecuteTest(IWebDriver webDriver, DriverType driverType, SeleniteTest test);
     }
 }

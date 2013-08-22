@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Selenite.Extensions
+namespace Selenite
 {
     public static class AppDomainExtensions
     {

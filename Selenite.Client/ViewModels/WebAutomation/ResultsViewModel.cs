@@ -12,7 +12,6 @@ using System.Windows.Input;
 using Newtonsoft.Json;
 using Selenite.Client.Properties;
 using Selenite.Enums;
-using Selenite.Extensions;
 using Selenite.Models;
 using Selenite.Services;
 using Xunit;

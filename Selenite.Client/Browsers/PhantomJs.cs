@@ -1,21 +1,21 @@
-﻿using Selenite.Browsers;
-using Selenite.Enums;
+﻿using Selenite.Enums;
 using Selenite.Models;
+using Xunit;
 using Xunit.Extensions;
 
 namespace Selenite.Client.Browsers
 {
-    public class PhantomJs : BrowserBase
-    {
-        public override DriverType DriverType
-        {
-            get { return DriverType.PhantomJs; }
-        }
+    //public class PhantomJs : BrowserBase
+    //{
+    //    public override DriverType DriverType
+    //    {
+    //        get { return DriverType.PhantomJs; }
+    //    }
 
-        [Theory, BrowserData]
-        public void ExecuteTests(Test test)
-        {
-            ExecuteTest(test);
-        }
-    }
+    //    [Theory, SeleniteData]
+    //    public void ExecuteTests(SeleniteTest test)
+    //    {
+    //        ExecuteTest(test);
+    //    }
+    //}
 }

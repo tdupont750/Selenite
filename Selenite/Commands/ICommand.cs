@@ -5,7 +5,7 @@ namespace Selenite.Commands
 {
     public interface ICommand
     {
-        Test Test { get; set; }
+        SeleniteTest Test { get; set; }
 
         string Name { get; }
 

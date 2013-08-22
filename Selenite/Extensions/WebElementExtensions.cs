@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using OpenQA.Selenium;
 
-namespace Selenite.Extensions
+namespace Selenite
 {
     public static class WebElementExtensions
     {

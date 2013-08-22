@@ -1,21 +1,20 @@
-using Selenite.Browsers;
 using Selenite.Enums;
 using Selenite.Models;
 using Xunit.Extensions;
 
 namespace Selenite.Client.Browsers
 {
-    public class Chrome : BrowserBase
+    /*public class Chrome : BrowserBase
     {
         public override DriverType DriverType
         {
             get { return DriverType.Chrome; }
         }
 
-        [Theory, BrowserData]
-        public void ExecuteTests(Test test)
+        [Theory, SeleniteData]
+        public void ExecuteTests(SeleniteTest test)
         {
             ExecuteTest(test);
         }
-    }
+    }*/
 }

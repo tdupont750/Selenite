@@ -1,7 +1,6 @@
 using OpenQA.Selenium;
 using Selenite.Commands.Base;
 using Selenite.Enums;
-using Selenite.Extensions;
 
 namespace Selenite.Commands.Implementation
 {

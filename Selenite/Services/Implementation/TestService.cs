@@ -6,7 +6,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using Newtonsoft.Json;
-using Selenite.Browsers;
+using Selenite.Enums;
 using Selenite.Models;
 using OpenQA.Selenium;
 
@@ -14,16 +14,10 @@ namespace Selenite.Services.Implementation
 {
     public class TestService : ITestService
     {
-        private readonly IConfigurationService _configurationService;
-
         public const string AboutBlank = "about:blank";
+
         private const string ScreenshotPath = ".\\Screenshots";
         private const string ScreenshotFilenameFormat = "{0}-{1}-{2}.png";
-
-        public TestService(IConfigurationService configurationService)
-        {
-            _configurationService = configurationService;
-        }
 
         private void CaptureScreenshot(IWebDriver driver, TestResult testResult)
         {
@@ -62,17 +56,17 @@ namespace Selenite.Services.Implementation
             }            
         }
 
-        public void ExecuteTest(BrowserBase browser, Test test)
+        public void ExecuteTest(IWebDriver webDriver, DriverType driverType, SeleniteTest test)
         {
             var testResult = new TestResult
-                {
-                    TestName = test.Name,
-                    TestDescription = test.Description,
-                    CollectionName = test.TestCollection.File,
-                    CollectionDescription = test.TestCollection.Description,
-                    Url = test.TestUrl,
-                    DriverType = browser.DriverType,
-                };
+            {
+                TestName = test.Name,
+                TestDescription = test.Description,
+                CollectionName = test.TestCollection.File,
+                CollectionDescription = test.TestCollection.Description,
+                Url = test.TestUrl,
+                DriverType = driverType,
+            };
 
             var traceResult = new StringBuilder();
             traceResult.AppendLine("Collection: " + test.TestCollection.File);
@@ -82,18 +76,18 @@ namespace Selenite.Services.Implementation
             try
             {
                 var limit = 10;
-                while (browser.Driver.Url == AboutBlank)
+                while (webDriver.Url == AboutBlank)
                 {
                     limit--;
                     if (limit <= 0)
                     {
                         throw new InvalidOperationException("Unable to navigate the driver to the given url: " + test.TestUrl);
                     }
-                    browser.Driver.Url = test.TestUrl;
+                    webDriver.Url = test.TestUrl;
                 }
 
                 dynamic context = new ExpandoObject();
-                context.DriverType = browser.DriverType;
+                context.DriverType = driverType;
 
                 for (var i = 0; i < test.Commands.Count; i++) 
                 {
@@ -102,11 +96,11 @@ namespace Selenite.Services.Implementation
 
                     try
                     {
-                        command.Execute(browser.Driver, context);
+                        command.Execute(webDriver, context);
                     }
                     catch (Exception ex)
                     {
-                        CaptureScreenshot(browser.Driver, testResult);
+                        CaptureScreenshot(webDriver, testResult);
 
                         string commandJson;
                         try
@@ -137,7 +131,7 @@ namespace Selenite.Services.Implementation
             }
             catch
             {
-                CaptureScreenshot(browser.Driver, testResult);
+                CaptureScreenshot(webDriver, testResult);
 
                 testResult.Status = ResultStatus.Failed;
                 traceResult.AppendLine(String.Empty);

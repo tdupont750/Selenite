@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.ComponentModel;
-using System.Linq;
 
-namespace Selenite.Extensions
+namespace Selenite
 {
     public static class EnumExtensions
     {
