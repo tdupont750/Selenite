@@ -27,7 +27,7 @@ namespace Selenite.Models
 
         public string ResolveMacros(string text)
         {
-            if (string.IsNullOrEmpty(text) || (Macros == null && TestCollection.Macros == null))
+            if (string.IsNullOrEmpty(text) || (Macros == null && (TestCollection == null || TestCollection.Macros == null)))
                 return text;
 
             return _macroRegex.Replace(text, new MatchEvaluator(ReplaceMacro));
