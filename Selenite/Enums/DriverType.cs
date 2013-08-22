@@ -14,6 +14,8 @@ namespace Selenite.Enums
         InternetExplorer,
 
         [Description("PhantomJS")]
-        PhantomJs
+        PhantomJs,
+
+        Unknown
     }
 }

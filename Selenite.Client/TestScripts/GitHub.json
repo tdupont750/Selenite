@@ -1,0 +1,31 @@
+{
+  "Enabled": false,
+  "DefaultDomain": "http://github.com",
+  "Tests": [
+    {
+      "Enabled": true,
+      "Name": "Title has 'GitHub'",
+      "Description": "Verifies that the title page contains the word 'GitHub'",
+      "Url": "Index.html",
+      "Commands": [
+        {
+          "Title": "GitHub",
+          "Name": "IsTitleContained"
+        }
+      ]
+    },
+    {
+      "Enabled": true,
+      "Name": "This test will fail.",
+      "Url": "Index.html",
+      "Commands": [
+        {
+          "Text": "Not gonna be found!",
+          "Description": "This test will always fail, unless it doesn't.",
+          "Selector": "#your-repos-filter",
+          "Name": "IsTextContained"
+        }
+      ]
+    }
+  ]
+}

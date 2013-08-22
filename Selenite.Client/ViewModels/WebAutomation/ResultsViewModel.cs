@@ -401,6 +401,23 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
         private void TestFailed(TestFailedResult testResult)
         {
+            if (string.IsNullOrEmpty(testResult.Output))
+            {
+                var errorResultViewModel = new TestResultViewModel
+                {
+                    Status = ResultStatus.Failed,
+                    Name = "Error",
+                    Description = "An unknown error occured executing the test.",
+                    CollectionDescription = "Error",
+                    ResultOutput = testResult.ExceptionMessage,
+                    StackTrace = testResult.ExceptionStackTrace,
+                    Browser = DriverType.Unknown.ToString(),
+                };
+
+                AddResult("Test Execution Failure", errorResultViewModel);
+                return;
+            }
+
             var result = JsonConvert.DeserializeObject<Models.TestResult>(testResult.Output);
             var testResultViewModel = new TestResultViewModel
                 {
