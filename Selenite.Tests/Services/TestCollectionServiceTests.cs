@@ -75,17 +75,5 @@ namespace Selenite.Tests.Services
             Assert.Equal("Google", command.Title);
             Assert.Equal(false, command.IsCaseSensitive);
         }
-
-        [Theory]
-        [InlineData("Test.json", Test)]
-        public void SaveTestCollection(string name, string json)
-        {
-            var testCollectionService = GetTestCollectionService(name, json);
-
-            var testCollection = testCollectionService.GetTestCollection(name);
-            testCollectionService.SaveTestCollectionInfo(testCollection);
-
-            Assert.Equal(json, WriteAllTextValue);
-        }
     }
 }

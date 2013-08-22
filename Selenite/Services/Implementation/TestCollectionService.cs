@@ -47,6 +47,11 @@ namespace Selenite.Services.Implementation
         {
             var activeManifest = _configurationService.ActiveManifestInfo;
 
+            if (activeManifest == null)
+            {
+                throw new InvalidOperationException("Could not load the active manifest.");
+            }
+
             var testCollectionInfo = new TestCollectionInfo
                 {
                     Name = testCollection.File,
@@ -56,7 +61,6 @@ namespace Selenite.Services.Implementation
                         .Select(test => test.Name)
                         .ToList(),
                 };
-
 
             if (activeManifest.TestCollections == null)
             {
@@ -118,7 +122,7 @@ namespace Selenite.Services.Implementation
         private TestCollection CreateTestCollection(string name, dynamic testCollection, string overrideDomain)
         {
             var manifestInfo = _configurationService.ActiveManifestInfo;
-            var testCollectionInfo = manifestInfo.TestCollections != null
+            var testCollectionInfo = manifestInfo != null && manifestInfo.TestCollections != null
                                          ? manifestInfo.TestCollections.FirstOrDefault(tc => tc.Name == name)
                                          : null;
 
