@@ -27,7 +27,9 @@ namespace Selenite.Services.Implementation
             get
             {
                 var manifests = GetManifestInfoCollection();
-                return manifests.Manifests[manifests.ActiveManifest];
+                return manifests == null
+                    ? null
+                    : manifests.Manifests[manifests.ActiveManifest];
             }
             set
             {

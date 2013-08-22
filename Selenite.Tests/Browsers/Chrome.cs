@@ -5,26 +5,8 @@ using Xunit.Extensions;
 
 namespace Selenite.Tests.Browsers
 {
-    /*public class Chrome : BrowserBase
-    {
-        public override DriverType DriverType
-        {
-            get { return DriverType.Chrome; }
-        }
-
-#if CHROME
-        [Theory, BrowserData]
-#else
-        [Theory(Skip = "Not built for Chrome")]
-#endif
-        public void ExecuteTests(SeleniteTest test)
-        {
-            ExecuteTest(test);
-        }
-    }*/
-
     [SeleniteDriver(DriverType.Chrome)]
-    public class BrowserTests : IUseFixture<SeleniteFixture>
+    public class Chrome : IUseFixture<SeleniteFixture>
     {
         public SeleniteFixture SeleniteFixture { get; private set; }
 
@@ -33,7 +15,11 @@ namespace Selenite.Tests.Browsers
             SeleniteFixture = data;
         }
 
-        [Theory, SeleniteData]
+#if CHROME
+        [Theory, SeleniteData, CurrentDirectoryDomainOverride]
+#else
+        [Theory(Skip = "Not built for CHROME")]
+#endif
         public void ExecuteTests(DriverType driverType, SeleniteTest test)
         {
             SeleniteFixture.ExecuteTest(driverType, test);

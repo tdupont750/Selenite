@@ -1,20 +1,24 @@
 using Selenite.Enums;
 using Selenite.Models;
+using Xunit;
 using Xunit.Extensions;
 
 namespace Selenite.Client.Browsers
 {
-    /*public class Chrome : BrowserBase
+    [SeleniteDriver(DriverType.Chrome)]
+    public class Chrome : IUseFixture<SeleniteFixture>
     {
-        public override DriverType DriverType
+        public SeleniteFixture SeleniteFixture { get; private set; }
+
+        public void SetFixture(SeleniteFixture data)
         {
-            get { return DriverType.Chrome; }
+            SeleniteFixture = data;
         }
 
         [Theory, SeleniteData]
-        public void ExecuteTests(SeleniteTest test)
+        public void ExecuteTests(DriverType driverType, SeleniteTest test)
         {
-            ExecuteTest(test);
+            SeleniteFixture.ExecuteTest(driverType, test);
         }
-    }*/
+    }
 }

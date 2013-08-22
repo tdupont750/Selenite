@@ -1,24 +1,44 @@
 ﻿using Selenite.Enums;
 using Selenite.Models;
+using Xunit;
 using Xunit.Extensions;
 
 namespace Selenite.Tests.Browsers
 {
-//    public class PhantomJs : BrowserBase
-//    {
-//        public override DriverType DriverType
-//        {
-//            get { return DriverType.PhantomJs; }
-//        }
+    [SeleniteDriver(DriverType.PhantomJs)]
+    public class PhantomJs : IUseFixture<SeleniteFixture>
+    {
+        public SeleniteFixture SeleniteFixture { get; private set; }
 
-//#if PHANTOMJS
-//        [Theory, BrowserData]
-//#else
-//        [Theory(Skip = "Not built for PhantomJs")]
-//#endif
-//        public void ExecuteTests(SeleniteTest test)
-//        {
-//            ExecuteTest(test);
-//        }
-//    }
+        public void SetFixture(SeleniteFixture data)
+        {
+            SeleniteFixture = data;
+        }
+
+#if PHANTOMJS
+        [Theory, SeleniteData, CurrentDirectoryDomainOverride]
+#else
+        [Theory(Skip = "Not built for PHANTOMJS")]
+#endif
+        public void ExecuteTests(DriverType driverType, SeleniteTest test)
+        {
+            SeleniteFixture.ExecuteTest(driverType, test);
+        }
+    }
+
+    public class Dave : IUseFixture<SeleniteFixture>
+    {
+        public SeleniteFixture SeleniteFixture { get; private set; }
+
+        public void SetFixture(SeleniteFixture data)
+        {
+            SeleniteFixture = data;
+        }
+
+        [Theory, SeleniteData]
+        public void Tests(DriverType driverType, SeleniteTest test)
+        {
+            SeleniteFixture.ExecuteTest(driverType, test);
+        }
+    }
 }

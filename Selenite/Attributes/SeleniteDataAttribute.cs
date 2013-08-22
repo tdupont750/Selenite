@@ -17,7 +17,8 @@ namespace Selenite
 
         public override IEnumerable<object[]> GetData(MethodInfo methodUnderTest, Type[] parameterTypes)
         {
-            var testCollections = GetTestCollectionFiles(methodUnderTest);
+            var overrideDomain = GetDomainOverride(methodUnderTest);
+            var testCollections = GetTestCollectionFiles(methodUnderTest, overrideDomain);
             var tests = GetTests(methodUnderTest, testCollections);
             var driverTypes = GetDriverTypes(methodUnderTest);
 
@@ -26,16 +27,16 @@ namespace Selenite
                     yield return new object[] {driverType, test};
         }
 
-        private IList<TestCollection> GetTestCollectionFiles(MethodInfo methodUnderTest)
+        private IList<TestCollection> GetTestCollectionFiles(MethodInfo methodUnderTest, string overrideDomain)
         {
             var testCollectionFiles = GetAttributeValues<SeleniteTestCollectionAttribute, string>(methodUnderTest, a => a.Collections);
 
             if (testCollectionFiles.Any())
-                return TestCollectionService.GetTestCollections(testCollectionFiles);
+                return TestCollectionService.GetTestCollections(testCollectionFiles, overrideDomain);
 
             var manifestName = ManifestService.GetActiveManifestName();
             var manifest = ManifestService.GetManifest(manifestName);
-            return  TestCollectionService.GetTestCollections(manifest);
+            return TestCollectionService.GetTestCollections(manifest, overrideDomain);
         }
 
         private static IList<SeleniteTest> GetTests(MethodInfo methodUnderTest, IList<TestCollection> testCollections)
@@ -67,6 +68,12 @@ namespace Selenite
                 .Cast<DriverType>()
                 .Where(v => v != DriverType.Unknown)
                 .ToArray();
+        }
+
+        private static string GetDomainOverride(MethodInfo methodUnderTest)
+        {
+            var domainOverrides = GetAttributeValues<SeleniteDomainOverrideAttribute, string>(methodUnderTest, a => new [] { a.DomainOverride });
+            return domainOverrides.FirstOrDefault(o => !String.IsNullOrWhiteSpace(o));
         }
 
         private static IList<TR> GetAttributeValues<T, TR>(MethodInfo methodUnderTest, Func<T, IEnumerable<TR>> selectMany)

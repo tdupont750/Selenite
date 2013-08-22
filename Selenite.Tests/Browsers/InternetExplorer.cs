@@ -1,24 +1,28 @@
 using Selenite.Enums;
 using Selenite.Models;
+using Xunit;
 using Xunit.Extensions;
 
 namespace Selenite.Tests.Browsers
 {
-//    public class InternetExplorer : BrowserBase
-//    {
-//        public override DriverType DriverType
-//        {
-//            get { return DriverType.InternetExplorer; }
-//        }
+    [SeleniteDriver(DriverType.InternetExplorer)]
+    public class InternetExplorer : IUseFixture<SeleniteFixture>
+    {
+        public SeleniteFixture SeleniteFixture { get; private set; }
 
-//#if IE
-//        [Theory, BrowserData]
-//#else
-//        [Theory(Skip = "Not built for IE")]
-//#endif
-//        public void ExecuteTests(SeleniteTest test)
-//        {
-//            ExecuteTest(test);
-//        }
-//    }
+        public void SetFixture(SeleniteFixture data)
+        {
+            SeleniteFixture = data;
+        }
+
+#if IE
+        [Theory, SeleniteData, CurrentDirectoryDomainOverride]
+#else
+        [Theory(Skip = "Not built for IE")]
+#endif
+        public void ExecuteTests(DriverType driverType, SeleniteTest test)
+        {
+            SeleniteFixture.ExecuteTest(driverType, test);
+        }
+    }
 }

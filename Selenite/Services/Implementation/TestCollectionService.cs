@@ -79,10 +79,10 @@ namespace Selenite.Services.Implementation
             _configurationService.ActiveManifestInfo = activeManifest;
         }
 
-        public IList<TestCollection> GetTestCollections(Manifest manifest)
+        public IList<TestCollection> GetTestCollections(Manifest manifest, string overrideDomain = null)
         {
             var testCollections = manifest.Files
-                .Select(file => GetTestCollection(file, manifest.OverrideDomain))
+                .Select(file => GetTestCollection(file, overrideDomain ?? manifest.OverrideDomain))
                 .ToList();
 
             var manifestInfo = _configurationService.ActiveManifestInfo;
@@ -111,10 +111,10 @@ namespace Selenite.Services.Implementation
             return testCollections;
         }
 
-        public IList<TestCollection> GetTestCollections(IList<string> testCollectionFiles)
+        public IList<TestCollection> GetTestCollections(IList<string> testCollectionFiles, string overrideDomain)
         {
             return testCollectionFiles
-                .Select(file => GetTestCollection(file))
+                .Select(file => GetTestCollection(file, overrideDomain))
                 .ToList();
         }
 

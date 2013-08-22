@@ -6,6 +6,7 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.PhantomJS;
 using Selenite.Enums;
+using Selenite.Global;
 
 namespace Selenite.Services.Implementation
 {
@@ -36,7 +37,8 @@ namespace Selenite.Services.Implementation
             var window = _driver.Manage().Window;
             window.Size = new System.Drawing.Size(1024, 800);
             window.Position = new System.Drawing.Point(0, 0);
-            _driver.Url = "about:blank";
+            
+            _driver.Url = Constants.AboutBlank;
 
             return _driver;
         }

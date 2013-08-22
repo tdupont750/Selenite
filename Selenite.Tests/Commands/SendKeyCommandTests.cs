@@ -15,7 +15,7 @@ namespace Selenite.Tests.Commands
         [InlineData("SUBTRACT")]
         public void Valid(string key)
         {
-            var command = new DoSendKeyCommand {Key = key, Test = new Test()};
+            var command = new DoSendKeyCommand {Key = key, Test = new SeleniteTest()};
             command.Validate();
         }
 
@@ -24,7 +24,7 @@ namespace Selenite.Tests.Commands
         [InlineData("Invalid")]
         public void Invalid(string key)
         {
-            var command = new DoSendKeyCommand { Key = key, Test = new Test() };
+            var command = new DoSendKeyCommand { Key = key, Test = new SeleniteTest() };
             Assert.Throws<ArgumentException>(() => command.Validate());
         }
     }

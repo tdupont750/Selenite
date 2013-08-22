@@ -77,8 +77,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\SeleniteBrowserAttribute.cs" />
+    <Compile Include="Attributes\SeleniteDriverAttribute.cs" />
     <Compile Include="Attributes\SeleniteDataAttribute.cs" />
+    <Compile Include="Attributes\SeleniteDomainOverrideAttribute.cs" />
     <Compile Include="Attributes\SeleniteTestAttribute.cs" />
     <Compile Include="Attributes\SeleniteTestCollectionAttribute.cs" />
     <Compile Include="Commands\Base\CommandAttribute.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Extensions\WebDriverExtensions.cs" />
     <Compile Include="Extensions\WebElementExtensions.cs" />
+    <Compile Include="Global\Constants.cs" />
     <Compile Include="Global\ServiceResolver.cs" />
     <Compile Include="Models\ManifestCollection.cs" />
     <Compile Include="Models\ManifestInfo.cs" />

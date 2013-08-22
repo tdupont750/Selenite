@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using Newtonsoft.Json;
 using Selenite.Enums;
+using Selenite.Global;
 using Selenite.Models;
 using OpenQA.Selenium;
 
@@ -14,8 +15,6 @@ namespace Selenite.Services.Implementation
 {
     public class TestService : ITestService
     {
-        public const string AboutBlank = "about:blank";
-
         private const string ScreenshotPath = ".\\Screenshots";
         private const string ScreenshotFilenameFormat = "{0}-{1}-{2}.png";
 
@@ -75,17 +74,8 @@ namespace Selenite.Services.Implementation
 
             try
             {
-                var limit = 10;
-                while (webDriver.Url == AboutBlank)
-                {
-                    limit--;
-                    if (limit <= 0)
-                    {
-                        throw new InvalidOperationException("Unable to navigate the driver to the given url: " + test.TestUrl);
-                    }
-                    webDriver.Url = test.TestUrl;
-                }
-
+                SetUrl(webDriver, test.TestUrl);
+                
                 dynamic context = new ExpandoObject();
                 context.DriverType = driverType;
 
@@ -148,6 +138,26 @@ namespace Selenite.Services.Implementation
                 var testResultJson = JsonConvert.SerializeObject(testResult);
                 Trace.WriteLine(testResultJson);
             }
+        }
+
+        private static void SetUrl(IWebDriver webDriver, string url)
+        {
+            SetUrl(webDriver, Constants.AboutBlank, webDriver.Url);
+            SetUrl(webDriver, url, Constants.AboutBlank);
+        }
+
+        private static void SetUrl(IWebDriver webDriver, string newUrl, string oldUrl)
+        {
+            var limit = 10;
+
+            do
+            {
+                if (--limit <= 0)
+                    throw new InvalidOperationException("Unable to navigate the driver to the given url: " + newUrl);
+
+                webDriver.Url = newUrl;
+            } 
+            while (webDriver.Url == oldUrl && webDriver.Url != newUrl);
         }
     }
 }
