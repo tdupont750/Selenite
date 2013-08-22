@@ -49,7 +49,7 @@ namespace Selenite.Services.Implementation
         {
             var manifestInfo = _configurationService.ActiveManifestInfo;
 
-            return string.IsNullOrEmpty(manifestInfo.ActiveManifest)
+            return manifestInfo == null || string.IsNullOrEmpty(manifestInfo.ActiveManifest)
                        ? _manifestCollection.Value.ActiveManifest
                        : manifestInfo.ActiveManifest;
         }
