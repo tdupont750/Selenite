@@ -43,6 +43,8 @@ namespace Selenite
         {
             var testNames = GetAttributeValues<SeleniteTestAttribute, string>(methodUnderTest, a => a.Tests);
 
+            // TODO Add reflection option.
+
             if (testNames.Any())
                 return testCollections
                     .SelectMany(c => c.Tests)

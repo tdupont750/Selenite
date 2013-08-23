@@ -94,18 +94,14 @@ namespace Selenite.Services.Implementation
                              ? manifestInfo.TestCollections.FirstOrDefault(testColl => testColl.Name == testCollection.File)
                              : null;
 
-                if (tc != null)
-                {
-                    testCollection.Enabled = tc.IsEnabled;
+                if (tc == null)
+                    continue;
 
-                    foreach (var test in testCollection.Tests)
-                    {
-                        if (tc.DisabledTests.Contains(test.Name))
-                        {
-                            test.Enabled = false;
-                        }
-                    }
-                }
+                testCollection.Enabled = tc.IsEnabled;
+
+                foreach (var test in testCollection.Tests)
+                    if (tc.DisabledTests.Contains(test.Name))
+                        test.Enabled = false;
             }
 
             return testCollections;
