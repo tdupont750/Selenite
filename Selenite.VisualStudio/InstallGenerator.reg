@@ -1,0 +1,13 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\VisualStudio\11.0_Config\CLSID\{9CF37C98-B662-4B96-9B01-C3D5EA24FC00}]
+"InprocServer32"="C:\\Windows\\System32\\mscoree.dll"
+"ThreadingModel"="Both"
+"Class"="Selenite.VisualStudio.TestGenerator"
+"Assembly"="Selenite.VisualStudio, Version=1.0.0.0, Culture=neutral"
+"CodeBase"="file:///C:\\Program Files\\Selenite\\Selenite.VisualStudio.dll"
+
+[HKEY_CURRENT_USER\Software\Microsoft\VisualStudio\11.0_Config\Generators\{FAE04EC1-301F-11D3-BF4B-00C04F79EFBC}\SeleniteTestGenerator]
+"CLSID"="{9CF37C98-B662-4B96-9B01-C3D5EA24FC00}"
+"GeneratesDesignTimeSource"=dword:00000001
+@="Generates Xunit tests from Selenite test collections."

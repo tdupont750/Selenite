@@ -14,8 +14,10 @@ if (system.args.length < 3) {
     }
     
     try {
-        fs.write(system.args[1], content, 'w');
-    } catch(e) {
+        f = fs.open(system.args[1], "w");
+        f.writeLine(content);
+        f.close();
+    } catch (e) {
         console.log(e);
     }
 

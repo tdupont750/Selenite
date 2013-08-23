@@ -103,7 +103,6 @@ else
   page.open page.address, (status) ->
     if status isnt 'success'
       console.log 'FAIL to load the address'
-      phantom.exit(1)
     else
       page.endTime = new Date()
       page.title = page.evaluate ->
@@ -111,4 +110,4 @@ else
 
       har = createHAR page.address, page.title, page.startTime, page.resources
       console.log JSON.stringify har, undefined, 4
-      phantom.exit()
+    phantom.exit()
