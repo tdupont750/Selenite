@@ -8,7 +8,7 @@ namespace Selenite.Models
 {
     public class SeleniteTest
     {
-        private Regex _macroRegex = new Regex("\\@\\{[a-z0-9A-Z_]+\\}", RegexOptions.Compiled);
+        private Regex _macroRegex = new Regex("\\@\\{[a-z0-9A-Z_-]+\\}", RegexOptions.Compiled);
 
         [JsonIgnore]
         public TestCollection TestCollection { get; set; }
@@ -27,7 +27,7 @@ namespace Selenite.Models
 
         public string ResolveMacros(string text)
         {
-            if (string.IsNullOrEmpty(text) || (Macros == null && (TestCollection == null || TestCollection.Macros == null)))
+            if (string.IsNullOrEmpty(text))
                 return text;
 
             return _macroRegex.Replace(text, new MatchEvaluator(ReplaceMacro));
@@ -36,13 +36,20 @@ namespace Selenite.Models
         public string ReplaceMacro(Match match)
         {
             var macroName = match.Value.Substring(2, match.Value.Length - 3);
+
+            // Built in Macro for getting the current date and time
+            if (string.Equals(macroName, "Now"))
+            {
+                return DateTime.Now.ToString();
+            }
+
             string value;
 
             // try a macro at the test level
             if (Macros == null || !Macros.TryGetValue(macroName, out value))
             {
                 // then try it at the collection level
-                if (TestCollection.Macros == null || !TestCollection.Macros.TryGetValue(macroName, out value))
+                if (TestCollection == null || TestCollection.Macros == null || !TestCollection.Macros.TryGetValue(macroName, out value))
                 {
                     throw new InvalidOperationException("Could not resolve macro '@{" + macroName + "}'.");
                 }
