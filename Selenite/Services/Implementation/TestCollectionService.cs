@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using Newtonsoft.Json.Linq;
 using Selenite.Commands;
 using Selenite.Models;
@@ -32,10 +33,49 @@ namespace Selenite.Services.Implementation
             return activeManifest.Files;
         }
 
+        private string _currentApplicationBaseDirectory;
+        private string CurrentApplicationBaseDirectory {
+            get
+            {
+                if (_currentApplicationBaseDirectory == null)
+                {
+                    // todo: GET RID OF THIS CRAP
+
+                    var dir = AppDomain.CurrentDomain.BaseDirectory;
+                    while (!File.Exists(Path.Combine(dir, "app.config")) && !File.Exists(Path.Combine(dir, "web.config")))
+                    {
+                        dir = Path.Combine(dir, "..");
+                        if (string.IsNullOrEmpty(dir))
+                        {
+                            dir = null;
+                            break;
+                        }
+                    }
+
+                    _currentApplicationBaseDirectory = dir;
+                }
+                return _currentApplicationBaseDirectory;
+            }
+        }
+
         public TestCollection GetTestCollection(string testCollectionFile, string overrideDomain = null)
         {
-            var pathRoot = Path.GetFullPath(_configurationService.TestScriptsPath);
-            var path = Path.Combine(pathRoot, testCollectionFile);
+            var path = testCollectionFile;
+            if (!Path.IsPathRooted(testCollectionFile))
+            {
+                if (path.StartsWith("~"))
+                {
+                    if (CurrentApplicationBaseDirectory == null)
+                        throw new InvalidOperationException("Could not determine the project root directory.");
+
+                    path = path.Replace("~", CurrentApplicationBaseDirectory);
+                }
+                else
+                {
+                    var pathRoot = Path.GetFullPath(_configurationService.TestScriptsPath);
+                    path = Path.Combine(pathRoot, testCollectionFile);
+                }
+            }
 
             var testCollectionJson = _fileService.ReadAllText(path);
             var testCollection = JObject.Parse(testCollectionJson);
@@ -117,7 +157,10 @@ namespace Selenite.Services.Implementation
         // TODO: See if the UI can go through the same flow as the test runner and use GetTestCollections instead of this method.
         private TestCollection CreateTestCollection(string name, dynamic testCollection, string overrideDomain)
         {
-            var manifestInfo = _configurationService.ActiveManifestInfo;
+            var manifestInfo = _configurationService == null
+                ? null
+                : _configurationService.ActiveManifestInfo;
+
             var testCollectionInfo = manifestInfo != null && manifestInfo.TestCollections != null
                                          ? manifestInfo.TestCollections.FirstOrDefault(tc => tc.Name == name)
                                          : null;

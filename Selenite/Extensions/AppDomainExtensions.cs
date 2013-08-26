@@ -11,7 +11,10 @@ namespace Selenite
         {
             var results = new List<Tuple<Type, T>>();
 
-            var assemblies = appDomain.GetAssemblies();
+            var assemblies = appDomain.GetAssemblies()
+                .Where(a => a.GetCustomAttributes(typeof (SeleniteAssemblyAttribute), false).Any())
+                .ToList();
+
             foreach (var assembly in assemblies)
             {
                 var types = assembly.GetTypes();
