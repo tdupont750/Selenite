@@ -15,3 +15,7 @@
 
 /Selenite.Tests/*.user
 /Selenite.Client/*.user
+
+/Selenite.VisualStudio/bin
+/Selenite.VisualStudio/obj
+/Selenite.VisualStudio/Selenite.VisualStudio.csproj.user

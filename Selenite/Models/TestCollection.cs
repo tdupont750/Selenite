@@ -13,8 +13,9 @@ namespace Selenite.Models
 
         [DefaultValue(true)]
         public bool Enabled { get; set; }
-        
+
         public string DefaultDomain { get; set; }
+        public IList<SeleniteTest> SetupSteps { get; set; }
         public IList<SeleniteTest> Tests { get; set; }
         public IDictionary<string, string> Macros { get; set; }
     }

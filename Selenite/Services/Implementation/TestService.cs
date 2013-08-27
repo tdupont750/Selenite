@@ -55,7 +55,7 @@ namespace Selenite.Services.Implementation
             }            
         }
 
-        public void ExecuteTest(IWebDriver webDriver, DriverType driverType, SeleniteTest test)
+        public void ExecuteTest(IWebDriver webDriver, DriverType driverType, SeleniteTest test, bool isSetup)
         {
             var testResult = new TestResult
             {
@@ -68,6 +68,10 @@ namespace Selenite.Services.Implementation
             };
 
             var traceResult = new StringBuilder();
+
+            if (isSetup)
+                traceResult.AppendLine("SETUP STEP");
+
             traceResult.AppendLine("Collection: " + test.TestCollection.File);
             traceResult.AppendLine("Name: " + test.Name);
             traceResult.AppendLine("Url: " + test.TestUrl);

@@ -1,8 +1,0 @@
-D:\git\Selenite\Selenite.VisualStudio\bin\Debug\Selenite.VisualStudio.dll
-D:\git\Selenite\Selenite.VisualStudio\bin\Debug\Selenite.VisualStudio.pdb
-D:\git\Selenite\Selenite.VisualStudio\bin\Debug\Microsoft.VisualStudio.Settings.dll
-D:\git\Selenite\Selenite.VisualStudio\bin\Debug\Microsoft.VisualStudio.Settings.xml
-D:\git\Selenite\Selenite.VisualStudio\obj\Debug\Selenite.VisualStudio.dll
-D:\git\Selenite\Selenite.VisualStudio\obj\Debug\Selenite.VisualStudio.pdb
-D:\git\Selenite\Selenite.VisualStudio\bin\Debug\Newtonsoft.Json.dll
-D:\git\Selenite\Selenite.VisualStudio\bin\Debug\Newtonsoft.Json.xml

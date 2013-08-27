@@ -116,7 +116,7 @@ namespace @{Namespace}
 
         private string GenerateTestMethods(Uri projectDirectory, string manifestBaseDirectory, Manifest manifest, DriverType driverType)
         {
-            var testCollectionSerivce = ServiceResolver.Get<ITestCollectionService>();
+            var testCollectionService = ServiceResolver.Get<ITestCollectionService>();
 
             var sb = new StringBuilder();
             foreach (var testCollectionFile in manifest.Files)

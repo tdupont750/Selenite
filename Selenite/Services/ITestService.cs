@@ -6,6 +6,6 @@ namespace Selenite.Services
 {
     public interface ITestService
     {
-        void ExecuteTest(IWebDriver webDriver, DriverType driverType, SeleniteTest test);
+        void ExecuteTest(IWebDriver webDriver, DriverType driverType, SeleniteTest test, bool isSetup = false);
     }
 }

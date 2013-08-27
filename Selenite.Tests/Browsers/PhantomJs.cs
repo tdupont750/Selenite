@@ -25,20 +25,4 @@ namespace Selenite.Tests.Browsers
             SeleniteFixture.ExecuteTest(driverType, test);
         }
     }
-
-    public class Dave : IUseFixture<SeleniteFixture>
-    {
-        public SeleniteFixture SeleniteFixture { get; private set; }
-
-        public void SetFixture(SeleniteFixture data)
-        {
-            SeleniteFixture = data;
-        }
-
-        [Theory, SeleniteData]
-        public void Tests(DriverType driverType, SeleniteTest test)
-        {
-            SeleniteFixture.ExecuteTest(driverType, test);
-        }
-    }
 }
