@@ -4,6 +4,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
+using Selenite.Enums;
 using Selenite.Models;
 
 namespace Selenite.Services.Implementation
@@ -37,6 +38,41 @@ namespace Selenite.Services.Implementation
                 manifests.Manifests[manifests.ActiveManifest] = value;
                 SaveManifestInfoCollection(manifests);
             }
+        }
+
+        public string GetDriverPath(DriverType driverType)
+        {
+            string driverPath;
+
+            switch (driverType)
+            {
+                case DriverType.InternetExplorer:
+                    driverPath = GetAppSetting("IEDriverPath");
+                    break;
+                case DriverType.Chrome:
+                    driverPath = GetAppSetting("ChromeDriverPath");
+                    break;
+                case DriverType.PhantomJs:
+                    driverPath = GetAppSetting("PhantomJsPath");
+                    break;
+                default:
+                    driverPath = null;
+                    break;
+            }
+
+            if (string.IsNullOrWhiteSpace(driverPath))
+            {
+                return Directory.GetCurrentDirectory();
+            }
+
+            if (!Path.IsPathRooted(driverPath))
+            {
+                driverPath = Path.Combine(Directory.GetCurrentDirectory(), driverPath);
+            }
+
+            return Directory.Exists(driverPath)
+                       ? driverPath
+                       : Directory.GetCurrentDirectory();
         }
 
         private ManifestInfoCollection GetManifestInfoCollection()

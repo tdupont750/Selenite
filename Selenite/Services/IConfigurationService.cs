@@ -1,3 +1,4 @@
+using Selenite.Enums;
 using Selenite.Models;
 
 namespace Selenite.Services
@@ -7,5 +8,6 @@ namespace Selenite.Services
         string TestScriptsPath { get; set; }
         string ManifestFileName { get; }
         ManifestInfo ActiveManifestInfo { get; set; }
+        string GetDriverPath(DriverType driverType);
     }
 }

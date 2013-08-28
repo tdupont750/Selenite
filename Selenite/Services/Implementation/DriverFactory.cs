@@ -12,6 +12,8 @@ namespace Selenite.Services.Implementation
 {
     public class DriverFactory : IDriverFactory
     {
+        private readonly IConfigurationService _configurationService = ServiceResolver.Get<IConfigurationService>(); 
+        
         private bool _isDisposed;
         private IWebDriver _driver;
         private DriverType? _type;
@@ -43,23 +45,21 @@ namespace Selenite.Services.Implementation
             return _driver;
         }
 
-        private static IWebDriver CreateDriver(DriverType browser)
+        private IWebDriver CreateDriver(DriverType browser)
         {
-            var currentDirectory = Directory.GetCurrentDirectory();
-
             switch (browser)
             {
                 case DriverType.Firefox:
                     return new FirefoxDriver();
 
                 case DriverType.InternetExplorer:
-                    return new InternetExplorerDriver(currentDirectory);
+                    return new InternetExplorerDriver(_configurationService.GetDriverPath(browser));
 
                 case DriverType.Chrome:
-                    return new ChromeDriver(currentDirectory);
+                    return new ChromeDriver(_configurationService.GetDriverPath(browser));
 
                 case DriverType.PhantomJs:
-                    var service = PhantomJSDriverService.CreateDefaultService(currentDirectory);
+                    var service = PhantomJSDriverService.CreateDefaultService(_configurationService.GetDriverPath(browser));
                     service.CookiesFile = "cookies.txt";
 
                     return new PhantomJSDriver(service, new PhantomJSOptions());
