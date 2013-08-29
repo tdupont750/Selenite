@@ -93,14 +93,14 @@ namespace Selenite.Services.Implementation
             }
 
             var testCollectionInfo = new TestCollectionInfo
-                {
-                    Name = testCollection.File,
-                    IsEnabled = testCollection.Enabled,
-                    DisabledTests = testCollection.Tests
-                        .Where(test => !test.Enabled)
-                        .Select(test => test.Name)
-                        .ToList(),
-                };
+            {
+                Name = testCollection.File,
+                IsEnabled = testCollection.Enabled,
+                DisabledTests = testCollection.Tests
+                    .Where(test => !test.Enabled)
+                    .Select(test => test.Name)
+                    .ToList(),
+            };
 
             if (activeManifest.TestCollections == null)
             {
@@ -131,8 +131,8 @@ namespace Selenite.Services.Implementation
             foreach (var testCollection in testCollections)
             {
                 var tc = manifestInfo.TestCollections != null
-                             ? manifestInfo.TestCollections.FirstOrDefault(testColl => testColl.Name == testCollection.File)
-                             : null;
+                    ? manifestInfo.TestCollections.FirstOrDefault(testColl => testColl.Name == testCollection.File)
+                    : null;
 
                 if (tc == null)
                     continue;
@@ -162,23 +162,23 @@ namespace Selenite.Services.Implementation
                 : _configurationService.ActiveManifestInfo;
 
             var testCollectionInfo = manifestInfo != null && manifestInfo.TestCollections != null
-                                         ? manifestInfo.TestCollections.FirstOrDefault(tc => tc.Name == name)
-                                         : null;
+                ? manifestInfo.TestCollections.FirstOrDefault(tc => tc.Name == name)
+                : null;
 
             var isEnabled = testCollectionInfo != null
-                                ? testCollectionInfo.IsEnabled
-                                : testCollection.Enabled ?? true;
+                ? testCollectionInfo.IsEnabled
+                : testCollection.Enabled ?? true;
 
             var collection = new TestCollection
-                {
-                    DefaultDomain = string.IsNullOrWhiteSpace(overrideDomain)
-                        ? testCollection.DefaultDomain
-                        : overrideDomain,
-                    Enabled = isEnabled,
-                    File = name,
-                    Description = testCollection.Description,
-                    Macros = GetDictionaryFromJObject(testCollection.Macros),
-                };
+            {
+                DefaultDomain = string.IsNullOrWhiteSpace(overrideDomain)
+                    ? testCollection.DefaultDomain
+                    : overrideDomain,
+                Enabled = isEnabled,
+                File = name,
+                Description = testCollection.Description,
+                Macros = GetDictionaryFromJObject(testCollection.Macros),
+            };
 
             var tests = new List<SeleniteTest>();
 
@@ -194,6 +194,15 @@ namespace Selenite.Services.Implementation
                 tests.Add(CreateTest(collection, test, collection.DefaultDomain, testEnabled));
             }
 
+            if (testCollection.SetupStepsFile != null && !String.IsNullOrWhiteSpace(testCollection.SetupStepsFile.ToString()))
+            {
+                if (testCollection.SetupSteps != null)
+                    throw new InvalidOperationException("Must only specify SetupStepsFile or SetupStepsFile");
+
+                var setupStepsJson = _fileService.ReadAllText(testCollection.SetupStepsFile.ToString());
+                testCollection.SetupSteps = JArray.Parse(setupStepsJson);
+            }
+            
             if (testCollection.SetupSteps != null)
             {
                 var setupSteps = new List<SeleniteTest>();
