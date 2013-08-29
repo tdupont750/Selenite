@@ -177,7 +177,7 @@ namespace Selenite.Services.Implementation
                     Enabled = isEnabled,
                     File = name,
                     Description = testCollection.Description,
-                    Macros = GetDictionaryFromJObject(testCollection.Macros)
+                    Macros = GetDictionaryFromJObject(testCollection.Macros),
                 };
 
             var tests = new List<SeleniteTest>();
@@ -192,6 +192,17 @@ namespace Selenite.Services.Implementation
                     && enabled.GetValueOrDefault(true);
 
                 tests.Add(CreateTest(collection, test, collection.DefaultDomain, testEnabled));
+            }
+
+            if (testCollection.SetupSteps != null)
+            {
+                var setupSteps = new List<SeleniteTest>();
+                foreach (var step in testCollection.SetupSteps)
+                {
+                    var setupStep = CreateTest(collection, step, collection.DefaultDomain, true);
+                    setupSteps.Add(setupStep);
+                }
+                collection.SetupSteps = setupSteps;
             }
 
             collection.Tests = tests;
