@@ -80,7 +80,7 @@ namespace Selenite.Services.Implementation
             var testCollectionJson = _fileService.ReadAllText(path);
             var testCollection = JObject.Parse(testCollectionJson);
 
-            return CreateTestCollection(testCollectionFile, testCollection, overrideDomain);
+            return CreateTestCollection(path, testCollectionFile, testCollection, overrideDomain);
         }
 
         public void SaveTestCollectionInfo(TestCollection testCollection)
@@ -155,7 +155,7 @@ namespace Selenite.Services.Implementation
         }
 
         // TODO: See if the UI can go through the same flow as the test runner and use GetTestCollections instead of this method.
-        private TestCollection CreateTestCollection(string name, dynamic testCollection, string overrideDomain)
+        private TestCollection CreateTestCollection(string resolvedPath, string name, dynamic testCollection, string overrideDomain)
         {
             var manifestInfo = _configurationService == null
                 ? null
@@ -197,9 +197,9 @@ namespace Selenite.Services.Implementation
             if (testCollection.SetupStepsFile != null && !String.IsNullOrWhiteSpace(testCollection.SetupStepsFile.ToString()))
             {
                 if (testCollection.SetupSteps != null)
-                    throw new InvalidOperationException("Must only specify SetupStepsFile or SetupStepsFile");
+                    throw new InvalidOperationException("Must only specify SetupSteps or SetupStepsFile");
 
-                var setupStepsJson = _fileService.ReadAllText(testCollection.SetupStepsFile.ToString());
+                var setupStepsJson = _fileService.ReadAllText(Path.Combine(Path.GetDirectoryName(resolvedPath), (string)testCollection.SetupStepsFile).ToString());
                 testCollection.SetupSteps = JArray.Parse(setupStepsJson);
             }
             
