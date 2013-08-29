@@ -171,14 +171,19 @@ namespace Selenite.Services.Implementation
 
             var collection = new TestCollection
             {
-                DefaultDomain = string.IsNullOrWhiteSpace(overrideDomain)
+                DefaultDomain = String.IsNullOrWhiteSpace(overrideDomain)
                     ? testCollection.DefaultDomain
                     : overrideDomain,
                 Enabled = isEnabled,
                 File = name,
+                ResolvedFile = ResolvePath(resolvedPath, name),
+                SetupStepsFile = testCollection.SetupStepsFile,
                 Description = testCollection.Description,
                 Macros = GetDictionaryFromJObject(testCollection.Macros),
             };
+
+            if (!String.IsNullOrWhiteSpace(collection.SetupStepsFile))
+                collection.SetupStepsFile = ResolvePath(resolvedPath, collection.SetupStepsFile);
 
             var tests = new List<SeleniteTest>();
 
@@ -194,12 +199,12 @@ namespace Selenite.Services.Implementation
                 tests.Add(CreateTest(collection, test, collection.DefaultDomain, testEnabled));
             }
 
-            if (testCollection.SetupStepsFile != null && !String.IsNullOrWhiteSpace(testCollection.SetupStepsFile.ToString()))
+            if (!String.IsNullOrWhiteSpace(collection.SetupStepsFile))
             {
                 if (testCollection.SetupSteps != null)
                     throw new InvalidOperationException("Must only specify SetupSteps or SetupStepsFile");
 
-                var setupStepsJson = _fileService.ReadAllText(Path.Combine(Path.GetDirectoryName(resolvedPath), (string)testCollection.SetupStepsFile).ToString());
+                var setupStepsJson = _fileService.ReadAllText(collection.SetupStepsFile);
                 testCollection.SetupSteps = JArray.Parse(setupStepsJson);
             }
             
@@ -217,6 +222,14 @@ namespace Selenite.Services.Implementation
             collection.Tests = tests;
 
             return collection;
+        }
+
+        private string ResolvePath(string resolvedPath, string subPath)
+        {
+            var directoryName = Path.GetDirectoryName(resolvedPath);
+            var combinedPath = Path.Combine(directoryName, subPath);
+            var uri = new Uri(combinedPath);
+            return uri.ToString();
         }
 
         private IDictionary<string, string> GetDictionaryFromJObject(JObject obj)

@@ -9,6 +9,9 @@ namespace Selenite.Models
         [JsonIgnore]
         public string File { get; set; }
 
+        [JsonIgnore]
+        public string ResolvedFile { get; set; }
+
         public string Description { get; set; }
 
         [DefaultValue(true)]

@@ -36,12 +36,16 @@ namespace Selenite
             if (test.TestCollection.SetupSteps == null)
                 return;
 
+            var fileName = String.IsNullOrWhiteSpace(test.TestCollection.SetupStepsFile)
+                ? test.TestCollection.ResolvedFile
+                : test.TestCollection.SetupStepsFile;
+
             foreach (var pair in _setupStepsMap)
             {
                 if (pair.Key.Target != webDriver)
                     continue;
 
-                if (pair.Value.Any(f => String.Equals(f, test.TestCollection.File, StringComparison.InvariantCultureIgnoreCase)))
+                if (pair.Value.Any(f => String.Equals(f, fileName, StringComparison.InvariantCultureIgnoreCase)))
                     return;
             }
 
@@ -49,7 +53,7 @@ namespace Selenite
                 _testService.ExecuteTest(webDriver, driverType, setupStep, true);
 
             var weakReference = new WeakReference(webDriver);
-            var testFiles = new List<string> { test.TestCollection.File };
+            var testFiles = new List<string> { fileName };
             _setupStepsMap.Add(weakReference, testFiles);
         }
 

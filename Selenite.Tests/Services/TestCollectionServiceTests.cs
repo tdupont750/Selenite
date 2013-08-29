@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using Moq;
 using Selenite.Commands.Implementation;
@@ -22,7 +23,9 @@ namespace Selenite.Tests.Services
 
             for (var i = 0; i < filesAndValues.Length; i += 2)
             {
-                var path = String.Format("C:\\{0}", filesAndValues[i]);
+                var path = filesAndValues[i].StartsWith("file:///")
+                    ? filesAndValues[i]
+                    : String.Concat("C:\\", filesAndValues[i]);
 
                 fileService
                     .Setup(f => f.ReadAllText(path))
@@ -141,7 +144,7 @@ namespace Selenite.Tests.Services
 ]";
 
         [Theory]
-        [InlineData("Test3A.json", Test3A, "Test3B.json", Test3B)]
+        [InlineData("Test3A.json", Test3A, "file:///C:/Test3B.json", Test3B)]
         public void SetupStepsFile(string nameA, string pathA, string nameB, string pathB)
         {
             var testCollectionService = GetTestCollectionService(nameA, pathA, nameB, pathB);
@@ -159,6 +162,52 @@ namespace Selenite.Tests.Services
             Assert.Equal("IsTitleEqual", command.Name);
             Assert.Equal("Google", command.Title);
             Assert.Equal(false, command.IsCaseSensitive);
+        }
+
+        public const string Test4 = @"{
+  ""Enabled"": true,
+  ""DefaultDomain"": ""http://google.com/"",
+  ""SetupStepsFile"": ""C:\\Test3B.json"",
+  ""SetupSteps"": [
+  {
+      ""Enabled"": true,
+      ""Name"": ""Basic"",
+        ""Url"": """",
+      ""Commands"": [
+        {
+          ""Title"": ""Google"",
+          ""IsCaseSensitive"": false,
+          ""IsFalseExpected"": false,
+          ""Name"": ""IsTitleEqual""
+        }
+      ]
+    }
+  ],
+  ""Tests"": []
+}";
+
+        [Theory]
+        [InlineData("Test4.json", Test4)]
+        public void SetupStepsFail(string name, string path)
+        {
+            var testCollectionService = GetTestCollectionService(name, path);
+
+            var exception = Assert.Throws<InvalidOperationException>(() =>
+            {
+                testCollectionService.GetTestCollection(name);
+            });
+
+            Assert.Equal("Must only specify SetupSteps or SetupStepsFile", exception.Message);
+        }
+
+        [Fact]
+        public void Meh()
+        {
+            var x = Path.Combine("c:/hello/", "../world/meh.text");
+            var uri = new Uri(x);
+
+            var y = Path.Combine("c:/hello/", "d:/world/meh.text");
+            var uri2 = new Uri(y);
         }
     }
 }
