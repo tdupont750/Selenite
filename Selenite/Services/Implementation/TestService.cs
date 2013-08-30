@@ -146,8 +146,7 @@ namespace Selenite.Services.Implementation
 
         private static void SetUrl(IWebDriver webDriver, string url)
         {
-            SetUrl(webDriver, Constants.AboutBlank, webDriver.Url);
-            SetUrl(webDriver, url, Constants.AboutBlank);
+            SetUrl(webDriver, url, webDriver.Url);
         }
 
         private static void SetUrl(IWebDriver webDriver, string newUrl, string oldUrl)
