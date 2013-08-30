@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -83,7 +84,8 @@ namespace Selenite.Client.ViewModels.WebAutomation
                 {
                     Domain = testCollection.DefaultDomain,
                     IsEnabled = testCollection.Enabled,
-                    Name = testCollection.File
+                    Name = testCollection.File,
+                    FullPath = testCollection.ResolvedFile,
                 };
 
                 if (testCollection.Tests == null)
