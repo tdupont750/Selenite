@@ -264,12 +264,17 @@
                           IsChecked="{Binding UsePhantomJs}"/>
             </WrapPanel>
 
-            <Button Grid.Column="2"
-                    VerticalAlignment="Center"
-                    Width="100"
+            <StackPanel Grid.Column="2" VerticalAlignment="Center" Orientation="Horizontal">
+                <Button Width="100"
                     Margin="5,0,0,0"
                     Content="Run Tests"
                     Command="{Binding RunTestsCommand}"/>
+
+                <Button Width="100"
+                    Margin="5,0,0,0"
+                    Content="Cancel"
+                    Command="{Binding CancelTestsCommand}"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

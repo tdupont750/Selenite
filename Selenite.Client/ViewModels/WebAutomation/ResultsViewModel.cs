@@ -59,6 +59,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
         private bool _isRunning;
 
         private List<ICollectionView> _testResultsViews;
+        private bool _isCancelRequested;
 
         public ResultsViewModel()
         {
@@ -104,6 +105,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
             TestResults = new ObservableCollection<TestResultCollectionViewModel>();
 
             RunTestsCommand = new RelayCommand(RunTests, t => UseAny && !_isRunning);
+            CancelTestsCommand = new RelayCommand(CancelTestRun, t => _isRunning && !_isCancelRequested);
             ExportToClipboardCommand = new RelayCommand(ExportToClipboard, t => !_isRunning);
         }
 
@@ -219,6 +221,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
         }
 
         public ICommand RunTestsCommand { get; set; }
+        public ICommand CancelTestsCommand { get; set; }
 
         public ICommand ExportToClipboardCommand { get; set; }
 
@@ -237,6 +240,8 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
         public void DoRunTests()
         {
+            _isCancelRequested = false;
+
             if (Directory.Exists("./Screenshots"))
             {
                 var screenshotDirectory = new DirectoryInfo("./Screenshots");
@@ -375,15 +380,20 @@ namespace Selenite.Client.ViewModels.WebAutomation
             AddResult("Test Failure", testResultViewModel);
         }
 
+        private void CancelTestRun(object parameter)
+        {
+            _isCancelRequested = true;
+        }
+
         public bool TestFinished(TestMethod testMethod)
         {
             Application.Current.Dispatcher.BeginInvoke((Action) (() => DoProcessTest(testMethod)));
-            return true;
+            return !_isCancelRequested;
         }
 
         public bool TestStart(TestMethod testMethod)
         {
-            return true;
+            return !_isCancelRequested;
         }
 
         private void DoProcessTest(TestMethod testMethod)
