@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using Selenite.Client.ViewModels.WebAutomation;
+using Selenite.Client.Views.WebAutomation;
+using Selenite.Global;
 
 namespace Selenite.Client.ViewModels.Main
 {
@@ -16,6 +18,8 @@ namespace Selenite.Client.ViewModels.Main
                 };
 
             SelectedTabItem = TabItems.FirstOrDefault();
+
+            ServiceResolver.Register(new HelpWindow());
         }
 
         public string Title

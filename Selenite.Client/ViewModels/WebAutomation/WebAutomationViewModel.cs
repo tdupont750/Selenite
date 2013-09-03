@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using Selenite.Models;
+using Selenite.Services;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using Microsoft.Win32;
-using Selenite.Models;
-using Selenite.Services;
 
 namespace Selenite.Client.ViewModels.WebAutomation
 {

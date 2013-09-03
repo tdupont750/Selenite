@@ -151,6 +151,9 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\TabbedViewModel.cs" />
     <Compile Include="ViewModels\WebAutomation\CommandPropertyViewModel.cs" />
+    <Compile Include="ViewModels\WebAutomation\Help\CommandHelpViewModel.cs" />
+    <Compile Include="ViewModels\WebAutomation\Help\CommandPropertyHelpViewModel.cs" />
+    <Compile Include="ViewModels\WebAutomation\Help\HelpWindowViewModel.cs" />
     <Compile Include="ViewModels\WebAutomation\TestCollectionSummaryViewModel.cs" />
     <Compile Include="ViewModels\WebAutomation\TestCollectionViewModel.cs" />
     <Compile Include="ViewModels\WebAutomation\CommandViewModel.cs" />
@@ -172,6 +175,9 @@
     </Compile>
     <Compile Include="Views\WebAutomation\EditCategoryView.xaml.cs">
       <DependentUpon>EditCategoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WebAutomation\HelpWindow.xaml.cs">
+      <DependentUpon>HelpWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WebAutomation\ResultsView.xaml.cs">
       <DependentUpon>ResultsView.xaml</DependentUpon>
@@ -196,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\WebAutomation\EditCategoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WebAutomation\HelpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Windows.Input;
+using Selenite.Client.Views.WebAutomation;
+using Selenite.Global;
 using Selenite.Models;
 
 namespace Selenite.Client.ViewModels.WebAutomation
@@ -40,6 +42,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
         private void OpenTestCollection(object parameter)
         {
+            ServiceResolver.Get<HelpWindow>().Show();
             Process.Start(FullPath);
         }
     }

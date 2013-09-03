@@ -26,6 +26,11 @@ namespace Selenite.Global
             return result;
         }
 
+        public static void Register<T>(T instance)
+        {
+            DefaultServiceMap.Value.Add(typeof(T), instance);
+        }
+
         public static void SetResolver(Func<Type, object> resolver)
         {
             _resolver = resolver;

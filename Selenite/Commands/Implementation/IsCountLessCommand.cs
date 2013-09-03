@@ -1,25 +1,20 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using OpenQA.Selenium;
 using Selenite.Commands.Base;
 using Xunit;
 
 namespace Selenite.Commands.Implementation
 {
-    /// <summary>
-    /// Checks if the number of selected elements is LESS than the specified count.
-    /// </summary>
+    [Description(@"Checks if the number of selected elements is LESS than the specified count.")]
     public class IsCountLessCommand : MultipleSelectorCommandBase
     {
 
-        /// <summary>
-        /// The integer value to compare to the number of selected elements.
-        /// This parameter is required.
-        /// </summary>
+        [Description(@"The integer value to compare to the number of selected elements.
+This parameter is required.")]
         public int Count { get; set; }
 
-        /// <summary>
-        /// Alters the command to return true if Count is less than or equal to the selected elements.
-        /// </summary>
+        [Description(@"Alters the command to return true if Count is less than or equal to the selected elements.")]
         public bool OrEqualTo { get; set; }
 
         protected override void Execute(IWebDriver driver, dynamic context, IList<IWebElement> elements)

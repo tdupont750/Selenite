@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json.Linq;
@@ -21,9 +22,18 @@ namespace Selenite.Services.Implementation
                 v => v.Item1);
         }
 
-        public ICollection<string> GetCommandNames()
+        public IEnumerable<Tuple<string, string>> GetCommandNames()
         {
-            return CommandTypeMap.Value.Keys;
+            return CommandTypeMap.Value
+                .Select(command => new Tuple<string, string>(command.Key, GetTypeDescription(command.Value)));
+        }
+
+        private string GetTypeDescription(Type type)
+        {
+            var customAttributes = type.GetCustomAttributes<DescriptionAttribute>(false).ToList();
+            return customAttributes.Any()
+                ? customAttributes[0].Description
+                : type.Name;
         }
 
         public IDictionary<string, string> GetCommandValues(ICommand command)
@@ -44,14 +54,22 @@ namespace Selenite.Services.Implementation
             return result;
         }
 
-        public IList<string> GetCommandProperties(string commandName)
+        public IList<Tuple<string, string>> GetCommandProperties(string commandName)
         {
             var type = CommandTypeMap.Value[commandName];
             var properties = GetProperties(type);
 
             return properties
-                .Select(p => p.Name)
+                .Select(p => new Tuple<string, string>(p.Name, GetPropertyDescription(p)))
                 .ToList();
+        }
+
+        private string GetPropertyDescription(PropertyInfo property)
+        {
+            var customAttributes = property.GetCustomAttributes(typeof(DescriptionAttribute), false).ToList();
+            return customAttributes.Any()
+                ? ((DescriptionAttribute)customAttributes[0]).Description
+                : property.Name;
         }
 
         public ICommand CreateCommand(string name, IDictionary<string, string> values, SeleniteTest test)
