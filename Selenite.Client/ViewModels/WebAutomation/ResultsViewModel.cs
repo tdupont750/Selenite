@@ -56,7 +56,11 @@ namespace Selenite.Client.ViewModels.WebAutomation
             set { Set(value, () => TimeElapsed); }
         }
 
-        private bool _isRunning;
+        public bool IsRunning
+        {
+            get { return Get(() => IsRunning); }
+            set { Set(value, () => IsRunning); }
+        }
 
         private List<ICollectionView> _testResultsViews;
         private bool _isCancelRequested;
@@ -104,9 +108,9 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
             TestResults = new ObservableCollection<TestResultCollectionViewModel>();
 
-            RunTestsCommand = new RelayCommand(RunTests, t => UseAny && !_isRunning);
-            CancelTestsCommand = new RelayCommand(CancelTestRun, t => _isRunning && !_isCancelRequested);
-            ExportToClipboardCommand = new RelayCommand(ExportToClipboard, t => !_isRunning);
+            RunTestsCommand = new RelayCommand(RunTests, t => UseAny && !IsRunning);
+            CancelTestsCommand = new RelayCommand(CancelTestRun, t => IsRunning && !_isCancelRequested);
+            ExportToClipboardCommand = new RelayCommand(ExportToClipboard, t => !IsRunning);
         }
 
         public bool UseFirefox
@@ -232,7 +236,7 @@ namespace Selenite.Client.ViewModels.WebAutomation
             SkippedTests = 0;
             FailedTests = 0;
 
-            _isRunning = true;
+            IsRunning = true;
             TestResults.Clear();
             SelectedTestResult = null;
             Task.Factory.StartNew(DoRunTests);
@@ -338,7 +342,8 @@ namespace Selenite.Client.ViewModels.WebAutomation
 
         public void DoDone()
         {
-            _isRunning = false;
+            CommandManager.InvalidateRequerySuggested();
+            IsRunning = false;
         }
 
         public void AssemblyFinished(TestAssembly testAssembly, int total, int failed, int skipped, double time)
