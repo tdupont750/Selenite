@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.Windows;
 using System.Windows.Input;
 using Selenite.Client.Views.WebAutomation;
 using Selenite.Global;
@@ -43,7 +45,16 @@ namespace Selenite.Client.ViewModels.WebAutomation
         private void OpenTestCollection(object parameter)
         {
             ServiceResolver.Get<HelpWindow>().Show();
-            Process.Start(FullPath);
+
+            try
+            {
+                Process.Start(FullPath);
+            }
+            catch (Exception e)
+            {
+                // Blocking call, ugh!
+                MessageBox.Show(string.Format("Could not open {0}\r\n{1}", FullPath, e.Message));
+            }
         }
     }
 }

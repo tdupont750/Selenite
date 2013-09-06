@@ -176,7 +176,7 @@ namespace Selenite.Services.Implementation
                     : overrideDomain,
                 Enabled = isEnabled,
                 File = name,
-                ResolvedFile = ResolvePath(resolvedPath, name),
+                ResolvedFile = resolvedPath,
                 SetupStepsFile = testCollection.SetupStepsFile,
                 Description = testCollection.Description,
                 Macros = GetDictionaryFromJObject(testCollection.Macros),
