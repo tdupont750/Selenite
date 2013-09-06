@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Selenite.Enums;
 
 namespace Selenite.Models
 {
@@ -7,6 +8,8 @@ namespace Selenite.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string OverrideDomain { get; set; }
+        public string CompilationSymbol { get; set; }
+        public IList<DriverType> DriverTypes { get; set; }
         public IList<string> Files { get; set; }
     }
 }

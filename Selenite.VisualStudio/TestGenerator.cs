@@ -31,15 +31,17 @@ using Selenite;
 using Selenite.Enums;
 using Selenite.Models;
 
+@{BeginCompilationSymbol}
 namespace @{Namespace}
 {";
         private const string CodeFileTemplatePostfix = @"
 }
+@{EndCompilationSymbol}
 ";
 
         private const string TestClassTemplate = @"
     [SeleniteDriver(DriverType.@{DriverType})]
-    public class @{DriverType}_Tests : IUseFixture<SeleniteFixture>
+    public class @{ManifestName}_@{DriverType}_Tests : IUseFixture<SeleniteFixture>
     {
         public SeleniteFixture SeleniteFixture { get; private set; }
 
@@ -53,7 +55,7 @@ namespace @{Namespace}
     }
 ";
         private const string TestMethodTemplate = @"
-        [Theory@{SkipParameter}, SeleniteData, SeleniteTestCollection(""@{TestCollectionName}""), SeleniteTest(""@{TestName}"")]
+        [Theory@{SkipParameter}, SeleniteData, SeleniteTestCollection(""@{TestCollectionName}""), SeleniteTest(""@{TestName}""), SeleniteDomainOverride(""@{OverrideDomain}"")]
         public void @{TestCollectionNameFriendly}_@{TestNameFriendly}(DriverType driverType, SeleniteTest test)
         {/*
 @{TestJson}
@@ -82,21 +84,28 @@ namespace @{Namespace}
         {
             var activeProject = Dte.ActiveSolutionProjects[0];
             var projectPath = new Uri((string)activeProject.FileName);
+            var compilationSymbol = manifest.CompilationSymbol;
+            var hasCompilationSymbol = !string.IsNullOrEmpty(compilationSymbol);
+            var driverTypes = manifest.DriverTypes ?? Enum.GetValues(typeof(DriverType)).Cast<DriverType>();
 
             var sb = new StringBuilder();
-            sb.AppendLine(CodeFileTemplatePrefix.Replace("@{Namespace}", FileNamespace));
+            sb.AppendLine(
+                CodeFileTemplatePrefix
+                    .Replace("@{Namespace}", FileNamespace)
+                    .Replace("@{BeginCompilationSymbol}", hasCompilationSymbol ? ("#if " + compilationSymbol) : string.Empty)
+                );
 
-            // todo: should we be able to limit which drivers we generate code for? how? config? something in the manifest?
-            foreach (var driverType in Enum.GetValues(typeof (DriverType)).Cast<DriverType>())
+            foreach (var driverType in driverTypes)
             {
                 if (driverType == DriverType.Unknown)
                     continue;
-
                 
                 var tokenReplacer = new Func<Match, string>(match =>
                 {
                     switch (match.Value)
                     {
+                        case "@{ManifestName}":
+                            return DisallowedTestNamePattern.Replace(manifest.Name, "_");
                         case "@{TestMethods}":
                             return GenerateTestMethods(projectPath, Path.GetDirectoryName(inputFileName), manifest, driverType);
                         case "@{DriverType}":
@@ -110,7 +119,8 @@ namespace @{Namespace}
                 sb.AppendLine(code);
             }
 
-            sb.AppendLine(CodeFileTemplatePostfix);
+            sb.AppendLine(CodeFileTemplatePostfix
+                .Replace("@{EndCompilationSymbol}", hasCompilationSymbol ? "#endif" : string.Empty));
             return sb.ToString();
         }
 
@@ -130,7 +140,7 @@ namespace @{Namespace}
 
                 foreach (var test in testCollection.Tests)
                 {
-                    sb.AppendLine(GenerateTestMethod(testCollectionRelativePath, test));
+                    sb.AppendLine(GenerateTestMethod(testCollectionRelativePath, manifest, test));
                 }
 
             }
@@ -138,7 +148,7 @@ namespace @{Namespace}
 
         }
 
-        private string GenerateTestMethod(string testCollectionRelativePath, SeleniteTest test)
+        private string GenerateTestMethod(string testCollectionRelativePath, Manifest manifest, SeleniteTest test)
         {
             var tokenReplacer = new Func<Match, string>(match =>
             {
@@ -146,6 +156,8 @@ namespace @{Namespace}
                 {
                     case "@{TestName}":
                         return test.Name;
+                    case "@{OverrideDomain}":
+                        return manifest.OverrideDomain;
                     case "@{TestCollectionName}":
                         return testCollectionRelativePath;
                     case "@{TestCollectionNameFriendly}":
