@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Newtonsoft.Json;
+using Selenite.Enums;
 
 namespace Selenite.Models
 {
@@ -20,6 +21,8 @@ namespace Selenite.Models
         public string DefaultDomain { get; set; }
 
         public string SetupStepsFile { get; set; }
+
+        public IList<DriverType> DriverTypes { get; set; }
 
         public IList<SeleniteTest> SetupSteps { get; set; }
         

@@ -3,34 +3,33 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Selenite.Commands;
 using System.Text.RegularExpressions;
+using Selenite.Enums;
 
 namespace Selenite.Models
 {
     public class SeleniteTest
     {
-        private Regex _macroRegex = new Regex("\\@\\{[a-z0-9A-Z_-]+\\}", RegexOptions.Compiled);
+        private readonly Regex _macroRegex = new Regex("\\@\\{[a-z0-9A-Z_-]+\\}", RegexOptions.Compiled);
 
         [JsonIgnore]
         public TestCollection TestCollection { get; set; }
+        [JsonIgnore]
+        public string TestUrl { get; set; }
 
         public bool Enabled { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-
         public string Url { get; set; }
+
+        public IList<DriverType> DriverTypes { get; set; }
         public IList<ICommand> Commands { get; set; }
-
-        [JsonIgnore]
-        public string TestUrl { get; set; }
-
         public IDictionary<string, string> Macros { get; set; }
 
         public string ResolveMacros(string text)
         {
-            if (string.IsNullOrEmpty(text))
-                return text;
-
-            return _macroRegex.Replace(text, new MatchEvaluator(ReplaceMacro));
+            return String.IsNullOrEmpty(text)
+                ? text
+                : _macroRegex.Replace(text, ReplaceMacro);
         }
 
         public string ReplaceMacro(Match match)
@@ -39,9 +38,7 @@ namespace Selenite.Models
 
             // Built in Macro for getting the current date and time
             if (string.Equals(macroName, "Now"))
-            {
                 return DateTime.Now.ToString();
-            }
 
             string value;
 

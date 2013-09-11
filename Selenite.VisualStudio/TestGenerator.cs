@@ -21,8 +21,8 @@ namespace Selenite.VisualStudio
     [Guid("9CF37C98-B662-4B96-9B01-C3D5EA24FC00")]
     public class TestGenerator : BaseCodeGeneratorWithSite
     {
-        private static Regex TokenFinder = new Regex("\\@\\{[^\\}]+\\}", RegexOptions.Compiled);
-        private static Regex DisallowedTestNamePattern = new Regex("[^a-zA-Z0-9_]", RegexOptions.Compiled);
+        private static readonly Regex TokenFinder = new Regex("\\@\\{[^\\}]+\\}", RegexOptions.Compiled);
+        private static readonly Regex DisallowedTestNamePattern = new Regex("[^a-zA-Z0-9_]", RegexOptions.Compiled);
 
         private const string CodeFileTemplatePrefix = @"using System;
 using Xunit;
@@ -74,32 +74,55 @@ namespace @{Namespace}
             var manifestCollection = JsonConvert.DeserializeObject<ManifestCollection>(inputFileContent);
             var manifest = manifestCollection.Manifests.FirstOrDefault(m => m.Name == manifestCollection.ActiveManifest);
             var code = manifest == null
-                ? string.Empty
+                ? String.Empty
                 : GenerateTestClasses(inputFileName, manifest);
 
             return Encoding.UTF8.GetBytes(code);
+        }
+
+        private static bool GetCompilationSymbol(Manifest manifest, out string compilationSymbol)
+        {
+            const string key = "CompilationSymbol";
+
+            compilationSymbol = String.Empty;
+
+            if (manifest.Metadata == null)
+                return false;
+
+            if (!manifest.Metadata.ContainsKey(key))
+                return false;
+
+            var value = manifest.Metadata[key];
+            return !String.IsNullOrWhiteSpace(value);
         }
 
         private string GenerateTestClasses(string inputFileName, Manifest manifest)
         {
             var activeProject = Dte.ActiveSolutionProjects[0];
             var projectPath = new Uri((string)activeProject.FileName);
-            var compilationSymbol = manifest.CompilationSymbol;
-            var hasCompilationSymbol = !string.IsNullOrEmpty(compilationSymbol);
-            var driverTypes = manifest.DriverTypes ?? Enum.GetValues(typeof(DriverType)).Cast<DriverType>();
+            
+            string compilationSymbol;
+            var hasCompilationSymbol = GetCompilationSymbol(manifest, out compilationSymbol);
+            
+            var driverTypes = manifest.DriverTypes.IsNullOrNotAny()
+                ? Enum
+                    .GetValues(typeof (DriverType))
+                    .Cast<DriverType>()
+                    .ToArray()
+                : manifest.DriverTypes;
 
             var sb = new StringBuilder();
-            sb.AppendLine(
-                CodeFileTemplatePrefix
-                    .Replace("@{Namespace}", FileNamespace)
-                    .Replace("@{BeginCompilationSymbol}", hasCompilationSymbol ? ("#if " + compilationSymbol) : string.Empty)
-                );
 
-            foreach (var driverType in driverTypes)
+            var startIf = hasCompilationSymbol ? "#if " + compilationSymbol : String.Empty;
+            var firstLine = CodeFileTemplatePrefix.Replace("@{Namespace}", FileNamespace).Replace("@{BeginCompilationSymbol}", startIf);
+            sb.AppendLine(firstLine);
+
+            for (var i = 0; i < driverTypes.Count; i++)
             {
+                var driverType = driverTypes[i];
                 if (driverType == DriverType.Unknown)
                     continue;
-                
+
                 var tokenReplacer = new Func<Match, string>(match =>
                 {
                     switch (match.Value)
@@ -119,33 +142,41 @@ namespace @{Namespace}
                 sb.AppendLine(code);
             }
 
-            sb.AppendLine(CodeFileTemplatePostfix
-                .Replace("@{EndCompilationSymbol}", hasCompilationSymbol ? "#endif" : string.Empty));
+            var endIf = hasCompilationSymbol ? "#endif" : String.Empty;
+            var lastLine = CodeFileTemplatePostfix.Replace("@{EndCompilationSymbol}", endIf); 
+            sb.AppendLine(lastLine);
+
             return sb.ToString();
         }
-
+        
         private string GenerateTestMethods(Uri projectDirectory, string manifestBaseDirectory, Manifest manifest, DriverType driverType)
         {
             var testCollectionService = ServiceResolver.Get<ITestCollectionService>();
 
             var sb = new StringBuilder();
+
             foreach (var testCollectionFile in manifest.Files)
             {
-                var testCollection = testCollectionService.GetTestCollection(
-                    Path.Combine(manifestBaseDirectory, testCollectionFile),
-                    manifest.OverrideDomain);
+                var testCollectionFilePath = Path.Combine(manifestBaseDirectory, testCollectionFile);
+                var testCollection = testCollectionService.GetTestCollection(testCollectionFilePath, manifest.OverrideDomain);
 
-                var testCollectionFullPath = new Uri(Path.Combine(manifestBaseDirectory, testCollectionFile));
+                if (!testCollection.DriverTypes.IsNullOrNotAny() && !testCollection.DriverTypes.Contains(driverType))
+                    continue;
+
+                var testCollectionFullPath = new Uri(testCollectionFilePath);
                 var testCollectionRelativePath = "~/" + projectDirectory.MakeRelativeUri(testCollectionFullPath);
 
                 foreach (var test in testCollection.Tests)
                 {
+                    if (!test.DriverTypes.IsNullOrNotAny() && !test.DriverTypes.Contains(driverType))
+                        continue;
+
                     sb.AppendLine(GenerateTestMethod(testCollectionRelativePath, manifest, test));
                 }
 
             }
-            return sb.ToString();
 
+            return sb.ToString();
         }
 
         private string GenerateTestMethod(string testCollectionRelativePath, Manifest manifest, SeleniteTest test)

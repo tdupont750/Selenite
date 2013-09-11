@@ -33,7 +33,7 @@ namespace Selenite
 
         private void TrySetupSteps(DriverType driverType, SeleniteTest test, IWebDriver webDriver)
         {
-            if (test.TestCollection.SetupSteps == null)
+            if (test.TestCollection.SetupSteps.IsNullOrNotAny())
                 return;
 
             var fileName = String.IsNullOrWhiteSpace(test.TestCollection.SetupStepsFile)

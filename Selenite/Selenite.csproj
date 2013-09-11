@@ -30,6 +30,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\Selenite.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -111,6 +112,7 @@
     <Compile Include="Commands\Implementation\IsTitleContainedCommand.cs" />
     <Compile Include="Commands\Implementation\IsTitleEqualCommand.cs" />
     <Compile Include="Commands\Implementation\IsVisibleCommand.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\MethodInfoExtensions.cs" />
     <Compile Include="Extensions\PropertyInfoExtensions.cs" />
@@ -128,6 +130,7 @@
     <Compile Include="SeleniteFixture.cs" />
     <Compile Include="Services\ICommandService.cs" />
     <Compile Include="Services\IDriverFactory.cs" />
+    <Compile Include="Services\Implementation\SeleniteDataService.cs" />
     <Compile Include="Services\Implementation\TestCollectionService.cs" />
     <Compile Include="Models\Manifest.cs" />
     <Compile Include="Services\Implementation\CommandService.cs" />
@@ -148,6 +151,7 @@
     <Compile Include="Services\Implementation\ManifestService.cs" />
     <Compile Include="Services\ITestService.cs" />
     <Compile Include="Services\Implementation\TestService.cs" />
+    <Compile Include="Services\SeleniteDataService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

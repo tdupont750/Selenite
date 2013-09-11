@@ -53,6 +53,7 @@ namespace Selenite.Global
             var manifestService = new ManifestService(configurationService, fileService);
             var testCollectionService = new TestCollectionService(configurationService, fileService, commandService, manifestService);
             var testService = new TestService();
+            var seleniteDataService = new SeleniteDataService(testCollectionService, manifestService);
 
             return new Dictionary<Type, object>
             {
@@ -61,7 +62,8 @@ namespace Selenite.Global
                 { typeof(IFileService), fileService },
                 { typeof(ITestCollectionService), testCollectionService },
                 { typeof(IManifestService), manifestService },
-                { typeof(ITestService), testService }
+                { typeof(ITestService), testService },
+                { typeof(ISeleniteDataService), seleniteDataService }
             };
         }
     }
