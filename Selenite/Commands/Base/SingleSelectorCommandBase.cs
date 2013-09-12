@@ -19,21 +19,46 @@ For example, '#container input.button' will find the FIRST input element with th
         [Description("The timeout period in milliseconds to wait for the element with the given selector to exist.")]
         public int WaitTimeout { get; set; }
 
+        protected bool AllowNullElement { get; set; }
+
         public override void Execute(IWebDriver driver, dynamic context)
         {
             var resolvedSelector = Test.ResolveMacros(Selector);
             IWebElement element;
-            if (Wait)
+
+            // There is a default implicit 3 second wait for "FindElements" if it can't find the element that we don't want.
+            // So temporarily set it to 0.
+            driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(0));
+
+            try
             {
-                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(WaitTimeout == 0 ? 5000 : WaitTimeout));
-                element = wait.Until(d => d.FindElement(By.CssSelector(resolvedSelector)));
+                if (Wait)
+                {
+                    var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(WaitTimeout == 0 ? 5000 : WaitTimeout));
+                    element = wait.Until(d => AllowNullElement
+                                                  ? d.FindElements(By.CssSelector(resolvedSelector)).Count > 0
+                                                        ? d.FindElement(By.CssSelector(resolvedSelector))
+                                                        : null
+                                                  : d.FindElement(By.CssSelector(resolvedSelector)));
+                }
+                else
+                {
+                    element = AllowNullElement
+                                  ? driver.FindElements(By.CssSelector(resolvedSelector)).Count > 0
+                                        ? driver.FindElement(By.CssSelector(resolvedSelector))
+                                        : null
+                                  : driver.FindElement(By.CssSelector(resolvedSelector));
+                }
             }
-            else {
-                element = driver.FindElement(By.CssSelector(resolvedSelector));
+            finally
+            {
+                // Reset the Implicit wait to 3 seconds.
+                driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(3));
             }
+
             Execute(driver, context, element);
         }
 
-        protected abstract void Execute(IWebDriver driver, dynamic contetx, IWebElement element);
+        protected abstract void Execute(IWebDriver driver, dynamic context, IWebElement element);
     }
 }

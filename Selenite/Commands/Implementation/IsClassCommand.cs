@@ -21,7 +21,7 @@ Will default to false if not set (ignoring case).")]
 Will default to false if not set.")]
         public bool IsFalseExpected { get; set; }
 
-        protected override void Execute(IWebDriver driver, dynamic contetx, IWebElement element)
+        protected override void Execute(IWebDriver driver, dynamic context, IWebElement element)
         {
             var stringComparer = IsCaseSensitive
                 ? StringComparer.InvariantCulture

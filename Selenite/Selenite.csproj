@@ -86,6 +86,8 @@
     <Compile Include="Attributes\SeleniteTestCollectionAttribute.cs" />
     <Compile Include="Commands\Base\CommandAttribute.cs" />
     <Compile Include="Commands\Base\SingleSelectorCommandBase.cs" />
+    <Compile Include="Commands\Implementation\IsIHazExistsCommand.cs" />
+    <Compile Include="Commands\Implementation\DoNavigateCommand.cs" />
     <Compile Include="Commands\Implementation\DoRefreshPageCommand.cs" />
     <Compile Include="Commands\Implementation\DoWaitForElementCommand.cs" />
     <Compile Include="Commands\Implementation\DoCheckBoxCommand.cs" />
