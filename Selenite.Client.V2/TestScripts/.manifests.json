@@ -1,0 +1,13 @@
+{
+  "ActiveManifest": "GitHub",
+  "Manifests": [
+    {
+      "Name": "GitHub",
+      "Description": "Example tests",
+      "OverrideDomain": "",
+      "Files": [
+        "GitHub.json"
+      ]
+    }
+  ]
+}

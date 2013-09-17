@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenite", "Selenite\Selenite.csproj", "{8B6BF0FE-444A-4784-A8BE-49382866C719}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenite.Client", "Selenite.Client\Selenite.Client.csproj", "{E7CE865E-3042-4249-B42E-AC56DF886E0B}"
@@ -13,6 +13,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{18B542
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenite.VisualStudio", "Selenite.VisualStudio\Selenite.VisualStudio.csproj", "{87DF6E7A-D9CC-42C4-862A-568C099C673A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenite.Client.V2", "Selenite.Client.V2\Selenite.Client.V2.csproj", "{64D24A5B-8DD1-4D9D-B655-1EC85BC707DE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client V2", "Client V2", "{C9264527-EAB5-4E0B-94D0-511761CA8870}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{1E1ABEBA-A2C6-4403-B55D-E58A4A1CA362}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{2A5DE9CD-5DEF-4413-A05A-C14581B084F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenite.Client.Manifests", "Selenite.Client.Manifests\Selenite.Client.Manifests.csproj", "{9D1469B9-DA41-4062-87A9-C78D847265B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,8 +74,47 @@ Global
 		{87DF6E7A-D9CC-42C4-862A-568C099C673A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{87DF6E7A-D9CC-42C4-862A-568C099C673A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{87DF6E7A-D9CC-42C4-862A-568C099C673A}.Release|x86.ActiveCfg = Release|Any CPU
+		{64D24A5B-8DD1-4D9D-B655-1EC85BC707DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64D24A5B-8DD1-4D9D-B655-1EC85BC707DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64D24A5B-8DD1-4D9D-B655-1EC85BC707DE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{64D24A5B-8DD1-4D9D-B655-1EC85BC707DE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{64D24A5B-8DD1-4D9D-B655-1EC85BC707DE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{64D24A5B-8DD1-4D9D-B655-1EC85BC707DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64D24A5B-8DD1-4D9D-B655-1EC85BC707DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64D24A5B-8DD1-4D9D-B655-1EC85BC707DE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{64D24A5B-8DD1-4D9D-B655-1EC85BC707DE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{64D24A5B-8DD1-4D9D-B655-1EC85BC707DE}.Release|x86.ActiveCfg = Release|Any CPU
+		{2A5DE9CD-5DEF-4413-A05A-C14581B084F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A5DE9CD-5DEF-4413-A05A-C14581B084F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A5DE9CD-5DEF-4413-A05A-C14581B084F9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2A5DE9CD-5DEF-4413-A05A-C14581B084F9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2A5DE9CD-5DEF-4413-A05A-C14581B084F9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2A5DE9CD-5DEF-4413-A05A-C14581B084F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A5DE9CD-5DEF-4413-A05A-C14581B084F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A5DE9CD-5DEF-4413-A05A-C14581B084F9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2A5DE9CD-5DEF-4413-A05A-C14581B084F9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2A5DE9CD-5DEF-4413-A05A-C14581B084F9}.Release|x86.ActiveCfg = Release|Any CPU
+		{9D1469B9-DA41-4062-87A9-C78D847265B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D1469B9-DA41-4062-87A9-C78D847265B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D1469B9-DA41-4062-87A9-C78D847265B8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9D1469B9-DA41-4062-87A9-C78D847265B8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9D1469B9-DA41-4062-87A9-C78D847265B8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9D1469B9-DA41-4062-87A9-C78D847265B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D1469B9-DA41-4062-87A9-C78D847265B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D1469B9-DA41-4062-87A9-C78D847265B8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9D1469B9-DA41-4062-87A9-C78D847265B8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9D1469B9-DA41-4062-87A9-C78D847265B8}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{64D24A5B-8DD1-4D9D-B655-1EC85BC707DE} = {C9264527-EAB5-4E0B-94D0-511761CA8870}
+		{1E1ABEBA-A2C6-4403-B55D-E58A4A1CA362} = {C9264527-EAB5-4E0B-94D0-511761CA8870}
+		{2A5DE9CD-5DEF-4413-A05A-C14581B084F9} = {1E1ABEBA-A2C6-4403-B55D-E58A4A1CA362}
+		{9D1469B9-DA41-4062-87A9-C78D847265B8} = {1E1ABEBA-A2C6-4403-B55D-E58A4A1CA362}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
 	EndGlobalSection
 EndGlobal

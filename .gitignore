@@ -5,6 +5,16 @@
 /Selenite.Client/bin
 /Selenite.Client/publish
 
+/Selenite.Client.V2/obj
+/Selenite.Client.V2/bin
+/Selenite.Client.V2/publish
+
+/Selenite.Client.Manifests/obj
+/Selenite.Client.Manifests/bin
+
+/Common/obj
+/Common/bin
+
 /Selenite.Tests/obj
 /Selenite.Tests/bin
 /*.suo

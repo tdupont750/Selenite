@@ -3,12 +3,17 @@
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:Metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                    xmlns:Converters="clr-namespace:Selenite.Client.Converters"
+                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                   xmlns:behaviors="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
                    Title="{Binding Title}"
                    ShowIconOnTitleBar="True"
                    Height="600" Width="900">
     <Window.Resources>
         <Converters:ViewConverter x:Key="ViewConverter"/>
     </Window.Resources>
+    <i:Interaction.Behaviors>
+        <behaviors:BorderlessWindowBehavior ResizeWithGrip="True" AllowsTransparency="False" EnableDWMDropShadow="True" />
+    </i:Interaction.Behaviors>
     <Grid Margin="5">
         <TabControl ItemsSource="{Binding TabItems}"
                     SelectedItem="{Binding SelectedTabItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
