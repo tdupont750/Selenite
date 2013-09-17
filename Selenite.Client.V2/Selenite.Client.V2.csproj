@@ -162,6 +162,10 @@
       <Project>{9D1469B9-DA41-4062-87A9-C78D847265B8}</Project>
       <Name>Selenite.Client.Manifests</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Selenite.Client.TestResults\Selenite.Client.TestResults.csproj">
+      <Project>{DBA7A8C7-5B7D-49D8-9147-FE255A4361C6}</Project>
+      <Name>Selenite.Client.TestResults</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Selenite\Selenite.csproj">
       <Project>{8B6BF0FE-444A-4784-A8BE-49382866C719}</Project>
       <Name>Selenite</Name>

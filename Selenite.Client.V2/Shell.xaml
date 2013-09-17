@@ -30,6 +30,10 @@
         <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Web Automation" FontSize="28" Foreground="{StaticResource AccentBrush}" Margin="15,5"/>
 
         <ContentControl Grid.Row="1" Grid.Column="0" Regions:RegionManager.RegionName="{x:Static Common:RegionNames.Navigation}" />
-        <ContentControl Grid.Row="1" Grid.Column="1" Regions:RegionManager.RegionName="{x:Static Common:RegionNames.MainContent}" />
+        <Metro:TransitioningContentControl Grid.Row="1" Grid.Column="1"
+                                           Transition="DownTransition"
+                                           RestartTransitionOnContentChange="True">
+            <ContentControl Grid.Row="1" Grid.Column="1" Regions:RegionManager.RegionName="{x:Static Common:RegionNames.MainContent}" />
+        </Metro:TransitioningContentControl>
     </Grid>
 </Metro:MetroWindow>

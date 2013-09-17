@@ -3,6 +3,7 @@ using Microsoft.Practices.Prism.UnityExtensions;
 using System.Windows;
 using Microsoft.Practices.Unity;
 using Selenite.Client.Manifests;
+using Selenite.Client.TestResults;
 using Selenite.Services;
 using Selenite.Services.Implementation;
 
@@ -38,6 +39,7 @@ namespace Selenite.Client.V2
             var catalog = new ModuleCatalog();
 
             catalog.AddModule(typeof(ManifestsModule));
+            catalog.AddModule(typeof(TestResultsModule));
 
             return catalog;
         }

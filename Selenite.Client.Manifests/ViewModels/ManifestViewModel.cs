@@ -21,9 +21,9 @@ namespace Selenite.Client.Manifests.ViewModels
             {
                 Set(value, () => DomainOverride);
 
-                if (DomainOverrideChangedCommand != null && DomainOverrideChangedCommand.CanExecute(null))
+                if (DomainOverrideChangedCommand != null && DomainOverrideChangedCommand.CanExecute(value))
                 {
-                    DomainOverrideChangedCommand.Execute(null);
+                    DomainOverrideChangedCommand.Execute(value);
                 }
             }
         }
