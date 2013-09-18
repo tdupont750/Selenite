@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.Prism.Modularity;
+﻿using Common.Services;
+using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.UnityExtensions;
 using System.Windows;
 using Microsoft.Practices.Unity;
@@ -46,6 +47,7 @@ namespace Selenite.Client.V2
 
         private void RegisterServices()
         {
+            Container.RegisterType<ISettingsService, SettingsService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IFileService, FileService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ICommandService, CommandService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IManifestService, ManifestService>(new ContainerControlledLifetimeManager());

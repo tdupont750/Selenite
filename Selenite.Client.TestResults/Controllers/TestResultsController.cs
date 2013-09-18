@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using Common.Services;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Unity;
@@ -25,15 +26,17 @@ namespace Selenite.Client.TestResults.Controllers
     {
         private readonly IUnityContainer _container;
         private readonly IRegionManager _regionManager;
+        private readonly ISettingsService _settingsService;
 
         private TestResultsViewModel _viewModel;
         private bool _isCancelRequested;
         private List<ICollectionView> _testResultsViews;
 
-        public TestResultsController(IUnityContainer container, IRegionManager regionManager)
+        public TestResultsController(IUnityContainer container, IRegionManager regionManager, ISettingsService settingsService)
         {
             _container = container;
             _regionManager = regionManager;
+            _settingsService = settingsService;
         }
 
         public void Initialize()
@@ -50,6 +53,7 @@ namespace Selenite.Client.TestResults.Controllers
                 {
                     ShowPassed = true,
                     ShowFailed = true,
+                    IsRunning = false,
                 };
             _testResultsViews = new List<ICollectionView>();
 
@@ -58,7 +62,7 @@ namespace Selenite.Client.TestResults.Controllers
             try
             {
                 // TODO: Create a settings service and store the client browser settings there.
-                enabledBrowsers = JsonConvert.DeserializeObject<List<DriverType>>("")//Settings.Default.EnabledBrowsers)
+                enabledBrowsers = JsonConvert.DeserializeObject<List<DriverType>>(_settingsService.GetEnabledBrowsers())
                     ?? new List<DriverType> { DriverType.PhantomJs };
             }
             catch
@@ -88,12 +92,11 @@ namespace Selenite.Client.TestResults.Controllers
                 }
             }
 
-            viewModel.TestResults = new ObservableCollection<TestResultCollectionViewModel>();
-
             viewModel.RunTestsCommand = new DelegateCommand(RunTests, () => AnyBrowserEnabled && !_viewModel.IsRunning);
-            viewModel.CancelTestRunCommand = new DelegateCommand(CancelTestRun, () => _viewModel.IsRunning && !_isCancelRequested);
+            viewModel.CancelTestRunCommand = new DelegateCommand(CancelTestRun, () => viewModel.IsRunning && !_isCancelRequested);
             viewModel.ExportToClipboardCommand = new DelegateCommand(ExportToClipboard, () => !_viewModel.IsRunning);
 
+            viewModel.EnabledBrowsersChangedCommand = new DelegateCommand(SaveEnabledBrowsers);
             viewModel.TestResultsFilterChangedCommand = new DelegateCommand(UpdateFilters);
 
             return viewModel;
@@ -277,6 +280,35 @@ namespace Selenite.Client.TestResults.Controllers
             return testResultsView;
         }
 
+        private void SaveEnabledBrowsers()
+        {
+            ((DelegateCommand)_viewModel.RunTestsCommand).RaiseCanExecuteChanged();
+
+            var browsers = new List<DriverType>();
+
+            if (_viewModel.UseFirefox)
+            {
+                browsers.Add(DriverType.Firefox);
+            }
+
+            if (_viewModel.UseChrome)
+            {
+                browsers.Add(DriverType.Chrome);
+            }
+
+            if (_viewModel.UseInternetExplorer)
+            {
+                browsers.Add(DriverType.InternetExplorer);
+            }
+
+            if (_viewModel.UsePhantomJs)
+            {
+                browsers.Add(DriverType.PhantomJs);
+            }
+
+            _settingsService.SetEnabledBrowsers(JsonConvert.SerializeObject(browsers));
+        }
+
         #region Test Runner Helpers
 
         public void DoRunTests()
@@ -313,7 +345,14 @@ namespace Selenite.Client.TestResults.Controllers
                         .ToList();
 
                     if (activeMethods.Count > 0)
+                    {
                         assembly.Run(activeMethods, this);
+                    }
+                    else
+                    {
+                        _viewModel.IsRunning = false;
+                    }
+
                 }
             }
             catch (Exception ex)

@@ -1,11 +1,17 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Common.ViewModels;
+using Microsoft.Practices.Prism.Commands;
 
 namespace Selenite.Client.TestResults.ViewModels
 {
     public class TestResultsViewModel : ViewModelBase
     {
+        public TestResultsViewModel()
+        {
+            TestResults = new ObservableCollection<TestResultCollectionViewModel>();
+        }
+
         public ObservableCollection<TestResultCollectionViewModel> TestResults { get; set; }
         public ViewModelBase SelectedTestResult
         {
@@ -45,7 +51,15 @@ namespace Selenite.Client.TestResults.ViewModels
         public bool IsRunning
         {
             get { return Get(() => IsRunning); }
-            set { Set(value, () => IsRunning); }
+            set
+            {
+                Set(value, () => IsRunning);
+                if (RunTestsCommand != null)
+                    ((DelegateCommand)RunTestsCommand).RaiseCanExecuteChanged();
+
+                if (CancelTestRunCommand != null)
+                    ((DelegateCommand)CancelTestRunCommand).RaiseCanExecuteChanged();
+            }
         }
 
         public bool UseFirefox
