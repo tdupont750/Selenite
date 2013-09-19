@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using Common.Extensions;
 using Common.ViewModels;
 
 namespace Selenite.Client.Manifests.ViewModels
@@ -13,10 +14,7 @@ namespace Selenite.Client.Manifests.ViewModels
             {
                 Set(value, () => IsEnabled);
 
-                if (IsEnabledChangedCommand != null && IsEnabledChangedCommand.CanExecute(null))
-                {
-                    IsEnabledChangedCommand.Execute(null);
-                }
+                IsEnabledChangedCommand.VerifyAndExecute(null);
             }
         }
 

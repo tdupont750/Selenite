@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Common.Extensions;
 using Common.ViewModels;
 using Microsoft.Practices.Prism.Commands;
 
@@ -69,10 +70,7 @@ namespace Selenite.Client.TestResults.ViewModels
             {
                 Set(value, () => UseFirefox);
 
-                if (EnabledBrowsersChangedCommand != null && EnabledBrowsersChangedCommand.CanExecute(value))
-                {
-                    EnabledBrowsersChangedCommand.Execute(value);
-                }
+                EnabledBrowsersChangedCommand.VerifyAndExecute(value);
             }
         }
 
@@ -83,10 +81,7 @@ namespace Selenite.Client.TestResults.ViewModels
             {
                 Set(value, () => UseChrome);
 
-                if (EnabledBrowsersChangedCommand != null && EnabledBrowsersChangedCommand.CanExecute(value))
-                {
-                    EnabledBrowsersChangedCommand.Execute(value);
-                }
+                EnabledBrowsersChangedCommand.VerifyAndExecute(value);
             }
         }
 
@@ -97,10 +92,7 @@ namespace Selenite.Client.TestResults.ViewModels
             {
                 Set(value, () => UseInternetExplorer);
 
-                if (EnabledBrowsersChangedCommand != null && EnabledBrowsersChangedCommand.CanExecute(value))
-                {
-                    EnabledBrowsersChangedCommand.Execute(value);
-                }
+                EnabledBrowsersChangedCommand.VerifyAndExecute(value);
             }
         }
 
@@ -111,10 +103,7 @@ namespace Selenite.Client.TestResults.ViewModels
             {
                 Set(value, () => UsePhantomJs);
 
-                if (EnabledBrowsersChangedCommand != null && EnabledBrowsersChangedCommand.CanExecute(value))
-                {
-                    EnabledBrowsersChangedCommand.Execute(value);
-                }
+                EnabledBrowsersChangedCommand.VerifyAndExecute(value);
             }
         }
 
@@ -125,10 +114,7 @@ namespace Selenite.Client.TestResults.ViewModels
             {
                 Set(value, () => ShowPassed);
 
-                if (TestResultsFilterChangedCommand != null && TestResultsFilterChangedCommand.CanExecute(value))
-                {
-                    TestResultsFilterChangedCommand.Execute(value);
-                }
+                TestResultsFilterChangedCommand.VerifyAndExecute(value);
             }
         }
 
@@ -139,10 +125,7 @@ namespace Selenite.Client.TestResults.ViewModels
             {
                 Set(value, () => ShowFailed);
 
-                if (TestResultsFilterChangedCommand != null && TestResultsFilterChangedCommand.CanExecute(value))
-                {
-                    TestResultsFilterChangedCommand.Execute(value);
-                }
+                TestResultsFilterChangedCommand.VerifyAndExecute(value);
             }
         }
 
@@ -153,10 +136,7 @@ namespace Selenite.Client.TestResults.ViewModels
             {
                 Set(value, () => ShowSkipped);
 
-                if (TestResultsFilterChangedCommand != null && TestResultsFilterChangedCommand.CanExecute(value))
-                {
-                    TestResultsFilterChangedCommand.Execute(value);
-                }
+                TestResultsFilterChangedCommand.VerifyAndExecute(value);
             }
         }
 

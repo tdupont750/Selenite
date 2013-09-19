@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Common.Extensions;
 using Common.ViewModels;
 
 namespace Selenite.Client.Manifests.ViewModels
@@ -18,10 +19,7 @@ namespace Selenite.Client.Manifests.ViewModels
             set
             {
                 Set(value, () => SelectedManifest);
-                if (SelectedManifestChangedCommand != null && SelectedManifestChangedCommand.CanExecute(value))
-                {
-                    SelectedManifestChangedCommand.Execute(value);
-                }
+                SelectedManifestChangedCommand.VerifyAndExecute(value);
             }
         }
 

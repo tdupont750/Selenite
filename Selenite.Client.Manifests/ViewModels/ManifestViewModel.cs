@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Common.Extensions;
 using Common.ViewModels;
 
 namespace Selenite.Client.Manifests.ViewModels
@@ -21,10 +22,7 @@ namespace Selenite.Client.Manifests.ViewModels
             {
                 Set(value, () => DomainOverride);
 
-                if (DomainOverrideChangedCommand != null && DomainOverrideChangedCommand.CanExecute(value))
-                {
-                    DomainOverrideChangedCommand.Execute(value);
-                }
+                DomainOverrideChangedCommand.VerifyAndExecute(value);
             }
         }
 
