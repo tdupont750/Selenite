@@ -55,10 +55,12 @@
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\StatusToColorConverter.cs" />
     <Compile Include="Converters\TreeViewHelper.cs" />
+    <Compile Include="Events\TestRunFinishedEvent.cs" />
     <Compile Include="Events\SelectedManifestChangedEvent.cs" />
     <Compile Include="Events\ShowHelpWindowEvent.cs" />
     <Compile Include="Events\ShowTestResultsEvent.cs" />
     <Compile Include="Events\EditTestCollectionEvent.cs" />
+    <Compile Include="Events\TestRunStartedEvent.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Converters\InvertBooleanConverter.cs" />
     <Compile Include="Extensions\ICommandExtensions.cs" />

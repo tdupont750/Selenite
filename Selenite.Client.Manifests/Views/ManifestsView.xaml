@@ -9,6 +9,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <Converters:EnabledOpacityConverter x:Key="EnabledToOpacityConverter" />
+        <Converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <behaviors:ComboBoxItemTemplateSelector x:Key="ComboBoxItemTemplateSelector" />
     </UserControl.Resources>
 
@@ -18,7 +19,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Column="0"
+        <Grid Grid.Row="0"
               Margin="0,0,5,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -77,7 +78,7 @@
             <TextBlock Grid.Row="2"
                        Margin="0,5,0,0"
                        Text="Domain"/>
-            <TextBox Grid.Row="3" Text="{Binding SelectedManifest.DomainOverride}" />
+            <TextBox Grid.Row="3" Text="{Binding SelectedManifest.DomainOverride}"/>
 
             <TextBlock Grid.Row="4"
                        Margin="0,5,0,0"
@@ -101,10 +102,15 @@
             </ListView>
         </Grid>
 
-        <Button Grid.Column="0" Grid.Row="1"
+        <Button Grid.Row="1"
                 Content="Edit TestCollections"
                 VerticalAlignment="Center"
                 Margin="5,5,5,0"
                 Command="{Binding EditTestCollectionCommand}"/>
+
+        <Grid Grid.Row="0" Grid.RowSpan="2" Visibility="{Binding TestsRunning, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Rectangle Fill="{DynamicResource ControlBackgroundBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Opacity=".8" />
+            <Metro:ProgressRing IsActive="True" />
+        </Grid>
     </Grid>
 </UserControl>

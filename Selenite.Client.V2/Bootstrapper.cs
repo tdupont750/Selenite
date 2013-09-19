@@ -1,5 +1,7 @@
-﻿using Common.Events;
+﻿using System.Linq;
+using Common.Events;
 using Common.Services;
+using MahApps.Metro;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
@@ -38,6 +40,8 @@ namespace Selenite.Client.V2
 
             RegisterServices();
             RegisterEvents();
+
+            ThemeManager.ChangeTheme(Application.Current, ThemeManager.DefaultAccents.First(accent => accent.Name == "Purple"), Theme.Dark);
 
             _helpShell = Container.TryResolve<HelpShell>();
             RegionManager.SetRegionManager(_helpShell, Container.TryResolve<IRegionManager>());

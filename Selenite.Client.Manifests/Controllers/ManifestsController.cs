@@ -52,13 +52,24 @@ namespace Selenite.Client.Manifests.Controllers
             var view = _container.Resolve<ManifestsView>();
 
             region.Add(view);
+
+            _eventAggregator.GetEvent<ShowTestResultsEvent>().Subscribe(payload => viewModel.AllowEdit = true, ThreadOption.UIThread, true);
+            _eventAggregator.GetEvent<TestRunStartedEvent>().Subscribe(payload => viewModel.TestsRunning = true, ThreadOption.UIThread, true);
+            _eventAggregator.GetEvent<TestRunFinishedEvent>().Subscribe(payload => viewModel.TestsRunning = false, ThreadOption.UIThread, true);
         }
 
         private ManifestsViewModel GetManifestsViewModel()
         {
-            var manifestsModel = new ManifestsViewModel();
-            manifestsModel.EditTestCollectionCommand = new DelegateCommand(
-                        () => _eventAggregator.GetEvent<EditTestCollectionEvent>().Publish(manifestsModel.SelectedManifest.Name));
+            var manifestsModel = new ManifestsViewModel
+                {
+                    AllowEdit = true,
+                };
+
+            manifestsModel.EditTestCollectionCommand = new DelegateCommand(() =>
+                {
+                    manifestsModel.AllowEdit = false;
+                    _eventAggregator.GetEvent<EditTestCollectionEvent>().Publish(manifestsModel.SelectedManifest.Name);
+                }, () => manifestsModel.AllowEdit && !manifestsModel.TestsRunning);
 
             manifestsModel.LoadManifestCommand = new DelegateCommand(() =>
                 {
@@ -74,7 +85,7 @@ namespace Selenite.Client.Manifests.Controllers
                         _manifestService.ReloadManifest();
                         LoadManifests(manifestsModel);
                     }
-                });
+                }, () => !manifestsModel.TestsRunning);
 
             manifestsModel.SelectedManifestChangedCommand = new DelegateCommand<ManifestViewModel>(
                 selectedManifest =>

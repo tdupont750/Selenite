@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using Common.Constants;
 using Common.Events;
+using Common.Extensions;
 using Common.Services;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Events;
@@ -127,6 +128,8 @@ namespace Selenite.Client.TestResults.Controllers
 
         private void RunTests()
         {
+            _eventAggregator.GetEvent<TestRunStartedEvent>().Publish(true);
+
             _viewModel.TimeElapsed = 0;
             _viewModel.PassedTests = 0;
             _viewModel.SkippedTests = 0;
@@ -293,7 +296,7 @@ namespace Selenite.Client.TestResults.Controllers
 
         private void SaveEnabledBrowsers()
         {
-            ((DelegateCommand)_viewModel.RunTestsCommand).RaiseCanExecuteChanged();
+            _viewModel.RunTestsCommand.RaiseCanExecuteChanged();
 
             var browsers = new List<DriverType>();
 
@@ -361,6 +364,8 @@ namespace Selenite.Client.TestResults.Controllers
                     }
                     else
                     {
+                        _eventAggregator.GetEvent<TestRunFinishedEvent>().Publish(true);
+
                         _viewModel.IsRunning = false;
                     }
 
@@ -467,6 +472,7 @@ namespace Selenite.Client.TestResults.Controllers
         {
             CommandManager.InvalidateRequerySuggested();
             _viewModel.IsRunning = false;
+            _eventAggregator.GetEvent<TestRunFinishedEvent>().Publish(true);
         }
 
         public void DoExceptionThrown(TestAssembly testAssembly, Exception exception)
