@@ -147,6 +147,7 @@ namespace Selenite.Client.TestResults.Controllers
         private void CancelTestRun()
         {
             _isCancelRequested = true;
+            _viewModel.CancelTestRunCommand.RaiseCanExecuteChanged();
         }
 
         private void ExportToClipboard()
@@ -471,6 +472,7 @@ namespace Selenite.Client.TestResults.Controllers
         public void DoDone()
         {
             CommandManager.InvalidateRequerySuggested();
+            _isCancelRequested = false;
             _viewModel.IsRunning = false;
             _eventAggregator.GetEvent<TestRunFinishedEvent>().Publish(true);
         }

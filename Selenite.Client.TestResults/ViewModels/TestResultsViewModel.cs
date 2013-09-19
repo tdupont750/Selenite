@@ -55,8 +55,8 @@ namespace Selenite.Client.TestResults.ViewModels
             set
             {
                 Set(value, () => IsRunning);
-                RunTestsCommand.RaiseCanExecuteChanged();
 
+                RunTestsCommand.RaiseCanExecuteChanged();
                 CancelTestRunCommand.RaiseCanExecuteChanged();
             }
         }
