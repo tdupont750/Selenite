@@ -116,11 +116,12 @@
             <TreeView Grid.Column="0" ItemsSource="{Binding TestResults}" Padding="0"
                       SelectedItemChanged="TreeView_SelectedItemChanged">
                 <TreeView.Resources>
+                    <Style TargetType="{x:Type TreeView}" BasedOn="{StaticResource {x:Type TreeView}}"/>
                     <!--SelectedItem with focus-->
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{DynamicResource AccentColor}"/>
                     <!--SelectedItem without focus-->
                     <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="{DynamicResource AccentColor}" Opacity=".5"/>
-                    <Style TargetType="{x:Type TreeViewItem}" BasedOn="{DynamicResource MetroTreeViewItem}">
+                    <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource {x:Type TreeViewItem}}">
                         <Setter Property="IsExpanded" Value="True" />
                     </Style>
                 </TreeView.Resources>
