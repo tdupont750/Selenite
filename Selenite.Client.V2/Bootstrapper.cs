@@ -41,8 +41,6 @@ namespace Selenite.Client.V2
             RegisterServices();
             RegisterEvents();
 
-            ThemeManager.ChangeTheme(Application.Current, ThemeManager.DefaultAccents.First(accent => accent.Name == "Purple"), Theme.Dark);
-
             _helpShell = Container.TryResolve<HelpShell>();
             RegionManager.SetRegionManager(_helpShell, Container.TryResolve<IRegionManager>());
 
