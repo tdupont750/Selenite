@@ -51,12 +51,17 @@
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\DoubleToVisibilityConverter.cs" />
     <Compile Include="Converters\EnabledOpacityConverter.cs" />
+    <Compile Include="Converters\FileNameOnlyConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\StatusToColorConverter.cs" />
+    <Compile Include="Converters\TreeViewHelper.cs" />
+    <Compile Include="Events\SelectedManifestChangedEvent.cs" />
+    <Compile Include="Events\ShowHelpWindowEvent.cs" />
     <Compile Include="Events\ShowTestResultsEvent.cs" />
     <Compile Include="Events\EditTestCollectionEvent.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Converters\InvertBooleanConverter.cs" />
+    <Compile Include="Extensions\ICommandExtensions.cs" />
     <Compile Include="Extensions\PropertyChangeExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ISettingsService.cs" />
@@ -66,6 +71,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\TreeViewModelBase.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>

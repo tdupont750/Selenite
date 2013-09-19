@@ -6,8 +6,13 @@
         xmlns:Common="clr-namespace:Common.Constants;assembly=Common"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:behaviors="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
-        ShowIconOnTitleBar="True" SaveWindowPosition="True"
+        ShowIconOnTitleBar="True" SaveWindowPosition="True" Closed="Window_Closed"
         Title="Selenite" Height="600" Width="900">
+    <!--<Metro:MetroWindow.WindowCommands>
+        <Metro:WindowCommands>
+            <Button Content="settings" />
+        </Metro:WindowCommands>
+    </Metro:MetroWindow.WindowCommands>-->
     <Window.Resources>
         <ResourceDictionary>
             <SolidColorBrush x:Key="AccentBrush" Color="{DynamicResource AccentColor}" />

@@ -1,9 +1,12 @@
-﻿using Common.Services;
+﻿using Common.Events;
+using Common.Services;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Prism.Modularity;
+using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Prism.UnityExtensions;
 using System.Windows;
 using Microsoft.Practices.Unity;
+using Selenite.Client.CommandHelp;
 using Selenite.Client.Manifests;
 using Selenite.Client.TestCollections;
 using Selenite.Client.TestResults;
@@ -14,6 +17,7 @@ namespace Selenite.Client.V2
 {
     public class Bootstrapper : UnityBootstrapper
     {
+        private HelpShell _helpShell;
         /// <summary>
         /// Creates the shell or main window of the application.
         /// </summary>
@@ -33,6 +37,10 @@ namespace Selenite.Client.V2
             shell.Show();
 
             RegisterServices();
+            RegisterEvents();
+
+            _helpShell = Container.TryResolve<HelpShell>();
+            RegionManager.SetRegionManager(_helpShell, Container.TryResolve<IRegionManager>());
 
             return shell;
         }
@@ -44,8 +52,20 @@ namespace Selenite.Client.V2
             catalog.AddModule(typeof(ManifestsModule));
             catalog.AddModule(typeof(TestResultsModule));
             catalog.AddModule(typeof(TestCollectionsModule));
+            catalog.AddModule(typeof(CommandHelpModule));
 
             return catalog;
+        }
+
+        private void RegisterEvents()
+        {
+            var eventAggregator = Container.TryResolve<IEventAggregator>();
+            eventAggregator.GetEvent<ShowHelpWindowEvent>().Subscribe(OnShowHelp, ThreadOption.UIThread);
+        }
+
+        private void OnShowHelp(string args)
+        {
+            _helpShell.Show();
         }
 
         private void RegisterServices()

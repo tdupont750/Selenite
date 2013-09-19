@@ -92,9 +92,16 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="HelpShell.xaml.cs">
+      <DependentUpon>HelpShell.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
+    <Page Include="HelpShell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -172,6 +179,10 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{2A5DE9CD-5DEF-4413-A05A-C14581B084F9}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Selenite.Client.CommandHelp\Selenite.Client.CommandHelp.csproj">
+      <Project>{422BF01F-2261-47B0-B53A-C6EF2C158FD8}</Project>
+      <Name>Selenite.Client.CommandHelp</Name>
     </ProjectReference>
     <ProjectReference Include="..\Selenite.Client.Manifests\Selenite.Client.Manifests.csproj">
       <Project>{9D1469B9-DA41-4062-87A9-C78D847265B8}</Project>

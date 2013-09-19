@@ -77,7 +77,11 @@ namespace Selenite.Client.Manifests.Controllers
                 });
 
             manifestsModel.SelectedManifestChangedCommand = new DelegateCommand<ManifestViewModel>(
-                selectedManifest => _manifestService.SetActiveManifest(selectedManifest.Name));
+                selectedManifest =>
+                    {
+                        _manifestService.SetActiveManifest(selectedManifest.Name);
+                        _eventAggregator.GetEvent<SelectedManifestChangedEvent>().Publish(selectedManifest.Name);
+                    });
 
             LoadManifests(manifestsModel);
 

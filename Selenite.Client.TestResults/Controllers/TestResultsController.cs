@@ -10,8 +10,10 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using Common.Constants;
+using Common.Events;
 using Common.Services;
 using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Unity;
 using Newtonsoft.Json;
@@ -27,16 +29,18 @@ namespace Selenite.Client.TestResults.Controllers
     {
         private readonly IUnityContainer _container;
         private readonly IRegionManager _regionManager;
+        private readonly IEventAggregator _eventAggregator;
         private readonly ISettingsService _settingsService;
 
         private TestResultsViewModel _viewModel;
         private bool _isCancelRequested;
         private List<ICollectionView> _testResultsViews;
 
-        public TestResultsController(IUnityContainer container, IRegionManager regionManager, ISettingsService settingsService)
+        public TestResultsController(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator, ISettingsService settingsService)
         {
             _container = container;
             _regionManager = regionManager;
+            _eventAggregator = eventAggregator;
             _settingsService = settingsService;
         }
 
@@ -50,6 +54,8 @@ namespace Selenite.Client.TestResults.Controllers
 
             region.Add(view);
             region.Activate(view);
+
+            _eventAggregator.GetEvent<ShowTestResultsEvent>().Subscribe(arg => region.Activate(view), ThreadOption.UIThread, true);
         }
 
         private TestResultsViewModel CreateViewModel()

@@ -1,0 +1,12 @@
+﻿<Metro:MetroWindow x:Class="Selenite.Client.V2.HelpShell"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Constants="clr-namespace:Common.Constants;assembly=Common"
+        xmlns:Regions="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
+        xmlns:Metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        Title="Selenite Commands" Height="1000" Width="480" ShowInTaskbar="False"
+        Closing="Window_Closing" Topmost="True">
+    <Grid>
+        <ContentControl Regions:RegionManager.RegionName="{x:Static Constants:RegionNames.HelpContent}" />
+    </Grid>
+</Metro:MetroWindow>

@@ -1,5 +1,4 @@
-﻿
-using Selenite.Client.TestCollections.ViewModels;
+﻿using Selenite.Client.TestCollections.ViewModels;
 
 namespace Selenite.Client.TestCollections.Views
 {

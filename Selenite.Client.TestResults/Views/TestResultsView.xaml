@@ -9,6 +9,9 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
+            <SolidColorBrush x:Key="AccentBrush" Color="{DynamicResource AccentColor}" />
+            <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource HighlightLightColor}" />
+
             <Converters:DoubleToVisibilityConverter x:Key="DoubleToVisibilityConverter" />
             <Converters:StatusToColorConverter x:Key="StatusToColorConverter" />
             <Converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
@@ -28,7 +31,7 @@
             </DataTemplate>
             <Style TargetType="{x:Type TextBlock}" x:Key="DetailsLabel">
                 <Setter Property="Margin" Value="5,0,10,0" />
-                <Setter Property="Foreground" Value="White" />
+                <Setter Property="Foreground" Value="{StaticResource AccentBrush}" />
             </Style>
             <Style TargetType="{x:Type TextBox}">
                 <Setter Property="BorderThickness" Value="0" />
@@ -38,7 +41,7 @@
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="HorizontalAlignment" Value="Center"/>
                 <Setter Property="Cursor" Value="Hand"/>
-                <Setter Property="Foreground" Value="Blue"/>
+                <Setter Property="Foreground" Value="{StaticResource AccentBrush}"/>
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="Template">
                     <Setter.Value>
@@ -48,7 +51,7 @@
                     Background="{TemplateBinding Background}"/>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsPressed" Value="True">
-                                    <Setter Property="Foreground" Value="Red"/>
+                                    <Setter Property="Foreground" Value="{StaticResource HighlightBrush}"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -114,9 +117,9 @@
                       SelectedItemChanged="TreeView_SelectedItemChanged">
                 <TreeView.Resources>
                     <!--SelectedItem with focus-->
-                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#CC119EDA"/>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{DynamicResource AccentColor}"/>
                     <!--SelectedItem without focus-->
-                    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#CC119EDA" Opacity=".5"/>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="{DynamicResource AccentColor}" Opacity=".5"/>
                     <Style TargetType="{x:Type TreeViewItem}">
                         <Setter Property="IsExpanded" Value="True" />
                     </Style>

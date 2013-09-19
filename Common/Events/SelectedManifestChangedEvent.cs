@@ -2,7 +2,7 @@
 
 namespace Common.Events
 {
-    public class ShowTestResultsEvent : CompositePresentationEvent<string>
+    public class SelectedManifestChangedEvent : CompositePresentationEvent<string>
     {
     }
 }

@@ -18,6 +18,9 @@
 /Selenite.Client.TestCollections/obj
 /Selenite.Client.TestCollections/bin
 
+/Selenite.Client.CommandHelp/obj
+/Selenite.Client.CommandHelp/bin
+
 /Common/obj
 /Common/bin
 
