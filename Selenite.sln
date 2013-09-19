@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenite.Client.Manifests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenite.Client.TestResults", "Selenite.Client.TestResults\Selenite.Client.TestResults.csproj", "{DBA7A8C7-5B7D-49D8-9147-FE255A4361C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenite.Client.TestCollections", "Selenite.Client.TestCollections\Selenite.Client.TestCollections.csproj", "{00374C3F-2E82-4642-8B73-0E2D6EF255BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -116,6 +118,16 @@ Global
 		{DBA7A8C7-5B7D-49D8-9147-FE255A4361C6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{DBA7A8C7-5B7D-49D8-9147-FE255A4361C6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{DBA7A8C7-5B7D-49D8-9147-FE255A4361C6}.Release|x86.ActiveCfg = Release|Any CPU
+		{00374C3F-2E82-4642-8B73-0E2D6EF255BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00374C3F-2E82-4642-8B73-0E2D6EF255BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00374C3F-2E82-4642-8B73-0E2D6EF255BD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{00374C3F-2E82-4642-8B73-0E2D6EF255BD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{00374C3F-2E82-4642-8B73-0E2D6EF255BD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{00374C3F-2E82-4642-8B73-0E2D6EF255BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00374C3F-2E82-4642-8B73-0E2D6EF255BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00374C3F-2E82-4642-8B73-0E2D6EF255BD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{00374C3F-2E82-4642-8B73-0E2D6EF255BD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{00374C3F-2E82-4642-8B73-0E2D6EF255BD}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -126,6 +138,7 @@ Global
 		{2A5DE9CD-5DEF-4413-A05A-C14581B084F9} = {1E1ABEBA-A2C6-4403-B55D-E58A4A1CA362}
 		{9D1469B9-DA41-4062-87A9-C78D847265B8} = {1E1ABEBA-A2C6-4403-B55D-E58A4A1CA362}
 		{DBA7A8C7-5B7D-49D8-9147-FE255A4361C6} = {1E1ABEBA-A2C6-4403-B55D-E58A4A1CA362}
+		{00374C3F-2E82-4642-8B73-0E2D6EF255BD} = {1E1ABEBA-A2C6-4403-B55D-E58A4A1CA362}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35

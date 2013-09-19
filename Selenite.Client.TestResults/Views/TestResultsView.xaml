@@ -26,9 +26,6 @@
                     <TextBlock Text="{Binding Browser}" />
                 </StackPanel>
             </DataTemplate>
-            <Style TargetType="{x:Type TreeViewItem}">
-                <Setter Property="IsExpanded" Value="True" />
-            </Style>
             <Style TargetType="{x:Type TextBlock}" x:Key="DetailsLabel">
                 <Setter Property="Margin" Value="5,0,10,0" />
                 <Setter Property="Foreground" Value="White" />
@@ -113,12 +110,16 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TreeView Grid.Column="0" ItemsSource="{Binding TestResults}" SelectedItemChanged="TreeView_SelectedItemChanged" Padding="0">
+            <TreeView Grid.Column="0" ItemsSource="{Binding TestResults}" Padding="0"
+                      SelectedItemChanged="TreeView_SelectedItemChanged">
                 <TreeView.Resources>
                     <!--SelectedItem with focus-->
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#CC119EDA"/>
                     <!--SelectedItem without focus-->
                     <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#CC119EDA" Opacity=".5"/>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="IsExpanded" Value="True" />
+                    </Style>
                 </TreeView.Resources>
             </TreeView>
 

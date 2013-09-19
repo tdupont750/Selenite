@@ -105,6 +105,6 @@
                 Content="Edit TestCollections"
                 VerticalAlignment="Center"
                 Margin="5,5,5,0"
-                Command="{Binding EditCategoriesCommand}"/>
+                Command="{Binding EditTestCollectionCommand}"/>
     </Grid>
 </UserControl>

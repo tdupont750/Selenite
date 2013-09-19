@@ -1,9 +1,11 @@
 ﻿using Common.Services;
+using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.UnityExtensions;
 using System.Windows;
 using Microsoft.Practices.Unity;
 using Selenite.Client.Manifests;
+using Selenite.Client.TestCollections;
 using Selenite.Client.TestResults;
 using Selenite.Services;
 using Selenite.Services.Implementation;
@@ -41,12 +43,14 @@ namespace Selenite.Client.V2
 
             catalog.AddModule(typeof(ManifestsModule));
             catalog.AddModule(typeof(TestResultsModule));
+            catalog.AddModule(typeof(TestCollectionsModule));
 
             return catalog;
         }
 
         private void RegisterServices()
         {
+            Container.RegisterType<IEventAggregator, EventAggregator>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ISettingsService, SettingsService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<IFileService, FileService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ICommandService, CommandService>(new ContainerControlledLifetimeManager());

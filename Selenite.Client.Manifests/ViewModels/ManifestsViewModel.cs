@@ -27,5 +27,6 @@ namespace Selenite.Client.Manifests.ViewModels
 
         public ICommand LoadManifestCommand { get; set; }
         public ICommand SelectedManifestChangedCommand { get; set; }
+        public ICommand EditTestCollectionCommand { get; set; }
     }
 }

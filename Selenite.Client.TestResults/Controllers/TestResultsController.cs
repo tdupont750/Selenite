@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using Common.Constants;
 using Common.Services;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
@@ -44,7 +45,11 @@ namespace Selenite.Client.TestResults.Controllers
             _viewModel = CreateViewModel();
             _container.RegisterInstance(_viewModel);
 
-            _regionManager.RegisterViewWithRegion(Common.Constants.RegionNames.MainContent, typeof(TestResultsView));
+            var region = _regionManager.Regions[RegionNames.MainContent];
+            var view = _container.Resolve<TestResultsView>();
+
+            region.Add(view);
+            region.Activate(view);
         }
 
         private TestResultsViewModel CreateViewModel()

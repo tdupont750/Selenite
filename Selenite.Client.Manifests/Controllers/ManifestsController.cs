@@ -4,7 +4,10 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using Common.Constants;
+using Common.Events;
 using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Unity;
 using Microsoft.Win32;
@@ -19,6 +22,7 @@ namespace Selenite.Client.Manifests.Controllers
     {
         private readonly IUnityContainer _container;
         private readonly IRegionManager _regionManager;
+        private readonly IEventAggregator _eventAggregator;
         private readonly IConfigurationService _configurationService;
         private readonly IManifestService _manifestService;
         private readonly ITestCollectionService _testCollectionService;
@@ -26,12 +30,14 @@ namespace Selenite.Client.Manifests.Controllers
         public ManifestsController(
             IUnityContainer container,
             IRegionManager regionManager,
+            IEventAggregator eventAggregator,
             IConfigurationService configurationService,
             IManifestService manifestService,
             ITestCollectionService testCollectionService)
         {
             _container = container;
             _regionManager = regionManager;
+            _eventAggregator = eventAggregator;
             _configurationService = configurationService;
             _manifestService = manifestService;
             _testCollectionService = testCollectionService;
@@ -42,13 +48,17 @@ namespace Selenite.Client.Manifests.Controllers
             var viewModel = GetManifestsViewModel();
             _container.RegisterInstance(viewModel);
 
-            _regionManager.RegisterViewWithRegion(Common.Constants.RegionNames.Navigation, typeof(ManifestsView));
+            var region = _regionManager.Regions[RegionNames.Navigation];
+            var view = _container.Resolve<ManifestsView>();
 
+            region.Add(view);
         }
 
         private ManifestsViewModel GetManifestsViewModel()
         {
             var manifestsModel = new ManifestsViewModel();
+            manifestsModel.EditTestCollectionCommand = new DelegateCommand(
+                        () => _eventAggregator.GetEvent<EditTestCollectionEvent>().Publish(manifestsModel.SelectedManifest.Name));
 
             manifestsModel.LoadManifestCommand = new DelegateCommand(() =>
                 {

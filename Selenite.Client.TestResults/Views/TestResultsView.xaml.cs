@@ -1,4 +1,6 @@
-﻿using Common.ViewModels;
+﻿using System.Windows;
+using System.Windows.Data;
+using Common.ViewModels;
 using Selenite.Client.TestResults.ViewModels;
 
 namespace Selenite.Client.TestResults.Views
