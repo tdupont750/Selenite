@@ -6,6 +6,10 @@
         xmlns:Metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         Title="Selenite Commands" Height="1000" Width="480" ShowInTaskbar="False"
         Closing="Window_Closing" Topmost="True">
+    <Window.Resources>
+        <SolidColorBrush x:Key="LabelTextBrush" Color="{DynamicResource NormalForegroundColor}" />
+        <SolidColorBrush x:Key="GrayBrush7" Color="{DynamicResource Gray7}" />
+    </Window.Resources>
     <Grid>
         <ContentControl Regions:RegionManager.RegionName="{x:Static Constants:RegionNames.HelpContent}" />
     </Grid>
