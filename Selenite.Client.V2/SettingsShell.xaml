@@ -12,8 +12,10 @@
         <behaviors:BorderlessWindowBehavior ResizeWithGrip="True" AllowsTransparency="False" EnableDWMDropShadow="True" />
     </i:Interaction.Behaviors>
     <Window.Resources>
+        <!-- HACK: Overwrite some brushes; for some reason these aren't being reset with theme swaps. -->
         <SolidColorBrush x:Key="LabelTextBrush" Color="{DynamicResource NormalForegroundColor}" />
         <SolidColorBrush x:Key="GrayBrush7" Color="{DynamicResource Gray7}" />
+        <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource HighlightDarkColor}" />
     </Window.Resources>
     <Grid>
         <ContentControl Regions:RegionManager.RegionName="{x:Static Constants:RegionNames.Settings}" />
