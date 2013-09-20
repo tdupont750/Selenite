@@ -6,13 +6,6 @@
              xmlns:MahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <SolidColorBrush x:Key="AccentBrush" Color="{DynamicResource AccentColor}" />
-        <DataTemplate x:Key="CommandTemplate">
-            <StackPanel Margin="3,2,3,2" Cursor="Hand">
-                <TextBlock Text="{Binding Name}" FontSize="14" Foreground="{StaticResource AccentBrush}"/>
-                <TextBlock Text="{Binding Description}" FontSize="11" TextWrapping="Wrap" Margin="0,0,0,5" />
-            </StackPanel>
-        </DataTemplate>
         <DataTemplate x:Key="CommandPropertyTemplate">
             <StackPanel Margin="3,2,3,2">
                 <TextBlock Text="{Binding Name}" FontSize="14"/>
@@ -37,14 +30,37 @@
                 Text="{Binding CommandFilter,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="150" />
         </StackPanel>
         <ListBox x:Name="CommandsListBox" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Commands}"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemTemplate="{StaticResource CommandTemplate}"/>
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.Resources>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <Border x:Name="CommandContainer">
+                                    <StackPanel Margin="3,2,3,2" Cursor="Hand">
+                                        <TextBlock x:Name="CommandLabel" Text="{Binding Name}" FontSize="14" Foreground="{DynamicResource AccentColorBrush}"/>
+                                        <TextBlock Text="{Binding Description}" FontSize="11" TextWrapping="Wrap" Margin="0,0,0,5" />
+                                    </StackPanel>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="CommandLabel" Property="Foreground" Value="{DynamicResource AccentSelectedColorBrush}"/>
+                                        <Setter TargetName="CommandContainer" Property="Background" Value="{DynamicResource AccentColorBrush}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.Resources>
+        </ListBox>
         <Border Grid.Column="1" Grid.Row="1"  DataContext="{Binding SelectedItem, ElementName=CommandsListBox}" Padding="5" BorderBrush="{DynamicResource ControlBorderBrush}" BorderThickness="1">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="{Binding Name}" FontSize="18" />
+                <TextBlock Grid.Row="0" Text="{Binding Name}" FontSize="18" Foreground="{DynamicResource AccentColorBrush}" />
                 <ItemsControl Grid.Row="1" ItemsSource="{Binding Properties}" ItemTemplate="{StaticResource CommandPropertyTemplate}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
             </Grid>
