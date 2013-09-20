@@ -116,8 +116,6 @@
             <DataTemplate DataType="{x:Type ViewModels:CommandViewModel}">
                 <GroupBox Header="{Binding Name}" Grid.IsSharedSizeScope="True">
                     <ItemsControl ItemsSource="{Binding Properties}">
-
-
                     </ItemsControl>
 
                 </GroupBox>
@@ -145,7 +143,7 @@
                     <!--SelectedItem with focus-->
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#CC119EDA"/>
                     <!--SelectedItem without focus-->
-                    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#CC119EDA" Opacity=".5"/>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#CC119EDA" Opacity=".5"/>
                     <HierarchicalDataTemplate DataType="{x:Type ViewModels:TestCollectionViewModel}"
                                               ItemsSource="{Binding Children}">
                         <TextBlock Text="{Binding Name, Converter={StaticResource FileNameOnlyConverter}}">

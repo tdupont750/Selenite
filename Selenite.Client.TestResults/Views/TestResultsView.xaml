@@ -119,7 +119,8 @@
                     <!--SelectedItem with focus-->
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{DynamicResource AccentColor}"/>
                     <!--SelectedItem without focus-->
-                    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="{DynamicResource AccentColor}" Opacity=".5"/>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="{DynamicResource AccentColor}" Opacity=".5"/>
+
                     <Style TargetType="{x:Type TreeViewItem}">
                         <Setter Property="IsExpanded" Value="True" />
                     </Style>
@@ -205,10 +206,10 @@
                                 </Grid.RowDefinitions>
 
                                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Name:" Style="{StaticResource DetailsLabel}" />
-                                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name}" IsReadOnly="True" />
+                                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name}" IsReadOnly="True" Foreground="{DynamicResource LabelTextBrush}" />
 
                                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Browser:" Style="{StaticResource DetailsLabel}" />
-                                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Browser}" IsReadOnly="True" />
+                                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Browser}" IsReadOnly="True" Foreground="{DynamicResource LabelTextBrush}" />
 
                                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Url:" Style="{StaticResource DetailsLabel}" />
                                 <Button Grid.Row="2" Grid.Column="1" Content="{Binding Url}" Style="{StaticResource LinkButton}"
@@ -221,11 +222,11 @@
                             Visibility="{Binding ScreenshotPath, Converter={StaticResource NullToVisibilityConverter}}"/>
 
                                 <TextBlock Grid.Row="4" Grid.Column="0" Text="Output:" Style="{StaticResource DetailsLabel}" />
-                                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding ResultOutput}" IsReadOnly="True" />
+                                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding ResultOutput}" IsReadOnly="True" Foreground="{DynamicResource LabelTextBrush}" />
 
                                 <TextBlock Grid.Row="5" Grid.Column="0" Text="Stack Trace:" Style="{StaticResource DetailsLabel}"
                                Visibility="{Binding StackTrace, Converter={StaticResource NullToVisibilityConverter}}"/>
-                                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding StackTrace}" IsReadOnly="True"
+                                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding StackTrace}" IsReadOnly="True" Foreground="{DynamicResource LabelTextBrush}"
                              Visibility="{Binding StackTrace, Converter={StaticResource NullToVisibilityConverter}}" />
                             </Grid>
                         </DataTemplate>

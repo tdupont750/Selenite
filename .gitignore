@@ -8,6 +8,8 @@
 /Selenite.Client.V2/obj
 /Selenite.Client.V2/bin
 /Selenite.Client.V2/publish
+/Selenite.Client.V2/*.user
+/Selenite.Client.V2/*.pfx
 
 /Selenite.Client.Manifests/obj
 /Selenite.Client.Manifests/bin
