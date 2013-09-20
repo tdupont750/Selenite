@@ -44,7 +44,7 @@
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsSelected" Value="True">
-                                        <Setter TargetName="CommandLabel" Property="Foreground" Value="{DynamicResource AccentSelectedColorBrush}"/>
+                                        <Setter TargetName="CommandLabel" Property="Foreground" Value="{DynamicResource LabelTextBrush}"/>
                                         <Setter TargetName="CommandContainer" Property="Background" Value="{DynamicResource AccentColorBrush}"/>
                                     </Trigger>
                                 </ControlTemplate.Triggers>
