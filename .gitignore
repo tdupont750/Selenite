@@ -12,6 +12,12 @@
 /Selenite.Client.Manifests/obj
 /Selenite.Client.Manifests/bin
 
+/Selenite.Client.Menu/obj
+/Selenite.Client.Menu/bin
+
+/Selenite.Client.Settings/obj
+/Selenite.Client.Settings/bin
+
 /Selenite.Client.TestResults/obj
 /Selenite.Client.TestResults/bin
 

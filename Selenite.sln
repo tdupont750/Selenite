@@ -30,6 +30,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenite.Client.TestCollect
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenite.Client.CommandHelp", "Selenite.Client.CommandHelp\Selenite.Client.CommandHelp.csproj", "{422BF01F-2261-47B0-B53A-C6EF2C158FD8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenite.Client.Settings", "Selenite.Client.Settings\Selenite.Client.Settings.csproj", "{7F5C8747-C6C2-4E44-8B7F-B37C2F083E67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenite.Client.Menu", "Selenite.Client.Menu\Selenite.Client.Menu.csproj", "{1EF2B065-3741-44D6-B7EC-448CD6C9A7DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -140,6 +144,26 @@ Global
 		{422BF01F-2261-47B0-B53A-C6EF2C158FD8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{422BF01F-2261-47B0-B53A-C6EF2C158FD8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{422BF01F-2261-47B0-B53A-C6EF2C158FD8}.Release|x86.ActiveCfg = Release|Any CPU
+		{7F5C8747-C6C2-4E44-8B7F-B37C2F083E67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F5C8747-C6C2-4E44-8B7F-B37C2F083E67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F5C8747-C6C2-4E44-8B7F-B37C2F083E67}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7F5C8747-C6C2-4E44-8B7F-B37C2F083E67}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7F5C8747-C6C2-4E44-8B7F-B37C2F083E67}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7F5C8747-C6C2-4E44-8B7F-B37C2F083E67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F5C8747-C6C2-4E44-8B7F-B37C2F083E67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F5C8747-C6C2-4E44-8B7F-B37C2F083E67}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7F5C8747-C6C2-4E44-8B7F-B37C2F083E67}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7F5C8747-C6C2-4E44-8B7F-B37C2F083E67}.Release|x86.ActiveCfg = Release|Any CPU
+		{1EF2B065-3741-44D6-B7EC-448CD6C9A7DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EF2B065-3741-44D6-B7EC-448CD6C9A7DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EF2B065-3741-44D6-B7EC-448CD6C9A7DA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1EF2B065-3741-44D6-B7EC-448CD6C9A7DA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1EF2B065-3741-44D6-B7EC-448CD6C9A7DA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1EF2B065-3741-44D6-B7EC-448CD6C9A7DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EF2B065-3741-44D6-B7EC-448CD6C9A7DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EF2B065-3741-44D6-B7EC-448CD6C9A7DA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1EF2B065-3741-44D6-B7EC-448CD6C9A7DA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{1EF2B065-3741-44D6-B7EC-448CD6C9A7DA}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -152,6 +176,8 @@ Global
 		{DBA7A8C7-5B7D-49D8-9147-FE255A4361C6} = {1E1ABEBA-A2C6-4403-B55D-E58A4A1CA362}
 		{00374C3F-2E82-4642-8B73-0E2D6EF255BD} = {1E1ABEBA-A2C6-4403-B55D-E58A4A1CA362}
 		{422BF01F-2261-47B0-B53A-C6EF2C158FD8} = {1E1ABEBA-A2C6-4403-B55D-E58A4A1CA362}
+		{7F5C8747-C6C2-4E44-8B7F-B37C2F083E67} = {1E1ABEBA-A2C6-4403-B55D-E58A4A1CA362}
+		{1EF2B065-3741-44D6-B7EC-448CD6C9A7DA} = {1E1ABEBA-A2C6-4403-B55D-E58A4A1CA362}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35

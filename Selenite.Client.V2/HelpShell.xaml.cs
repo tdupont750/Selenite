@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace Selenite.Client.V2
+﻿namespace Selenite.Client.V2
 {
     /// <summary>
     /// Interaction logic for HelpShell.xaml

@@ -8,16 +8,11 @@
         xmlns:behaviors="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
         ShowIconOnTitleBar="True" SaveWindowPosition="True" Closed="Window_Closed"
         Title="Selenite" Height="600" Width="900">
-    <!--<Metro:MetroWindow.WindowCommands>
-        <Metro:WindowCommands>
-            <Button Content="settings" />
+    <Metro:MetroWindow.WindowCommands>
+        <Metro:WindowCommands x:Name="AppBarMenu">
+            <Button Content="settings" Command="{Binding ShowSettingsCommand}" />
         </Metro:WindowCommands>
-    </Metro:MetroWindow.WindowCommands>-->
-    <Window.Resources>
-        <ResourceDictionary>
-            <SolidColorBrush x:Key="AccentBrush" Color="{DynamicResource AccentColor}" />
-        </ResourceDictionary>
-    </Window.Resources>
+    </Metro:MetroWindow.WindowCommands>
     <i:Interaction.Behaviors>
         <behaviors:BorderlessWindowBehavior ResizeWithGrip="True" AllowsTransparency="False" EnableDWMDropShadow="True" />
     </i:Interaction.Behaviors>
@@ -32,7 +27,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Web Automation" FontSize="28" Foreground="{StaticResource AccentBrush}" Margin="15,5"/>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Web Automation" FontSize="28" Foreground="{DynamicResource AccentColorBrush}" Margin="15,5"/>
 
         <ContentControl Grid.Row="1" Grid.Column="0" Regions:RegionManager.RegionName="{x:Static Common:RegionNames.Navigation}" />
         <Metro:TransitioningContentControl Grid.Row="1" Grid.Column="1"

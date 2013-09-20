@@ -116,7 +116,7 @@
             </Grid.ColumnDefinitions>
 
             <TreeView Grid.Column="0" ItemsSource="{Binding TestResults}" Padding="0"
-                      SelectedItemChanged="TreeView_SelectedItemChanged">
+                      SelectedItemChanged="TreeView_SelectedItemChanged" Background="Transparent">
                 <TreeView.Resources>
                     <!--SelectedItem with focus-->
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{DynamicResource AccentColor}"/>

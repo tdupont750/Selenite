@@ -95,6 +95,9 @@
     <Compile Include="HelpShell.xaml.cs">
       <DependentUpon>HelpShell.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SettingsShell.xaml.cs">
+      <DependentUpon>SettingsShell.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
@@ -105,6 +108,10 @@
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SettingsShell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Shell.xaml">
       <SubType>Designer</SubType>
@@ -187,6 +194,14 @@
     <ProjectReference Include="..\Selenite.Client.Manifests\Selenite.Client.Manifests.csproj">
       <Project>{9D1469B9-DA41-4062-87A9-C78D847265B8}</Project>
       <Name>Selenite.Client.Manifests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Selenite.Client.Menu\Selenite.Client.Menu.csproj">
+      <Project>{1EF2B065-3741-44D6-B7EC-448CD6C9A7DA}</Project>
+      <Name>Selenite.Client.Menu</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Selenite.Client.Settings\Selenite.Client.Settings.csproj">
+      <Project>{7F5C8747-C6C2-4E44-8B7F-B37C2F083E67}</Project>
+      <Name>Selenite.Client.Settings</Name>
     </ProjectReference>
     <ProjectReference Include="..\Selenite.Client.TestCollections\Selenite.Client.TestCollections.csproj">
       <Project>{00374C3F-2E82-4642-8B73-0E2D6EF255BD}</Project>
