@@ -6,7 +6,7 @@
         xmlns:Regions="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:behaviors="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
-        Closing="MetroWindow_Closing"
+        Closing="MetroWindow_Closing" Icon="Logo.ico"
         Title="Settings" Height="400" Width="300">
     <i:Interaction.Behaviors>
         <behaviors:BorderlessWindowBehavior ResizeWithGrip="True" AllowsTransparency="False" EnableDWMDropShadow="True" />

@@ -4,7 +4,7 @@
         xmlns:Constants="clr-namespace:Common.Constants;assembly=Common"
         xmlns:Regions="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
         xmlns:Metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        Title="Selenite Commands" Height="1000" Width="480" ShowInTaskbar="False"
+        Title="Selenite Commands" Height="1000" Width="480" Icon="Logo.ico"
         Closing="Window_Closing" Topmost="True">
     <Window.Resources>
         <!-- HACK: Overwrite some brushes; for some reason these aren't being reset with theme swaps. -->

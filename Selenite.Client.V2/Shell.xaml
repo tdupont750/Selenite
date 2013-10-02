@@ -7,7 +7,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:behaviors="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
         ShowIconOnTitleBar="True" SaveWindowPosition="True" Closed="Window_Closed"
-        Title="Selenite" Height="600" Width="900">
+        Title="Selenite" Height="600" Width="900" Icon="Logo.ico">
     <Metro:MetroWindow.WindowCommands>
         <Metro:WindowCommands x:Name="AppBarMenu">
             <Button Content="settings" Command="{Binding ShowSettingsCommand}" />
