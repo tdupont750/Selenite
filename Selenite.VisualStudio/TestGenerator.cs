@@ -93,7 +93,10 @@ namespace @{Namespace}
                 return false;
 
             var value = manifest.Metadata[key];
-            return !String.IsNullOrWhiteSpace(value);
+            var hasSymbol = !String.IsNullOrEmpty(value);
+            if (hasSymbol)
+                compilationSymbol = value;
+            return hasSymbol;
         }
 
         private string GenerateTestClasses(string inputFileName, Manifest manifest)
