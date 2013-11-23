@@ -137,6 +137,7 @@
     <Compile Include="Services\Implementation\TestCollectionService.cs" />
     <Compile Include="Models\Manifest.cs" />
     <Compile Include="Services\Implementation\CommandService.cs" />
+    <Compile Include="Services\Implementation\WebClientDriver.cs" />
     <Compile Include="Services\ITestCollectionService.cs" />
     <Compile Include="Services\IManifestService.cs" />
     <Compile Include="Services\Implementation\ConfigurationService.cs" />

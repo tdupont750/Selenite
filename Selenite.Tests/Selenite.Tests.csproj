@@ -76,6 +76,7 @@
     <Compile Include="Browsers\Firefox.cs" />
     <Compile Include="Browsers\InternetExplorer.cs" />
     <Compile Include="Browsers\PhantomJs.cs" />
+    <Compile Include="Drivers\WebClientDriverTests.cs" />
     <Compile Include="Services\ManifestServiceTests.cs" />
     <Compile Include="Services\TestCollectionServiceTests.cs" />
     <Compile Include="Commands\SendKeyCommandTests.cs" />
