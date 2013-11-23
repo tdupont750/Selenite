@@ -64,6 +64,9 @@ namespace Selenite.Services.Implementation
 
                     return new PhantomJSDriver(service, new PhantomJSOptions());
 
+                case DriverType.WebClient:
+                    return new WebClientDriver();
+
                 default:
                     throw new InvalidOperationException("Unkown Driver Type: " + browser);
             }

@@ -16,6 +16,9 @@ namespace Selenite.Enums
         [Description("PhantomJS")]
         PhantomJs,
 
+        [Description("Web Client")]
+        WebClient,
+
         Unknown
     }
 }
