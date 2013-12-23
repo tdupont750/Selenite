@@ -85,7 +85,9 @@
     <Compile Include="Attributes\SeleniteTestAttribute.cs" />
     <Compile Include="Attributes\SeleniteTestCollectionAttribute.cs" />
     <Compile Include="Commands\Base\CommandAttribute.cs" />
+    <Compile Include="Commands\Base\WebResponseTestBase.cs" />
     <Compile Include="Commands\Base\SingleSelectorCommandBase.cs" />
+    <Compile Include="Commands\Implementation\IsJsonPropertyEqualCommand.cs" />
     <Compile Include="Commands\Implementation\IsIHazExistsCommand.cs" />
     <Compile Include="Commands\Implementation\DoNavigateCommand.cs" />
     <Compile Include="Commands\Implementation\DoRefreshPageCommand.cs" />
@@ -109,6 +111,7 @@
     <Compile Include="Commands\Implementation\DoSendKeysCommand.cs" />
     <Compile Include="Commands\Implementation\IsDropdownSelectedCommand.cs" />
     <Compile Include="Commands\Implementation\IsEnabledCommand.cs" />
+    <Compile Include="Commands\Implementation\IsJsonCommand.cs" />
     <Compile Include="Commands\Implementation\IsSelectedCommand.cs" />
     <Compile Include="Commands\Implementation\IsTextContainedCommand.cs" />
     <Compile Include="Commands\Implementation\IsTextEqualCommand.cs" />

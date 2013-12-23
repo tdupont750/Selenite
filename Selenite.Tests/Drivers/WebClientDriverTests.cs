@@ -13,7 +13,7 @@ namespace Selenite.Tests.Drivers
             var webClientDriver = new WebClientDriver();
             webClientDriver.Navigate().GoToUrl(url);
 
-            Assert.Equal(url, webClientDriver.Url);
+            Assert.Contains(url, webClientDriver.Url);
             Assert.Contains(expectedText, webClientDriver.PageSource);
         }
     }

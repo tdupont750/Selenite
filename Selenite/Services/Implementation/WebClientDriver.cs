@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Net;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Remote;
 
 namespace Selenite.Services.Implementation
 {
@@ -14,47 +14,59 @@ namespace Selenite.Services.Implementation
 
         public IWebElement FindElement(By @by)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         public ReadOnlyCollection<IWebElement> FindElements(By @by)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         public void Close()
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         public void Quit()
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         public IOptions Manage()
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         public INavigation Navigate()
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         public ITargetLocator SwitchTo()
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
-        public string Url { get; set; }
+        private string _url;
+        public string Url
+        {
+            get { return _url; }
+            set
+            {
+                _url = value;
+
+                var client = new WebClient();
+                PageSource = client.DownloadString(_url);
+
+            }
+        }
         public string Title { get; private set; }
-        public string PageSource { get; private set; }
+        public string PageSource { get; internal set; }
         public string CurrentWindowHandle { get; private set; }
         public ReadOnlyCollection<string> WindowHandles { get; private set; }
     }
